@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Nav from "../../COMPONENTS/Navbar";
 import "./Styles/Home.css";
 
-const Home: React.FC = () => {
+const Products: React.FC = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -17,12 +17,7 @@ const Home: React.FC = () => {
     <>
       <Nav />
 
-      {/* Login Button at Top Right */}
-      <button className="login-button" onClick={() => navigate('/login')}>
-        Login
-      </button>
-
-      {/* Waffle Menu Toggle Button at Top Left */}
+      {/* Waffle Menu Toggle Button */}
       <button className="waffle-toggle" onClick={toggleMenu}>
         ☰
       </button>
@@ -40,29 +35,28 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <div className="hero">
         <div className="hero-content">
-          <h1>Welcome to Our Adventure</h1>
-          <p>Experience the thrill of discovery</p>
-          <button onClick={() => navigate('/explore')}>Explore Now</button>
+          <h1>Our Products</h1>
+          <p>Discover our range of innovative offerings.</p>
         </div>
       </div>
 
-      {/* Features Section */}
-      <div className="features">
-        <div className="feature">
-          <h2>Innovation</h2>
-          <p>Cutting-edge design that inspires.</p>
+      {/* Products Grid Section */}
+      <div className="product-grid">
+        <div className="product-item">
+          <h2>Product 1</h2>
+          <p>High-quality product designed to amaze.</p>
         </div>
-        <div className="feature">
-          <h2>Experience</h2>
-          <p>Every detail is designed for excitement.</p>
+        <div className="product-item">
+          <h2>Product 2</h2>
+          <p>Innovative features meet sleek design.</p>
         </div>
-        <div className="feature">
-          <h2>Adventure</h2>
-          <p>Join us on a journey like no other.</p>
+        <div className="product-item">
+          <h2>Product 3</h2>
+          <p>Engineered for performance and style.</p>
         </div>
       </div>
     </>
   );
 };
 
-export default Home;
+export default Products;

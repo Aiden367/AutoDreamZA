@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Nav from "../../COMPONENTS/Navbar";
 import "./Styles/Home.css";
 
-const Home: React.FC = () => {
+const About: React.FC = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -17,12 +17,7 @@ const Home: React.FC = () => {
     <>
       <Nav />
 
-      {/* Login Button at Top Right */}
-      <button className="login-button" onClick={() => navigate('/login')}>
-        Login
-      </button>
-
-      {/* Waffle Menu Toggle Button at Top Left */}
+      {/* Waffle Menu Toggle Button */}
       <button className="waffle-toggle" onClick={toggleMenu}>
         ☰
       </button>
@@ -40,29 +35,30 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <div className="hero">
         <div className="hero-content">
-          <h1>Welcome to Our Adventure</h1>
-          <p>Experience the thrill of discovery</p>
-          <button onClick={() => navigate('/explore')}>Explore Now</button>
+          <h1>About Us</h1>
+          <p>Learn more about our journey and values.</p>
         </div>
       </div>
 
-      {/* Features Section */}
-      <div className="features">
-        <div className="feature">
-          <h2>Innovation</h2>
-          <p>Cutting-edge design that inspires.</p>
-        </div>
-        <div className="feature">
-          <h2>Experience</h2>
-          <p>Every detail is designed for excitement.</p>
-        </div>
-        <div className="feature">
-          <h2>Adventure</h2>
-          <p>Join us on a journey like no other.</p>
-        </div>
+      {/* About Content Section */}
+      <div className="about-content">
+        <section>
+          <h2>Our Story</h2>
+          <p>
+            We began our adventure with a passion for innovation and exploration.
+            Our journey is fueled by a commitment to deliver extraordinary experiences.
+          </p>
+        </section>
+        <section>
+          <h2>Our Mission</h2>
+          <p>
+            To inspire and empower people through our products and services,
+            creating moments of excitement and discovery.
+          </p>
+        </section>
       </div>
     </>
   );
 };
 
-export default Home;
+export default About;

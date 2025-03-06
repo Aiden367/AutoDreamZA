@@ -1,0 +1,191 @@
+/* Global Reset */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* Hero Section */
+.hero {
+    background: url('/path-to-your-hero-image.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: #fff;
+}
+
+/* Overlay for better text contrast */
+.hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    text-align: center;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.hero-content button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    background-color: #e10600; /* Inspired by Red Bull’s bold red */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.hero-content button:hover {
+    background-color: #b00500;
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: space-around;
+    padding: 4rem 2rem;
+    background: #f5f5f5;
+    color: #333;
+}
+
+.feature {
+    flex: 1;
+    margin: 0 1rem;
+    text-align: center;
+}
+
+.feature h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.feature p {
+    font-size: 1rem;
+}
+
+/* Contact Form Section */
+.contact-form {
+    padding: 2rem;
+}
+
+.contact-form form div {
+    margin-bottom: 1rem;
+}
+
+.contact-form label {
+    font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* About Content Section */
+.about-content {
+    padding: 2rem;
+}
+
+.about-content section {
+    margin-bottom: 2rem;
+}
+
+/* Products Grid Section */
+.product-grid {
+    padding: 2rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.product-item {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+/* Waffle Menu Styles */
+.waffle-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.waffle-menu.open {
+    transform: translateX(0);
+}
+
+.waffle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.waffle-item {
+    background: #e10600; /* Bold Red inspired by Red Bull */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+/* Waffle Toggle Button (Now Top Left) */
+.waffle-toggle {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: #e10600;
+    border: none;
+    padding: 0.5rem;
+    color: #fff;
+    cursor: pointer;
+    z-index: 1100;
+    font-size: 1.5rem;
+}
+
+/* Login Button (Top Right) */
+.login-button {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: #e10600;
+    border: none;
+    padding: 0.5rem;
+    color: #fff;
+    cursor: pointer;
+    z-index: 1100;
+    font-size: 1.5rem;
+}
