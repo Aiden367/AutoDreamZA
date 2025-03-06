@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Nav.module.css';
-import { links } from './links.json';
+
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 type LinkType = {
@@ -29,9 +29,9 @@ const Links: React.FC<{ links: LinkType[] }> = ({ links }) => {
 const Navbar: React.FC = () => {
   return (
     <nav className={styles.navbar}>
-      <Links links={links} />
+      
     </nav>
   );
 };
 
-export default Navbar;
+export default Navbar; 

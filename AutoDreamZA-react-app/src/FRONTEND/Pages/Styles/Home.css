@@ -3,20 +3,31 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    width: 100%;
+    background: #fff;
+    color: #000;
+}
+
+/* Root Variables */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
 }
 
 /* Hero Section */
 .hero {
     background: url('/path-to-your-hero-image.jpg') no-repeat center center/cover;
     height: 100vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    color: #fff;
+    color: #000;
 }
 
-/* Overlay for better text contrast */
+/* Overlay for better text contrast (subtle white overlay) */
 .hero::after {
     content: "";
     position: absolute;
@@ -24,7 +35,7 @@ html, body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .hero-content {
@@ -46,15 +57,16 @@ html, body {
 .hero-content button {
     padding: 1rem 2rem;
     font-size: 1rem;
-    background-color: #e10600; /* Inspired by Red Bull’s bold red */
+    background-color: #000000;
     color: #fff;
     border: none;
     cursor: pointer;
     transition: background 0.3s ease;
+    border-radius: 2px;
 }
 
 .hero-content button:hover {
-    background-color: #b00500;
+    background-color: #000000;
 }
 
 /* Features Section */
@@ -63,7 +75,8 @@ html, body {
     justify-content: space-around;
     padding: 4rem 2rem;
     background: #f5f5f5;
-    color: #333;
+    color: #000;
+    width: 100%;
 }
 
 .feature {
@@ -81,61 +94,43 @@ html, body {
     font-size: 1rem;
 }
 
-/* Contact Form Section */
-.contact-form {
+/* Upload Form Section */
+.upload-form {
     padding: 2rem;
+    width: 100%;
 }
 
-.contact-form form div {
+.upload-form form div {
     margin-bottom: 1rem;
 }
 
-.contact-form label {
+.upload-form label {
     font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
-.contact-form input,
-.contact-form textarea {
+.upload-form input,
+.upload-form textarea {
     width: 100%;
     padding: 0.5rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* About Content Section */
-.about-content {
-    padding: 2rem;
-}
-
-.about-content section {
-    margin-bottom: 2rem;
-}
-
-/* Products Grid Section */
-.product-grid {
-    padding: 2rem;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-.product-item {
-    background: #f5f5f5;
-    padding: 1rem;
-    border-radius: 4px;
+    border-radius: 2px;
+    font-size: 1rem;
 }
 
 /* Waffle Menu Styles */
+/* Positioned on the left with a smooth pop-up animation */
 .waffle-menu {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     width: 300px;
     height: 100vh;
     background-color: #fff;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     padding: 1rem;
     z-index: 1000;
 }
@@ -151,7 +146,7 @@ html, body {
 }
 
 .waffle-item {
-    background: #e10600; /* Bold Red inspired by Red Bull */
+    background: #000000;
     color: #fff;
     display: flex;
     align-items: center;
@@ -159,21 +154,29 @@ html, body {
     height: 80px;
     font-size: 1.2rem;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
-/* Waffle Toggle Button (Now Top Left) */
+/* Hamburger Toggle Button */
+/* The button itself is transparent; only the inner bars are styled */
 .waffle-toggle {
     position: fixed;
     top: 1rem;
     left: 1rem;
-    background: #e10600;
+    background: transparent;
     border: none;
     padding: 0.5rem;
-    color: #fff;
     cursor: pointer;
     z-index: 1100;
-    font-size: 1.5rem;
+}
+
+.waffle-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #000; /* Black lines only */
+    margin: 4px 0;
+    transition: all 0.3s ease;
 }
 
 /* Login Button (Top Right) */
@@ -181,11 +184,59 @@ html, body {
     position: fixed;
     top: 1rem;
     right: 1rem;
-    background: #e10600;
+    background: #000000;
     border: none;
     padding: 0.5rem;
     color: #fff;
     cursor: pointer;
     z-index: 1100;
     font-size: 1.5rem;
+    border-radius: 2px;
+}
+
+/* Product Listing Section */
+.product-grid {
+    padding: 2rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    width: 100%;
+}
+
+.product-item {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 2px;
+    text-align: center;
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+}
+
+.product-price {
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+.product-description {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.product-button {
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.3s ease;
+}
+
+.product-button:hover {
+    background-color: #b00500;
 }

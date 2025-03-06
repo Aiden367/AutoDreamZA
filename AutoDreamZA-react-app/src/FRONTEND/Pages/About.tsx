@@ -17,22 +17,30 @@ const About: React.FC = () => {
     <>
       <Nav />
 
-      {/* Waffle Menu Toggle Button */}
-      <button className="waffle-toggle" onClick={toggleMenu}>
-        ☰
+      <button className="login-button" onClick={() => navigate('/login')}>
+        Login
       </button>
 
-      {/* Waffle Menu */}
+      {/* Hamburger Toggle Button */}
+      <button 
+        className={`waffle-toggle ${menuOpen ? 'open' : ''}`} 
+        onClick={toggleMenu}
+      >
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
+      </button>
+
       <nav className={`waffle-menu ${menuOpen ? 'open' : ''}`}>
         <div className="waffle-grid">
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/')}>Home</a>
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/about')}>About</a>
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/products')}>Products</a>
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/contact')}>Contact</a>
+          <a href="#" className="waffle-item" onClick={() => handleNavigation('/upload')}>Upload</a>
         </div>
       </nav>
 
-      {/* Hero Section */}
       <div className="hero">
         <div className="hero-content">
           <h1>About Us</h1>
@@ -40,7 +48,6 @@ const About: React.FC = () => {
         </div>
       </div>
 
-      {/* About Content Section */}
       <div className="about-content">
         <section>
           <h2>Our Story</h2>

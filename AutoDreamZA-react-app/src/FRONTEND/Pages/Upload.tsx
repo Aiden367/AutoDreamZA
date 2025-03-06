@@ -27,26 +27,28 @@ const Upload: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Process your form submission here (e.g., API call)
-    console.log("Uploading product:", {
-      productName,
-      description,
-      price,
-      imageFile,
-    });
-    // Optionally, reset the form fields after submission.
+    console.log("Uploading product:", { productName, description, price, imageFile });
+    // Reset form or show success message as needed
   };
 
   return (
     <>
       <Nav />
 
-      {/* Waffle Menu Toggle Button (Top Left) */}
-      <button className="waffle-toggle" onClick={toggleMenu}>
-        ☰
+      <button className="login-button" onClick={() => navigate('/login')}>
+        Login
       </button>
 
-      {/* Waffle Menu */}
+      {/* Hamburger Toggle Button */}
+      <button 
+        className={`waffle-toggle ${menuOpen ? 'open' : ''}`} 
+        onClick={toggleMenu}
+      >
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
+      </button>
+
       <nav className={`waffle-menu ${menuOpen ? 'open' : ''}`}>
         <div className="waffle-grid">
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/')}>Home</a>
@@ -57,7 +59,6 @@ const Upload: React.FC = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <div className="hero">
         <div className="hero-content">
           <h1>Upload</h1>
@@ -65,7 +66,6 @@ const Upload: React.FC = () => {
         </div>
       </div>
 
-      {/* Upload Form Section */}
       <div className="upload-form">
         <form onSubmit={handleSubmit}>
           <div>

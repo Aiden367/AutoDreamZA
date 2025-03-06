@@ -22,9 +22,14 @@ const Home: React.FC = () => {
         Login
       </button>
 
-      {/* Waffle Menu Toggle Button at Top Left */}
-      <button className="waffle-toggle" onClick={toggleMenu}>
-        ☰
+      {/* Hamburger Toggle Button */}
+      <button 
+        className={`waffle-toggle ${menuOpen ? 'open' : ''}`} 
+        onClick={toggleMenu}
+      >
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
       </button>
 
       {/* Waffle Menu */}
@@ -34,6 +39,7 @@ const Home: React.FC = () => {
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/about')}>About</a>
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/products')}>Products</a>
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/contact')}>Contact</a>
+          <a href="#" className="waffle-item" onClick={() => handleNavigation('/upload')}>Upload</a>
         </div>
       </nav>
 

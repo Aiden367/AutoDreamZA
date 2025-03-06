@@ -13,26 +13,59 @@ const Products: React.FC = () => {
     navigate(path);
   };
 
+  // Sample product data – update as needed
+  const products = [
+    {
+      id: 1,
+      name: "Mountain Bike",
+      image: "/images/mountain-bike.jpg",
+      price: "R5000",
+      description: "A high-performance mountain bike for rugged trails.",
+    },
+    {
+      id: 2,
+      name: "Road Bike",
+      image: "/images/road-bike.jpg",
+      price: "R7000",
+      description: "Lightweight and fast, perfect for road cycling.",
+    },
+    {
+      id: 3,
+      name: "Hybrid Bike",
+      image: "/images/hybrid-bike.jpg",
+      price: "R6000",
+      description: "Versatile bike ideal for city commuting and leisure rides.",
+    },
+  ];
+
   return (
     <>
       <Nav />
 
-      {/* Waffle Menu Toggle Button */}
-      <button className="waffle-toggle" onClick={toggleMenu}>
-        ☰
+      <button className="login-button" onClick={() => navigate('/login')}>
+        Login
       </button>
 
-      {/* Waffle Menu */}
+      {/* Hamburger Toggle Button */}
+      <button 
+        className={`waffle-toggle ${menuOpen ? 'open' : ''}`} 
+        onClick={toggleMenu}
+      >
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
+      </button>
+
       <nav className={`waffle-menu ${menuOpen ? 'open' : ''}`}>
         <div className="waffle-grid">
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/')}>Home</a>
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/about')}>About</a>
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/products')}>Products</a>
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/contact')}>Contact</a>
+          <a href="#" className="waffle-item" onClick={() => handleNavigation('/upload')}>Upload</a>
         </div>
       </nav>
 
-      {/* Hero Section */}
       <div className="hero">
         <div className="hero-content">
           <h1>Our Products</h1>
@@ -40,20 +73,22 @@ const Products: React.FC = () => {
         </div>
       </div>
 
-      {/* Products Grid Section */}
+      {/* Product Listing Section */}
       <div className="product-grid">
-        <div className="product-item">
-          <h2>Product 1</h2>
-          <p>High-quality product designed to amaze.</p>
-        </div>
-        <div className="product-item">
-          <h2>Product 2</h2>
-          <p>Innovative features meet sleek design.</p>
-        </div>
-        <div className="product-item">
-          <h2>Product 3</h2>
-          <p>Engineered for performance and style.</p>
-        </div>
+        {products.map((product) => (
+          <div key={product.id} className="product-item">
+            <img src={product.image} alt={product.name} className="product-image" />
+            <h2>{product.name}</h2>
+            <p className="product-price">{product.price}</p>
+            <p className="product-description">{product.description}</p>
+            <button
+              className="product-button"
+              onClick={() => navigate(`/product/${product.id}`)}
+            >
+              View Details
+            </button>
+          </div>
+        ))}
       </div>
     </>
   );
