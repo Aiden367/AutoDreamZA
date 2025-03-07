@@ -38,6 +38,8 @@ const Contact: React.FC = () => {
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/products')}>Products</a>
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/contact')}>Contact</a>
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/upload')}>Upload</a>
+          <a href="#" className="waffle-item" onClick={() => handleNavigation('/login')}>Login</a>
+          
         </div>
       </nav>
 
