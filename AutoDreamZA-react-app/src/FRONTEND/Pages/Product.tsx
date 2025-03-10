@@ -1,43 +1,42 @@
-import React, { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import Nav from "../../COMPONENTS/Navbar";
 import "./Styles/Home.css";
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+interface Product {
+  _id: string;
+  title: string;
+  image: string;
+  price: string;
+  url: string;
+}
 
 const Products: React.FC = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const handleNavigation = (path: string) => {
     setMenuOpen(false);
     navigate(path);
+
+
   };
 
-  // Sample product data – update as needed
-  const products = [
-    {
-      id: 1,
-      name: "Mountain Bike",
-      image: "/images/mountain-bike.jpg",
-      price: "R5000",
-      description: "A high-performance mountain bike for rugged trails.",
-    },
-    {
-      id: 2,
-      name: "Road Bike",
-      image: "/images/road-bike.jpg",
-      price: "R7000",
-      description: "Lightweight and fast, perfect for road cycling.",
-    },
-    {
-      id: 3,
-      name: "Hybrid Bike",
-      image: "/images/hybrid-bike.jpg",
-      price: "R6000",
-      description: "Versatile bike ideal for city commuting and leisure rides.",
-    },
-  ];
-
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/product/products");
+        setProducts(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("could not fetch products", error);
+      }
+    };
+    fetchProducts();
+  }, []);
   return (
     <>
       <Nav />
@@ -47,8 +46,8 @@ const Products: React.FC = () => {
       </button>
 
       {/* Hamburger Toggle Button */}
-      <button 
-        className={`waffle-toggle ${menuOpen ? 'open' : ''}`} 
+      <button
+        className={`waffle-toggle ${menuOpen ? 'open' : ''}`}
         onClick={toggleMenu}
       >
         <span className="bar"></span>
@@ -73,23 +72,23 @@ const Products: React.FC = () => {
         </div>
       </div>
 
-      {/* Product Listing Section */}
       <div className="product-grid">
-        {products.map((product) => (
-          <div key={product.id} className="product-item">
-            <img src={product.image} alt={product.name} className="product-image" />
-            <h2>{product.name}</h2>
-            <p className="product-price">{product.price}</p>
-            <p className="product-description">{product.description}</p>
-            <button
-              className="product-button"
-              onClick={() => navigate(`/product/${product.id}`)}
-            >
-              View Details
-            </button>
-          </div>
-        ))}
+        {Array.isArray(products) && products.length > 0 ? (
+          products.map((product) => (
+            <div key={product._id} className="product-item">
+              <img src={product.image} alt={product.title} className="product-image" />
+              <h2>{product.title}</h2>
+              <p className="product-price">{product.price}</p>
+              <a href={product.url} target="_blank" rel="noopener noreferrer" className="product-link">
+                View Details
+              </a>
+            </div>
+          ))
+        ) : (
+          <p>No products available</p>
+        )}
       </div>
+
     </>
   );
 };
