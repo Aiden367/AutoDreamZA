@@ -8,6 +8,14 @@ import Upload from './FRONTEND/Pages/Upload';
 import Login from './FRONTEND/Pages/Login';
 import Register from './FRONTEND/Pages/Register';
 import Accessories from './FRONTEND/Pages/AccesoriesPages/Accessory';
+import Cables from './FRONTEND/Pages/AccesoriesPages/Cables'
+import CarMats from './FRONTEND/Pages/AccesoriesPages/CarMats'
+import DoorHandles from './FRONTEND/Pages/AccesoriesPages/DoorHandles'
+import DoorRubber from './FRONTEND/Pages/AccesoriesPages/DoorRubber'
+import GasSprings from './FRONTEND/Pages/AccesoriesPages/GasSprings'
+import PedalPads from './FRONTEND/Pages/AccesoriesPages/PedalPads'
+import SeatCovers from './FRONTEND/Pages/AccesoriesPages/SeatCovers'
+import SteeringLock from './FRONTEND/Pages/AccesoriesPages/SteeringLock'
 //import Register from './FRONTEND/Pages/Register';
 
 const App: React.FC = () => {
@@ -23,6 +31,14 @@ const App: React.FC = () => {
       <Route path="/Login" element={<Login />} />
       <Route path="/Register" element={<Register />} />
       <Route path="/Accessory" element={<Accessories />} />
+      <Route path="/Cables" element={<Cables />} />
+      <Route path="/CarMats" element={<CarMats />} />
+      <Route path="/DoorHandles" element={<DoorHandles />} />
+      <Route path="/DoorRubber" element={<DoorRubber />} />
+      <Route path="/GasSprings" element={<GasSprings />} />
+      <Route path="/PedalPads" element={<PedalPads />} />
+      <Route path="/SeatCovers" element={<SeatCovers />} />
+      <Route path="/SteeringLock" element={<SteeringLock />} />
     </Routes>
     </Router>
   );
