@@ -16,30 +16,34 @@ import GasSprings from './FRONTEND/Pages/AccesoriesPages/GasSprings'
 import PedalPads from './FRONTEND/Pages/AccesoriesPages/PedalPads'
 import SeatCovers from './FRONTEND/Pages/AccesoriesPages/SeatCovers'
 import SteeringLock from './FRONTEND/Pages/AccesoriesPages/SteeringLock'
+import { FilterProvider } from './COMPONENTS/FilterContext';
 //import Register from './FRONTEND/Pages/Register';
 
 const App: React.FC = () => {
   return (
     <Router>
-    <Routes>
-      <Route path="/" element={<Home />} />\
-      <Route path="/Home" element={<Home />} />
-      <Route path="/About" element={<About />} />
-      <Route path="/Products" element={<Products />} />
-      <Route path="/Contact" element={<Contact />} />
-      <Route path="/Upload" element={<Upload />} />
-      <Route path="/Login" element={<Login />} />
-      <Route path="/Register" element={<Register />} />
-      <Route path="/Accessory" element={<Accessories />} />
-      <Route path="/Cables" element={<Cables />} />
-      <Route path="/CarMats" element={<CarMats />} />
-      <Route path="/DoorHandles" element={<DoorHandles />} />
-      <Route path="/DoorRubber" element={<DoorRubber />} />
-      <Route path="/GasSprings" element={<GasSprings />} />
-      <Route path="/PedalPads" element={<PedalPads />} />
-      <Route path="/SeatCovers" element={<SeatCovers />} />
-      <Route path="/SteeringLock" element={<SteeringLock />} />
-    </Routes>
+      {/* Wrap the Routes in FilterProvider */}
+      <FilterProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/About" element={<About />} />
+          <Route path="/Products" element={<Products />} />
+          <Route path="/Contact" element={<Contact />} />
+          <Route path="/Upload" element={<Upload />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/Accessory" element={<Accessories />} />
+          <Route path="/Cables" element={<Cables />} />
+          <Route path="/CarMats" element={<CarMats />} />
+          <Route path="/DoorHandles" element={<DoorHandles />} />
+          <Route path="/DoorRubber" element={<DoorRubber />} />
+          <Route path="/GasSprings" element={<GasSprings />} />
+          <Route path="/PedalPads" element={<PedalPads />} />
+          <Route path="/SeatCovers" element={<SeatCovers />} />
+          <Route path="/SteeringLock" element={<SteeringLock />} />
+        </Routes>
+      </FilterProvider>
     </Router>
   );
 };

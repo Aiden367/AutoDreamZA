@@ -1,9 +1,11 @@
-
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Nav from "../../COMPONENTS/Navbar";
 import "./Styles/Home.css";
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import PriceFilter from "../../COMPONENTS/PriceFilter";
+import { useFilter } from "../../COMPONENTS/FilterContext"; // Import context
+
 interface Product {
   _id: string;
   title: string;
@@ -16,13 +18,15 @@ const Products: React.FC = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+
+  // Use the filter context
+  const { minPrice, maxPrice } = useFilter();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const handleNavigation = (path: string) => {
     setMenuOpen(false);
     navigate(path);
-
-
   };
 
   useEffect(() => {
@@ -30,38 +34,54 @@ const Products: React.FC = () => {
       try {
         const response = await axios.get("http://localhost:5000/product/products");
         setProducts(response.data);
-        console.log(response.data);
       } catch (error) {
-        console.error("could not fetch products", error);
+        console.error("Could not fetch products", error);
       }
     };
     fetchProducts();
   }, []);
+
+  // Apply filtering based on the context values
+  useEffect(() => {
+    const filtered = products.filter((product) => {
+      const price = parseFloat(product.price);
+      return price >= minPrice && price <= maxPrice;
+    });
+    setFilteredProducts(filtered);
+  }, [products, minPrice, maxPrice]);
+
   return (
     <>
       <Nav />
 
-      <button className="login-button" onClick={() => navigate('/login')}>
+      <button className="login-button" onClick={() => navigate("/login")}>
         Login
       </button>
 
       {/* Hamburger Toggle Button */}
-      <button
-        className={`waffle-toggle ${menuOpen ? 'open' : ''}`}
-        onClick={toggleMenu}
-      >
+      <button className={`waffle-toggle ${menuOpen ? "open" : ""}`} onClick={toggleMenu}>
         <span className="bar"></span>
         <span className="bar"></span>
         <span className="bar"></span>
       </button>
 
-      <nav className={`waffle-menu ${menuOpen ? 'open' : ''}`}>
+      <nav className={`waffle-menu ${menuOpen ? "open" : ""}`}>
         <div className="waffle-grid">
-          <a href="#" className="waffle-item" onClick={() => handleNavigation('/')}>Home</a>
-          <a href="#" className="waffle-item" onClick={() => handleNavigation('/about')}>About</a>
-          <a href="#" className="waffle-item" onClick={() => handleNavigation('/products')}>Products</a>
-          <a href="#" className="waffle-item" onClick={() => handleNavigation('/contact')}>Contact</a>
-          <a href="#" className="waffle-item" onClick={() => handleNavigation('/upload')}>Upload</a>
+          <a href="#" className="waffle-item" onClick={() => handleNavigation("/")}>
+            Home
+          </a>
+          <a href="#" className="waffle-item" onClick={() => handleNavigation("/about")}>
+            About
+          </a>
+          <a href="#" className="waffle-item" onClick={() => handleNavigation("/products")}>
+            Products
+          </a>
+          <a href="#" className="waffle-item" onClick={() => handleNavigation("/contact")}>
+            Contact
+          </a>
+          <a href="#" className="waffle-item" onClick={() => handleNavigation("/upload")}>
+            Upload
+          </a>
         </div>
       </nav>
 
@@ -72,13 +92,16 @@ const Products: React.FC = () => {
         </div>
       </div>
 
+      {/* Price Filter Component */}
+      <PriceFilter />
+
       <div className="product-grid">
-        {Array.isArray(products) && products.length > 0 ? (
-          products.map((product) => (
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
             <div key={product._id} className="product-item">
               <img src={product.image} alt={product.title} className="product-image" />
               <h2>{product.title}</h2>
-              <p className="product-price">{product.price}</p>
+              <p className="product-price">${product.price}</p>
               <a href={product.url} target="_blank" rel="noopener noreferrer" className="product-link">
                 View Details
               </a>
@@ -88,7 +111,6 @@ const Products: React.FC = () => {
           <p>No products available</p>
         )}
       </div>
-
     </>
   );
 };
