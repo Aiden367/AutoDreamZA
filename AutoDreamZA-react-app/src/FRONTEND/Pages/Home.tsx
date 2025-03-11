@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from "../../COMPONENTS/Navbar";
 import "./Styles/Home.css";
-
+import AccessoriesImage from "../Images/Accesories_image.jpg";
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -49,6 +49,11 @@ const Home: React.FC = () => {
           <h1>Welcome to Our Adventure</h1>
           <p>Experience the thrill of discovery</p>
           <button onClick={() => navigate('/explore')}>Explore Now</button>
+          <h1>Popular Categories</h1>
+          <div className="categories" onClick={() => handleNavigation('/Accessory')}>
+            <p>Accesories</p>
+            <img src={AccessoriesImage} alt="Accessories" />
+          </div>
         </div>
       </div>
 

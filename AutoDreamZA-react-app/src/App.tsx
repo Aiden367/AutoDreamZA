@@ -7,6 +7,8 @@ import Contact from './FRONTEND/Pages/Contact';
 import Upload from './FRONTEND/Pages/Upload';
 import Login from './FRONTEND/Pages/Login';
 import Register from './FRONTEND/Pages/Register';
+import Accessories from './FRONTEND/Pages/AccesoriesPages/Accessory';
+//import Register from './FRONTEND/Pages/Register';
 
 const App: React.FC = () => {
   return (
@@ -20,6 +22,7 @@ const App: React.FC = () => {
       <Route path="/Upload" element={<Upload />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Register" element={<Register />} />
+      <Route path="/Accessory" element={<Accessories />} />
     </Routes>
     </Router>
   );
