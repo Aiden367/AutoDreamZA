@@ -54,6 +54,10 @@ const Home: React.FC = () => {
             <p>Accesories</p>
             <img src={AccessoriesImage} alt="Accessories" />
           </div>
+          <div className="categories" onClick={() => handleNavigation('/GeneralAccessories')}>
+            <p>Accesories</p>
+            <img src={AccessoriesImage} alt="Accessories" />
+          </div>
         </div>
       </div>
 

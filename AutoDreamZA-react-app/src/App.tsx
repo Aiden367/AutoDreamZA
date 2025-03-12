@@ -16,6 +16,14 @@ import GasSprings from './FRONTEND/Pages/AccesoriesPages/GasSprings'
 import PedalPads from './FRONTEND/Pages/AccesoriesPages/PedalPads'
 import SeatCovers from './FRONTEND/Pages/AccesoriesPages/SeatCovers'
 import SteeringLock from './FRONTEND/Pages/AccesoriesPages/SteeringLock'
+import Audio from './FRONTEND/Pages/AudioPages/Audio'
+import BatteriesAndBatteryProducts from './FRONTEND/Pages/BatteriesAndBatteryProducts/Batteries'
+import ElectricalPage from './FRONTEND/Pages/ElectricalPages/Electrical'
+import EnginePage from './FRONTEND/Pages/EnginePages/Engine'
+import JacksPage from './FRONTEND/Pages/JacksPages/Jacks'
+import ServicesPage from './FRONTEND/Pages/ServicesPages/Services'
+import ToolsPages from './FRONTEND/Pages/ToolsPages/Tools'
+import TyresAndRimsPages from './FRONTEND/Pages/TyresAndRimsPages/TyresAndRims'
 import { FilterProvider } from './COMPONENTS/FilterContext';
 //import Register from './FRONTEND/Pages/Register';
 
@@ -42,6 +50,14 @@ const App: React.FC = () => {
           <Route path="/PedalPads" element={<PedalPads />} />
           <Route path="/SeatCovers" element={<SeatCovers />} />
           <Route path="/SteeringLock" element={<SteeringLock />} />
+          <Route path="/Audio" element={<Audio />} />
+          <Route path="/Batteries" element={<BatteriesAndBatteryProducts />} />
+          <Route path="/Electrical" element={<ElectricalPage />} />
+          <Route path="/Engine" element={<EnginePage />} />
+          <Route path="/Jacks" element={<JacksPage />} />
+          <Route path="/Services" element={<ServicesPage />} />
+          <Route path="/Tools" element={<ToolsPages />} />
+          <Route path="/TyresAndRims" element={<TyresAndRimsPages />} />
         </Routes>
       </FilterProvider>
     </Router>
