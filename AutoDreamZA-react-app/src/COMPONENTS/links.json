@@ -1,0 +1,53 @@
+{
+    "links": [
+      {
+        "label": "Home",
+        "href": "/Home"
+      },
+      {
+        "label": "Sign in",
+        "href": "/Login"
+      },
+      {
+        "label": "Accessories",
+        "href": "/Dashboard",
+        "submenu": [
+          { "label": "Car Covers", "href": "/accessories/car-covers" },
+          { "label": "Seat Covers", "href": "/accessories/seat-covers" }
+        ]
+      },
+      {
+        "label": "Electrical",
+        "href": "/CreateAccount",
+        "submenu": [
+          { "label": "Batteries", "href": "/electrical/batteries" },
+          { "label": "Alternators", "href": "/electrical/alternators" }
+        ]
+      },
+      {
+        "label": "Service",
+        "href": "/BuyReptiles",
+        "submenu": [
+          { "label": "Oil Change", "href": "/service/oil-change" },
+          { "label": "Brake Service", "href": "/service/brake-service" }
+        ]
+      },
+      {
+        "label": "Batteries and Battery Products",
+        "href": "/BuyReptiles"
+      },
+      {
+        "label": "Tyres And Rims",
+        "href": "/BuyReptiles",
+        "submenu": [
+          { "label": "Alloy Rims", "href": "/tyres/alloy-rims" },
+          { "label": "Off-Road Tyres", "href": "/tyres/off-road" }
+        ]
+      },
+      {
+        "label": "Audio",
+        "href": "/BuyReptiles"
+      }
+    ]
+  }
+  

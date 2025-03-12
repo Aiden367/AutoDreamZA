@@ -23,8 +23,8 @@ const Home: React.FC = () => {
       </button>
 
       {/* Hamburger Toggle Button */}
-      <button 
-        className={`waffle-toggle ${menuOpen ? 'open' : ''}`} 
+      <button
+        className={`waffle-toggle ${menuOpen ? 'open' : ''}`}
         onClick={toggleMenu}
       >
         <span className="bar"></span>
@@ -49,17 +49,28 @@ const Home: React.FC = () => {
           <h1>Welcome to Our Adventure</h1>
           <p>Experience the thrill of discovery</p>
           <button onClick={() => navigate('/explore')}>Explore Now</button>
-          <h1>Popular Categories</h1>
-          <div className="categories" onClick={() => handleNavigation('/Accessory')}>
-            <p>Accesories</p>
-            <img src={AccessoriesImage} alt="Accessories" />
-          </div>
-          <div className="categories" onClick={() => handleNavigation('/GeneralAccessories')}>
-            <p>Accesories</p>
-            <img src={AccessoriesImage} alt="Accessories" />
+          <p className="category-heading">Popular Categories</p>
+          <div className="categories-container">
+            <div className="category" onClick={() => handleNavigation('/Accessory')}>
+              <p>Accessories</p>
+              <img src={AccessoriesImage} alt="Accessories" />
+            </div>
+            <div className="category" onClick={() => handleNavigation('/Audio')}>
+              <p>Audio</p>
+              <img src={AccessoriesImage} alt="Accessories" />
+            </div>
+            <div className="category" onClick={() => handleNavigation('/Batteries')}>
+              <p>Batteries and Battery Products</p>
+              <img src={AccessoriesImage} alt="Accessories" />
+            </div>
+            <div className="category" onClick={() => handleNavigation('/Electrical')}>
+              <p>Electrical</p>
+              <img src={AccessoriesImage} alt="Accessories" />
+            </div>
           </div>
         </div>
       </div>
+
 
       {/* Features Section */}
       <div className="features">

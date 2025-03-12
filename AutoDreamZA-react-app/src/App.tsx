@@ -41,7 +41,7 @@ const App: React.FC = () => {
           <Route path="/Upload" element={<Upload />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
-          <Route path="/Accessory" element={<Accessories />} />
+          
           <Route path="/Cables" element={<Cables />} />
           <Route path="/CarMats" element={<CarMats />} />
           <Route path="/DoorHandles" element={<DoorHandles />} />
@@ -50,6 +50,8 @@ const App: React.FC = () => {
           <Route path="/PedalPads" element={<PedalPads />} />
           <Route path="/SeatCovers" element={<SeatCovers />} />
           <Route path="/SteeringLock" element={<SteeringLock />} />
+    
+          <Route path="/Accessory" element={<Accessories />} />
           <Route path="/Audio" element={<Audio />} />
           <Route path="/Batteries" element={<BatteriesAndBatteryProducts />} />
           <Route path="/Electrical" element={<ElectricalPage />} />
