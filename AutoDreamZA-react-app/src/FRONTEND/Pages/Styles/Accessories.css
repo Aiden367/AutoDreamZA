@@ -1,0 +1,70 @@
+/* Global Reset */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: #F1F1F1;
+    color: #000;
+}
+
+
+
+
+
+/* Category heading */
+.category-heading {
+    font-size: 16px; /* Increased text size */
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 20px; /* Increased space between heading and categories */
+    text-align: left;
+}
+
+/* Category container */
+.categories-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px; /* Increased space between categories */
+    margin-top: 20px;
+}
+
+/* Category item (rounded corners, gray background) */
+.category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px; /* Fixed width to create square shape */
+    height: 150px; /* Fixed height to match width */
+    padding: 15px;
+    text-align: center;
+    background-color: white; /* Gray background */
+    border-radius: 10px; /* Rounded corners */
+    border: 2px solid #ddd; /* Light border */
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+/* Category image */
+.category img {
+    width: 100%; /* Make image fill the container */
+    height: 100%; /* Ensure image fills square container */
+    object-fit: contain;
+}
+
+/* Category text */
+.category p {
+    font-size: 16px; /* Increased text size */
+    font-family: 'Poppins', sans-serif;
+    margin-top: 10px; /* Space between image and text */
+    text-align: center;
+    color: #333; /* Darker text for better contrast */
+}
+
+/* Hover effect */
+.category:hover {
+    transform: scale(1.05); /* Slightly enlarge the category on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow effect on hover */
+}

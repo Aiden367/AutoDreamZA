@@ -5,10 +5,6 @@
         "href": "/Home"
       },
       {
-        "label": "Sign in",
-        "href": "/Login"
-      },
-      {
         "label": "Accessories",
         "href": "/Dashboard",
         "submenu": [

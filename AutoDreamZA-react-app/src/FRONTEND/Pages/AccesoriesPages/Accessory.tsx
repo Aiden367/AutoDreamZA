@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from "../../../COMPONENTS/Navbar";
 import CarInterior from "../../Images/Car_Interior_New_img.jpg";
+import SecondNav from "../../../COMPONENTS/SecondNavbar"
+import "../Styles/Accessories.css";
 const Accessory: React.FC = () => {
     const navigate = useNavigate();
     const handleNavigation = (path: string) => {
@@ -9,6 +11,7 @@ const Accessory: React.FC = () => {
     };
     return (
         <>
+        <SecondNav />
             <Nav />
             <div className="Categories" >
                 <h1>Popular Categories</h1>

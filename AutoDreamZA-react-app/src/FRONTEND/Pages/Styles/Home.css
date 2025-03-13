@@ -1,3 +1,14 @@
+
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
+
+/* Root Variables */
+:root {
+    font-family: 'Futura PT', system-ui, Avenir, Helvetica, Arial, sans-serif; /* Updated to use Futura first */
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  
 /* Global Reset */
 html, body {
     margin: 0;
@@ -240,48 +251,124 @@ html, body {
 .product-button:hover {
     background-color: #b00500;
 }
+/* Category heading */
 .category-heading {
-    font-size: 12px; /* Smaller text */
-    font-weight: bold; /* Emphasize the heading */
-    font-family: 'Poppins', sans-serif; /* Use a modern font */
-    margin-bottom: 10px; /* Space between heading and categories */
-    text-align: left; /* Align to the left */
-  }
-  
-  .categories-container {
+    font-size: 16px; /* Increased text size */
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 20px; /* Increased space between heading and categories */
+    text-align: left;
+}
+
+/* Category container */
+.categories-container {
     display: flex;
-    justify-content: flex-start; /* Align categories to the left */
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 10px;
-  }
-  
-  .category {
+    gap: 30px; /* Increased space between categories */
+    margin-top: 20px;
+}
+
+/* Category item (rounded corners, gray background) */
+.category {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100px; /* Adjusted smaller size */
-    padding: 10px;
+    width: 150px; /* Fixed width to create square shape */
+    height: 150px; /* Fixed height to match width */
+    padding: 15px;
     text-align: center;
-    border-radius: 8px;
+    background-color: white; /* Gray background */
+    border-radius: 10px; /* Rounded corners */
+    border: 2px solid #ddd; /* Light border */
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
-  }
-  
-  .category img {
-    width: 70px; /* Reduce image size */
-    height: 70px;
+}
+
+/* Category image */
+.category img {
+    width: 100%; /* Make image fill the container */
+    height: 100%; /* Ensure image fills square container */
     object-fit: contain;
-  }
+}
+
+/* Category text */
+.category p {
+    font-size: 16px; /* Increased text size */
+    font-family: 'Poppins', sans-serif;
+    margin-top: 10px; /* Space between image and text */
+    text-align: center;
+    color: #333; /* Darker text for better contrast */
+}
+
+/* Hover effect */
+.category:hover {
+    transform: scale(1.05); /* Slightly enlarge the category on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow effect on hover */
+}
+
+
+
+
+  .just-launched-heading {
+    background-image: url('/Images/image_car_home_page.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 100px;
+    color: white;
+    position: relative;
+    text-align: right; /* Align text to the right */
+}
+
+.just-launched-heading h1 {
+    font-size: 100px; /* Adjust size if needed */
+    font-weight: bold;
+    margin: 0;
+    color: white !important;
+}
+
+.just-launched-heading p {
+    font-size: 16px; /* Adjust to better visibility */
+    letter-spacing: 2px;
+    margin: 0;
+    font-family: sans-serif;
+    position: relative;
+    z-index: 2; /* Ensure text appears above background */
+    padding-right:270px;
+}
+
+.just-launched-heading::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3); /* Add a subtle overlay for text contrast */
+    z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .just-launched-heading h1 {
+        font-size: 2rem;
+    }
+    .just-launched-heading p {
+        font-size: 14px; /* Adjust for smaller screens */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .just-launched-heading h1 {
+        font-size: 1.5rem;
+    }
+    .just-launched-heading p {
+        font-size: 12px; /* Even smaller for very small screens */
+    }
+}
+
+
   
-  .category p {
-    font-size: 12px; /* Smaller text */
-    font-family: 'Poppins', sans-serif; /* Match heading font */
-    margin-top: 5px;
-  }
-  
-  .category:hover {
-    transform: scale(1.05);
-  }
+
   

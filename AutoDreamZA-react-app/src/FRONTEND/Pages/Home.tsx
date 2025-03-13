@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from "../../COMPONENTS/Navbar";
+import SecondNav from "../../COMPONENTS/SecondNavbar"
 import "./Styles/Home.css";
 import AccessoriesImage from "../Images/Accesories_image.jpg";
+import HeadingImage from "../Images/yearone-GOkHtbgloRs-unsplash.jpg";
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const toggleMenu = () => setMenuOpen(!menuOpen);
   const handleNavigation = (path: string) => {
     setMenuOpen(false);
     navigate(path);
@@ -15,57 +15,48 @@ const Home: React.FC = () => {
 
   return (
     <>
+
+      <SecondNav />
       <Nav />
-
-      {/* Login Button at Top Right */}
-      <button className="login-button" onClick={() => navigate('/login')}>
-        Login
-      </button>
-
-      {/* Hamburger Toggle Button */}
-      <button
-        className={`waffle-toggle ${menuOpen ? 'open' : ''}`}
-        onClick={toggleMenu}
-      >
-        <span className="bar"></span>
-        <span className="bar"></span>
-        <span className="bar"></span>
-      </button>
-
-      {/* Waffle Menu */}
-      <nav className={`waffle-menu ${menuOpen ? 'open' : ''}`}>
-        <div className="waffle-grid">
-          <a href="#" className="waffle-item" onClick={() => handleNavigation('/')}>Home</a>
-          <a href="#" className="waffle-item" onClick={() => handleNavigation('/about')}>About</a>
-          <a href="#" className="waffle-item" onClick={() => handleNavigation('/products')}>Products</a>
-          <a href="#" className="waffle-item" onClick={() => handleNavigation('/contact')}>Contact</a>
-          <a href="#" className="waffle-item" onClick={() => handleNavigation('/upload')}>Upload</a>
-        </div>
-      </nav>
+      <div className="just-launched-heading"
+        style={{ backgroundImage: `url(${HeadingImage})` }}>
+        <h1>We Just Launched !</h1>
+        <p>Welcome to the next generation of shopping for motor vehicle parts!</p>
+      </div>
 
       {/* Hero Section */}
       <div className="hero">
+
         <div className="hero-content">
-          <h1>Welcome to Our Adventure</h1>
-          <p>Experience the thrill of discovery</p>
-          <button onClick={() => navigate('/explore')}>Explore Now</button>
-          <p className="category-heading">Popular Categories</p>
+          <p className="category-heading">Categories</p>
           <div className="categories-container">
             <div className="category" onClick={() => handleNavigation('/Accessory')}>
-              <p>Accessories</p>
+
               <img src={AccessoriesImage} alt="Accessories" />
+              <p>Accessories</p>
             </div>
             <div className="category" onClick={() => handleNavigation('/Audio')}>
+
+              <img src={AccessoriesImage} alt="Aduio" />
               <p>Audio</p>
-              <img src={AccessoriesImage} alt="Accessories" />
             </div>
             <div className="category" onClick={() => handleNavigation('/Batteries')}>
+              <img src={AccessoriesImage} alt="Batteries" />
               <p>Batteries and Battery Products</p>
-              <img src={AccessoriesImage} alt="Accessories" />
             </div>
             <div className="category" onClick={() => handleNavigation('/Electrical')}>
+              <img src={AccessoriesImage} alt="Electrical" />
               <p>Electrical</p>
-              <img src={AccessoriesImage} alt="Accessories" />
+            </div>
+            <div className="category" onClick={() => handleNavigation('/Engine')}>
+
+              <img src={AccessoriesImage} alt="Engine" />
+              <p>Engine</p>
+            </div>
+            <div className="category" onClick={() => handleNavigation('/Services')}>
+
+              <img src={AccessoriesImage} alt="Services" />
+              <p>Services</p>
             </div>
           </div>
         </div>
@@ -75,12 +66,12 @@ const Home: React.FC = () => {
       {/* Features Section */}
       <div className="features">
         <div className="feature">
-          <h2>Innovation</h2>
-          <p>Cutting-edge design that inspires.</p>
+          <h2>Contact Us</h2>
+          <p>0767751685</p>
         </div>
         <div className="feature">
-          <h2>Experience</h2>
-          <p>Every detail is designed for excitement.</p>
+          <h2>Customer Service</h2>
+          <p>Contact us</p>
         </div>
         <div className="feature">
           <h2>Adventure</h2>

@@ -1,19 +1,20 @@
+/* First Navbar (Below the Second Navbar) */
 .navbar {
-    width: 100%;
-    height: 50px;
-    background: black;
-    border-bottom: 1px solid #555;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    padding: 0 20px; /* Optional: to add some padding inside the navbar */
-    box-sizing: border-box; /* Ensure padding doesn't affect width */
-  }
-  
+  width: 100%;
+  height: 50px;
+  background: white;
+  border-bottom: 1px solid #555;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 50px; /* Moves it below the second navbar */
+  left: 0;
+  z-index: 1000; /* Lower than the second navbar */
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
   .logo-container {
     margin-left: 80px;
   }
@@ -41,14 +42,15 @@
   .link {
     text-decoration: none;
     text-align: center;
-    color: white;
+    color: black;
     padding: 5px 20px;
-    border: 2px solid black;
+    border: 2px solid white;
     background-color: white;
     display: inline-block;
     border-radius: 4px; /* Optional: add rounded corners */
     transition: background-color 0.3s, color 0.3s;
     white-space: nowrap; /* Prevent text from breaking into a new line */
+    font-family:'Arial'
   }
   
   /* Hover effect */
@@ -110,15 +112,15 @@
     .links-container {
       width: 100%;
       justify-content: flex-start; /* Align links to the left */
-      padding: 0 20px; /* Add some padding for the mobile view */
+      padding: 0 20px; 
     }
   
     .link-container {
-      width: 100%; /* Make each link container take full width */
-      text-align: left; /* Align the links to the left */
+      width: 100%; 
+      text-align: left; 
     }
   
-    /* Adjust the size of links on mobile */
+    
     .link {
       width: 100%;
       padding: 12px 20px;

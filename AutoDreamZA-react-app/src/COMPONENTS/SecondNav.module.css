@@ -1,0 +1,73 @@
+/* Navbar styles */
+.navbar {
+    width: 100%;
+    height: 50px;
+    background: white;
+    border-bottom: 1px solid #555;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+  }
+  
+  /* Logo styles */
+  .logoContainer {
+    margin-left: 20px;
+  }
+  
+  /* Make sure the link around the logo takes no extra space or styles */
+  .logoLink {
+    text-decoration: none; /* Remove default underline */
+  }
+  
+  /* Logo size */
+  .logo {
+    width: 150px; /* Adjust logo size */
+  }
+  
+  /* Search Container styles */
+  .searchContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between the input and button */
+  }
+  
+  /* Search Input styles */
+  .searchInput {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+  }
+  
+  /* Search Button styles */
+  .searchButton {
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .searchButton:hover {
+    background-color: #555;
+  }
+  
+  /* Profile Image styles */
+  .profileContainer {
+    margin-right: 20px;
+  }
+  
+  .profileImage {
+    width: 30px; /* Adjust size */
+    border-radius: 50%;
+  }
+  
