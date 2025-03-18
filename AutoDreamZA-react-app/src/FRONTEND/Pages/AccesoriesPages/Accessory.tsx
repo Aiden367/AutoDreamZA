@@ -14,8 +14,9 @@ const Accessory: React.FC = () => {
             <SecondNav />
             <Nav />
             <div className="categories-wrapper">
+                <h1>Categories</h1>
                 <div className="categories-container" >
-                    <div className="category" onClick={() => handleNavigation('/Cables')}>
+                    <div className="category" onClick={() => handleNavigation('/CarInterior')}>
                         <p>Car Interior</p>
                         <img src={CarInterior}></img>
                     </div>

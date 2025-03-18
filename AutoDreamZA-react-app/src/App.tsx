@@ -8,14 +8,14 @@ import Upload from './FRONTEND/Pages/Upload';
 import Login from './FRONTEND/Pages/Login';
 import Register from './FRONTEND/Pages/Register';
 import Accessories from './FRONTEND/Pages/AccesoriesPages/Accessory';
-import Cables from './FRONTEND/Pages/AccesoriesPages/Cables'
-import CarMats from './FRONTEND/Pages/AccesoriesPages/CarMats'
-import DoorHandles from './FRONTEND/Pages/AccesoriesPages/DoorHandles'
-import DoorRubber from './FRONTEND/Pages/AccesoriesPages/DoorRubber'
-import GasSprings from './FRONTEND/Pages/AccesoriesPages/GasSprings'
-import PedalPads from './FRONTEND/Pages/AccesoriesPages/PedalPads'
-import SeatCovers from './FRONTEND/Pages/AccesoriesPages/SeatCovers'
-import SteeringLock from './FRONTEND/Pages/AccesoriesPages/SteeringLock'
+import Cables from './FRONTEND/Pages/AccesoriesPages/CarInteriorPages/Cables'
+import CarMats from './FRONTEND/Pages/AccesoriesPages/CarInteriorPages/CarMats'
+import DoorHandles from './FRONTEND/Pages/AccesoriesPages/CarInteriorPages/DoorHandles'
+import DoorRubber from './FRONTEND/Pages/AccesoriesPages/CarInteriorPages/DoorRubber'
+import GasSprings from './FRONTEND/Pages/AccesoriesPages/CarInteriorPages/GasSprings'
+import PedalPads from './FRONTEND/Pages/AccesoriesPages/CarInteriorPages/PedalPads'
+import SeatCovers from './FRONTEND/Pages/AccesoriesPages/CarInteriorPages/SeatCovers'
+import SteeringLock from './FRONTEND/Pages/AccesoriesPages/CarInteriorPages/SteeringLock'
 import Audio from './FRONTEND/Pages/AudioPages/Audio'
 import BatteriesAndBatteryProducts from './FRONTEND/Pages/BatteriesAndBatteryProducts/Batteries'
 import ElectricalPage from './FRONTEND/Pages/ElectricalPages/Electrical'
@@ -24,6 +24,7 @@ import JacksPage from './FRONTEND/Pages/JacksPages/Jacks'
 import ServicesPage from './FRONTEND/Pages/ServicesPages/Services'
 import ToolsPages from './FRONTEND/Pages/ToolsPages/Tools'
 import TyresAndRimsPages from './FRONTEND/Pages/TyresAndRimsPages/TyresAndRims'
+import CarInterior from './FRONTEND/Pages/AccesoriesPages/CarInteriorPages/CarInterior'
 import { FilterProvider } from './COMPONENTS/FilterContext';
 //import Register from './FRONTEND/Pages/Register';
 
@@ -60,6 +61,8 @@ const App: React.FC = () => {
           <Route path="/Services" element={<ServicesPage />} />
           <Route path="/Tools" element={<ToolsPages />} />
           <Route path="/TyresAndRims" element={<TyresAndRimsPages />} />
+
+          <Route path="/CarInterior" element={<CarInterior />} />
         </Routes>
       </FilterProvider>
     </Router>

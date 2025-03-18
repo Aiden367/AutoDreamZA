@@ -1,6 +1,6 @@
 import React from "react";
-import { useFilter } from "../../../COMPONENTS/FilterContext";
-import PriceFilter from "../../../COMPONENTS/PriceFilter";
+import { useFilter } from "../../../../COMPONENTS/FilterContext";
+import PriceFilter from "../../../../COMPONENTS/PriceFilter";
 
 const ProductList: React.FC = () => {
   const { minPrice, maxPrice } = useFilter();

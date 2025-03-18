@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import Nav from "../../../COMPONENTS/Navbar";
+import Nav from "../../../../COMPONENTS/Navbar";
 
 const DoorHandles: React.FC =() =>{
     return(
