@@ -16,31 +16,31 @@ const CarInteriors: React.FC = () => {
             <div className="categories-wrapper">
                 <h1>Categories</h1>
                 <div className="categories-container" >
-                    <div className="category" onClick={() => handleNavigation('/Cables')}>
+                    <div className="category" onClick={() => handleNavigation('/CarMats')}>
                         <p>Car Mats</p>
                         <img src={CarInteriorer}></img>
                     </div>
-                    <div className="category" onClick={() => handleNavigation('/CarMats')}>
+                    <div className="category" onClick={() => handleNavigation('/DoorHandles')}>
                         <p>Door Handles</p>
                         <img src={CarInteriorer}></img>
                     </div>
-                    <div className="category" onClick={() => handleNavigation('/DoorHandles')}>
+                    <div className="category" onClick={() => handleNavigation('/DoorRubber')}>
                         <p>Door Rubber</p>
                         <img src={CarInteriorer}></img>
                     </div>
-                    <div className="category" onClick={() => handleNavigation('/DoorRubber')}>
+                    <div className="category" onClick={() => handleNavigation('/GasSprings')}>
                         <p>Gas Springs</p>
                         <img src={CarInteriorer}></img>
                     </div>
-                    <div className="category" onClick={() => handleNavigation('/GasSprings')}>
+                    <div className="category" onClick={() => handleNavigation('/PedalPads')}>
                         <p>Pedal Pads</p>
                         <img src={CarInteriorer}></img>
                     </div>
-                    <div className="category" onClick={() => handleNavigation('/PedalPads')}>
+                    <div className="category" onClick={() => handleNavigation('/SeatCovers')}>
                         <p>Seat Covers</p>
                         <img src={CarInteriorer}></img>
                     </div>
-                    <div className="category" onClick={() => handleNavigation('/SeatCovers')}>
+                    <div className="category" onClick={() => handleNavigation('/SteeringLock')}>
                         <p>Steering Lock</p>
                         <img src={CarInteriorer}></img>
                     </div>

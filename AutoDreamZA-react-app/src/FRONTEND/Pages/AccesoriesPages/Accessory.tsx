@@ -20,8 +20,8 @@ const Accessory: React.FC = () => {
                         <p>Car Interior</p>
                         <img src={CarInterior}></img>
                     </div>
-                    <div className="category" onClick={() => handleNavigation('/CarMats')}>
-                        <p>General Accessories</p>
+                    <div className="category" onClick={() => handleNavigation('/RoofRacks')}>
+                        <p>Roof Racks</p>
                         <img src={CarInterior}></img>
                     </div>
                     <div className="category" onClick={() => handleNavigation('/DoorHandles')}>

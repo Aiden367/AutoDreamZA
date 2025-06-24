@@ -1,8 +1,8 @@
-const DoorRubbers : React.FC = () =>{
+const DoorRubber : React.FC = () =>{
     return(
         <div>
-            <h1>Door Handles</h1>
+            <h1>Door Rubber</h1>
         </div>
     )
 }
-export default DoorRubbers;
+export default DoorRubber;
