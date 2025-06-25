@@ -11,7 +11,7 @@ role: {type:String,required: true}
 
 const User = mongoose.model("User",UserSchema);
 
-const ProductSchema = new Schema(
+const MatProductSchema = new Schema(
   {
     title: { type: String, required: true },
     price: { type: Number, required: true },
@@ -21,12 +21,44 @@ const ProductSchema = new Schema(
     manufacturer: { type: String, default: "Booxe" },
     type: { type: String }
   },
-  { timestamps: true }
+  { timestamps: true, collection: "MatProduct" }
 );
 
 
-const Product = mongoose.model("Product",ProductSchema);
+const MatProduct = mongoose.model("MatProduct",MatProductSchema);
 
 
+const RoofRackProductSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    price: { type: Number, required: true },
+    image: { type: String, required: true },
+    url: { type: String, required: true },
+    available: { type: Boolean, default: true },
+    manufacturer: { type: String, default: "Booxe" },
+    type: { type: String }
+  },
+  { timestamps: true ,collection: "RoofRackProduct"}
+);
 
-module.exports = {User,Product};
+
+const RoofRackProduct = mongoose.model("RoofRackProduct",RoofRackProductSchema);
+
+const RimsProductSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    price: { type: Number, required: true },
+    image: { type: String, required: true },
+    url: { type: String, required: true },
+    available: { type: Boolean, default: true },
+    manufacturer: { type: String, default: "Booxe" },
+    type: { type: String }
+  },
+  { timestamps: true ,collection: "RimsProduct"}
+);
+
+
+const RimsProduct = mongoose.model("RimsProduct",RimsProductSchema);
+
+
+module.exports = {User,MatProduct,RoofRackProduct,RimsProduct};

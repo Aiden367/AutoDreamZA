@@ -24,24 +24,35 @@ const CarMats: React.FC = () => {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [matType, setMatType] = useState('All');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [productCategory, setProductCategory] = useState<'mat' | 'roofrack'>('mat');
 
 
   useEffect(() => {
-    const scrapeAndFetchProducts = async () => {
-      try {
-        // 🔁 Use this to force scrape all pages
-        await axios.get('http://localhost:5000/product/scrape-force');
+  const scrapeAndFetch = async () => {
+    try {
+      // Trigger conditional scrape
+      await axios.get('http://localhost:5000/product/scrape-if-needed');
 
-        // ✅ Then fetch the updated products from DB
-        const res = await axios.get('http://localhost:5000/product/products');
-        setProducts(res.data);
-      } catch (error) {
-        console.error("Error forcing scrape or fetching products", error);
-      }
-    };
+      // Correct request with query parameters
+      const res = await axios.get('http://localhost:5000/product/products', {
+        params: {
+          type: productCategory,  // either 'mat' or 'roofrack'
+          page: currentPage,
+          limit: 20,
+        },
+      });
 
-    scrapeAndFetchProducts();
-  }, []);
+      setProducts(res.data.products);
+      setTotalPages(res.data.totalPages);
+    } catch (error) {
+      console.error("Error scraping or fetching products", error);
+    }
+  };
+
+  scrapeAndFetch();
+}, [currentPage, productCategory]);
 
 
   const filteredProducts = products.filter(product => {
@@ -54,7 +65,14 @@ const CarMats: React.FC = () => {
       manufacturer === 'All' || product.manufacturer === manufacturer;
 
     const matchesType =
-      matType === 'All' || product.type === matType;
+      matType === 'All'
+        ? ['boot mat', 'floor mat', 'bin mat', 'carpet mat', 'rubber mat'].includes(
+          product.type.trim().toLowerCase()
+        )
+        : product.type.trim().toLowerCase() === matType.trim().toLowerCase();
+
+
+
 
     const matchesPrice =
       (!minPrice || product.price >= parseFloat(minPrice)) &&
@@ -133,6 +151,15 @@ const CarMats: React.FC = () => {
           </div>
         </div>
 
+        <div className="filter-group">
+          <label>Category</label>
+          <select value={productCategory} onChange={e => setProductCategory(e.target.value as 'mat' | 'roofrack')}>
+            <option value="mat">Car Mats</option>
+            <option value="roofrack">Roof Racks</option>
+          </select>
+        </div>
+
+
         {/* Product Section */}
         <div className="product-section">
           <h1>Car Mats</h1>
@@ -161,6 +188,12 @@ const CarMats: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="pagination">
+            <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>Previous</button>
+            <span>Page {currentPage} of {totalPages}</span>
+            <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>Next</button>
           </div>
 
         </div>

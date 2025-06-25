@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
     <nav className={styles.navbar}>
       <Links links={links} />
     </nav>
-  );
+  );  
 };
 
 export default Navbar;

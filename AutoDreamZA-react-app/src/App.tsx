@@ -27,6 +27,7 @@ import TyresAndRimsPages from './FRONTEND/Pages/TyresAndRimsPages/TyresAndRims'
 import CarInterior from './FRONTEND/Pages/AccesoriesPages/CarInteriorPages/CarInterior'
 import { FilterProvider } from './COMPONENTS/FilterContext';
 import RoofRacks from './FRONTEND/Pages/AccesoriesPages/RoofRacks';
+import Rims from './FRONTEND/Pages/AccesoriesPages/Rims';
 //import Register from './FRONTEND/Pages/Register';
 
 const App: React.FC = () => {
@@ -53,6 +54,7 @@ const App: React.FC = () => {
           <Route path="/SeatCovers" element={<SeatCovers />} />
           <Route path="/SteeringLock" element={<SteeringLock />} />
           <Route path="/RoofRacks" element={<RoofRacks />} />
+          <Route path="/Rims" element={<Rims />} />
     
           <Route path="/Accessory" element={<Accessories />} />
           <Route path="/Audio" element={<Audio />} />

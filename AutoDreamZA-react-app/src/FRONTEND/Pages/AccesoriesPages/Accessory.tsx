@@ -44,7 +44,7 @@ const Accessory: React.FC = () => {
                         <p>Trailer Hitch</p>
                         <img src={CarInterior}></img>
                     </div>
-                    <div className="category" onClick={() => handleNavigation('/SteeringLock')}>
+                    <div className="category" onClick={() => handleNavigation('/Rims')}>
                         <p>Rims</p>
                         <img src={CarInterior}></img>
                     </div>

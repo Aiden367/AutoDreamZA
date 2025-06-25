@@ -14,7 +14,7 @@ type Product = {
     price: number;
 };
 
-const RoofRacks: React.FC = () => {
+const Rims: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [availability, setAvailability] = useState('All');
     const [manufacturer, setManufacturer] = useState('All');
@@ -34,7 +34,7 @@ const RoofRacks: React.FC = () => {
                 // ✅ Fetch only RoofRackProduct items
                 const res = await axios.get('http://localhost:5000/product/products', {
                     params: {
-                        type: 'roofrack',   // 👈 this is crucial
+                        type: 'rims',   // 👈 this is crucial
                         page: 1,
                         limit: 50
                     }
@@ -127,7 +127,7 @@ const RoofRacks: React.FC = () => {
 
                 {/* Product Section */}
                 <div className="product-section">
-                    <h1>Roof Racks</h1>
+                    <h1>Rims</h1>
 
                     <div className="search-bar">
                         <input
@@ -160,4 +160,4 @@ const RoofRacks: React.FC = () => {
         </>
     );
 }
-export default RoofRacks;
+export default Rims;
