@@ -1,97 +1,181 @@
-/* Overlay background */
+.checkout-container {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.checkout-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Two-column layout */
+.checkout-columns {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align top */
+  gap: 2rem;
+}
+
+/* Left column */
+.left-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.right-column {
+  width: 320px;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 2rem;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.5;
+}
+
+.right-column h2 {
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+  letter-spacing: 0.03em;
+}
+
+.right-column p {
+  font-weight: 400;
+  font-size: 1.05rem;
+  margin: 0.5rem 0;
+  letter-spacing: 0.015em;
+}
+
+.right-column strong {
+  font-weight: 600;
+}
+
+.right-column hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 1.5rem 0;
+}
+
+.right-column .order-total {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #111;
+  letter-spacing: 0.04em;
+  margin-top: 1rem;
+}
+
+/* Shared block style */
+.block {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsive fallback */
+@media (max-width: 768px) {
+  .checkout-columns {
+    flex-direction: column;
+  }
+
+  .right-column {
+    width: 100%;
+    position: static;
+  }
+}
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 999;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Modal box */
 .modal {
-  background: white;
+  background: #fff;
   padding: 2rem;
-  border-radius: 12px;
-  width: 400px;
-  max-width: 90%;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  border-radius: 1px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
 }
 
-/* Input styles */
-.modal input {
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-/* Modal buttons */
-.modal-buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
-.checkout-btn {
-  padding: 0.6rem 1.5rem;
-  background-color: #007bff;
-  color: white;
+/* Apply same professional font to buttons */
+.checkout-btn,
+.modal-buttons .checkout-btn,
+button {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333; /* same as order summary */
+  font-weight: 400; /* normal weight, not bold */
+  font-size: 1.05rem; /* match order summary p text */
+  letter-spacing: 0.015em;
+  background-color: #f6c600; /* Bright yellow */
+  padding: 0.6rem 1.2rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 20px;
   cursor: pointer;
-  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  width: auto;
+  max-width: 100%;
+}
+
+.checkout-btn:hover,
+.modal-buttons .checkout-btn:hover,
+button:hover {
+  background-color: #e5b800; /* Slightly darker yellow on hover */
+}
+
+/* Headings use same font family and color as order summary, but bolder and bigger */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222; /* slightly darker for headings */
+  letter-spacing: 0.03em;
+  font-weight: 600;
+}
+
+/* Specific for your checkout-title and right-column h2 (already defined) */
+.checkout-title {
+  font-weight: 600;
+  font-size: 2rem;
+  color: #222;
+  letter-spacing: 0.03em;
+}
+
+.right-column h2 {
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #222;
+  letter-spacing: 0.03em;
 }
 
 .cancel-btn {
-  padding: 0.6rem 1.5rem;
-  background-color: #ccc;
+  background-color: #ddd;
   color: #333;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  border-radius: 20px;
+  padding: 0.6rem 1.2rem;
   font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  width: auto;
 }
 
-.payment-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  background: #fff;
-  border-radius: 8px;
-}
-
-.payment-form .StripeElement {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: white;
-  height: 40px; /* ✅ Important */
-}
-
-.modal.payment-modal {
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.2);
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+.cancel-btn:hover {
+  background-color: #bbb;
 }

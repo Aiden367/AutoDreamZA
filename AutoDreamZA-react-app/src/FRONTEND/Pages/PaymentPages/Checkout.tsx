@@ -159,6 +159,12 @@ const CheckoutPage: React.FC = () => {
     );
   };
 
+  const TAX_RATE = 0.15;       // 15% tax
+  const DELIVERY_FEE = 50;     // R50 delivery fee
+
+  const subtotal = total;
+  const tax = subtotal * TAX_RATE;
+  const orderTotal = subtotal + tax + DELIVERY_FEE;
 
   return (
     <>
@@ -167,56 +173,68 @@ const CheckoutPage: React.FC = () => {
       <Nav />
 
       <div className="checkout-container">
-        <h1 className="checkout-title">Checkout</h1>
+       
 
-        <div className="checkout-grid">
-          <div className="checkout-section">
-            <h2>Cart Items</h2>
-            {cartItems.length === 0 && <p>Your cart is empty.</p>}
-            {cartItems.map(item => (
-              <div key={item.productId} className="cart-item-card">
-                <img src={item.image} alt={item.title} className="cart-item-image" />
-                <div className="cart-item-details">
-                  <h3>{item.title}</h3>
-                  <p>R{item.price} × {item.quantity}</p>
-                  <p><strong>Subtotal:</strong> R{(item.price * item.quantity).toFixed(2)}</p>
+        <div className="checkout-columns">
+          {/* Left Column */}
+          <div className="left-column">
+            {/* Shipping Block */}
+            <div className="block">
+              <h2>
+                {shippingAddress.fullName
+                  ? `Shipping to ${shippingAddress.fullName}`
+                  : 'Shipping Address'}
+              </h2>
+
+              {shippingAddress.address ? (
+                <div>
+                  <p>
+                    {[
+                      shippingAddress.address,
+                      shippingAddress.suburb,
+                      shippingAddress.city,
+                      shippingAddress.province,
+                      shippingAddress.postalCode,
+                      shippingAddress.mobileNumber,
+
+                    ]
+                      .filter(Boolean) // remove empty strings
+                      .join(', ')}
+                  </p>
+                  <button onClick={() => setShowAddressModal(true)}>Edit Address</button>
                 </div>
-              </div>
-            ))}
+              ) : (
+                <button onClick={() => setShowAddressModal(true)} className="checkout-btn">
+                  Add Delivery Address
+                </button>
+              )}
+            </div>
+
+
+            {/* Payment Block */}
+            <div className="block">
+              <h2>Credit Card Details</h2>
+              <Elements stripe={stripePromise}>
+                <PaymentForm onSuccess={() => setPaymentSuccess(true)} />
+              </Elements>
+            </div>
           </div>
 
-          <div className="checkout-section">
-            <h2>Shipping Address</h2>
-            {shippingAddress.address ? (
-              <div>
-                <p><strong>{shippingAddress.fullName}</strong></p>
-                <p>{shippingAddress.address}, {shippingAddress.suburb}</p>
-                <p>{shippingAddress.province}, {shippingAddress.postalCode}</p>
-                <p>{shippingAddress.mobileNumber}</p>
-                <button onClick={() => setShowAddressModal(true)}>Edit Address</button>
-              </div>
-            ) : (
-              <button onClick={() => setShowAddressModal(true)} className="checkout-btn">Add Delivery Address</button>
-            )}
-          </div>
-
-          {/* INLINE CREDIT CARD PAYMENT SECTION */}
-          <div className="checkout-section">
-            <h2>Credit Card Details</h2>
-            <Elements stripe={stripePromise}>
-              <PaymentForm onSuccess={() => setPaymentSuccess(true)} />
-            </Elements>
-          </div>
-
-          <div className="checkout-section summary-section">
+          <div className="right-column">
             <h2>Order Summary</h2>
             {shippingAddress.address && (
-              <>
-                <p><strong>Shipping:</strong> {shippingAddress.fullName}, {shippingAddress.address}, {shippingAddress.city}</p>
-              </>
+              <p><strong>Shipping:</strong> {shippingAddress.fullName}, {shippingAddress.address}, {shippingAddress.city}</p>
             )}
-            <p><strong>Total:</strong> R{total.toFixed(2)}</p>
+
+            <p><strong>Subtotal:</strong> R{subtotal.toFixed(2)}</p>
+            <p><strong>Tax (15%):</strong> R{tax.toFixed(2)}</p>
+            <p><strong>Delivery Fee:</strong> R{DELIVERY_FEE.toFixed(2)}</p>
+            <hr />
+            <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
+              Order Total: R{orderTotal.toFixed(2)}
+            </p>
           </div>
+
         </div>
 
         {paymentSuccess && (
@@ -240,8 +258,8 @@ const CheckoutPage: React.FC = () => {
             <input name="postalCode" placeholder="Postal Code" value={shippingAddress.postalCode} onChange={handleAddressChange} />
             <input name="deliveryInstructions" placeholder="Delivery Instructions" value={shippingAddress.deliveryInstructions} onChange={handleAddressChange} />
             <div className="modal-buttons">
-              <button onClick={() => setShowAddressModal(false)} className="checkout-btn">Save</button>
-              <button onClick={() => setShowAddressModal(false)} className="cancel-btn">Cancel</button>
+              <button onClick={() => setShowAddressModal(false)} className="checkout-btn">Use this Address</button>
+
             </div>
           </div>
         </div>
