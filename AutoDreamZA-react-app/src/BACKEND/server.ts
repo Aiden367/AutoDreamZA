@@ -5,6 +5,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 const user = require("./routes/user");
 const product = require("./routes/product");
+const payment = require("./routes/payment");
 const { Product } = require('./routes/models');
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -33,10 +34,14 @@ app.use(express.json());
 // Routes for user
 app.use('/user', user);
 app.use('/product',product)
+app.use('/payment',payment)
 app.route("/user")
   .get(user)
   .post(user);
 app.route("/product")
 .get(product)
 .post(product);
+app.route("/payment")
+  .get(payment)
+  .post(payment);
  
