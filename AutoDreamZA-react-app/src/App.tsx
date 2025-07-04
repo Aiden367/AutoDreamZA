@@ -28,12 +28,17 @@ import CarInterior from './FRONTEND/Pages/AccesoriesPages/CarInteriorPages/CarIn
 import { FilterProvider } from './COMPONENTS/FilterContext';
 import RoofRacks from './FRONTEND/Pages/AccesoriesPages/RoofRacks';
 import Rims from './FRONTEND/Pages/AccesoriesPages/Rims';
+import { UserProvider } from './BACKEND/context/UserContext'; // adjust path if needed
+import CartPage from './FRONTEND/Pages/PaymentPages/CartPage';
+import CheckoutPage from './FRONTEND/Pages/PaymentPages/Checkout';
+
 //import Register from './FRONTEND/Pages/Register';
 
 const App: React.FC = () => {
   return (
     <Router>
       {/* Wrap the Routes in FilterProvider */}
+      <UserProvider>
       <FilterProvider>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -67,8 +72,11 @@ const App: React.FC = () => {
           <Route path="/TyresAndRims" element={<TyresAndRimsPages />} />
 
           <Route path="/CarInterior" element={<CarInterior />} />
+          <Route path="/Cart" element={<CartPage />} />
+          <Route path="/Checkout" element={<CheckoutPage />} />
         </Routes>
       </FilterProvider>
+      </UserProvider>
     </Router>
   );
 };

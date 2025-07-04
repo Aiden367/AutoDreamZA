@@ -1,0 +1,28 @@
+/* CheckoutSteps.css */
+.checkout-steps {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  background: #f2f2f2;
+  border-bottom: 1px solid #ccc;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.step {
+  color: #555;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.step.active {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.arrow {
+  margin: 0 10px;
+  color: #aaa;
+}

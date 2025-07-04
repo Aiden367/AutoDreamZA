@@ -90,3 +90,61 @@
   border-radius: 6px;
 }
 
+.add-to-cart-btn {
+  background-color: #1e88e5; /* Blue */
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #1565c0; /* Darker blue */
+  transform: translateY(-2px);
+}
+
+.add-to-cart-btn:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+
+.cart-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  color: black;
+  border: 2px solid #0077cc;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  z-index: 9999;
+  animation: fadeInOut 3s ease forwards;
+}
+
+.cart-popup img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-right: 10px;
+}
+
+.cart-popup-text {
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}

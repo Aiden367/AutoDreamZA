@@ -3,6 +3,8 @@ import axios from 'axios';
 import '../../Styles/CarMats.css';
 import Nav from "../../../../COMPONENTS/Navbar";
 import SecondNav from "../../../../COMPONENTS/SecondNavbar"
+import { useUser } from '../../../../BACKEND/context/UserContext'; // adjust the path if needed
+
 
 type Product = {
   _id: string;
@@ -14,6 +16,13 @@ type Product = {
   price: number;
 };
 
+type CartItem = {
+  productId: string;
+  title: string;
+  image: string;
+  price: number;
+  quantity: number;
+};
 
 const CarMats: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -27,33 +36,105 @@ const CarMats: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [productCategory, setProductCategory] = useState<'mat' | 'roofrack'>('mat');
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupProduct, setPopupProduct] = useState<Product | null>(null);
+  const { userId } = useUser();
+
 
 
   useEffect(() => {
-  const scrapeAndFetch = async () => {
-    try {
-      // Trigger conditional scrape
-      await axios.get('http://localhost:5000/product/scrape-if-needed');
+    const scrapeAndFetch = async () => {
+      try {
+        // Trigger conditional scrape
+        await axios.get('http://localhost:5000/product/scrape-if-needed');
 
-      // Correct request with query parameters
-      const res = await axios.get('http://localhost:5000/product/products', {
-        params: {
-          type: productCategory,  // either 'mat' or 'roofrack'
-          page: currentPage,
-          limit: 20,
-        },
-      });
+        // Correct request with query parameters
+        const res = await axios.get('http://localhost:5000/product/products', {
+          params: {
+            type: productCategory,  // either 'mat' or 'roofrack'
+            page: currentPage,
+            limit: 20,
+          },
+        });
 
-      setProducts(res.data.products);
-      setTotalPages(res.data.totalPages);
-    } catch (error) {
-      console.error("Error scraping or fetching products", error);
-    }
+        setProducts(res.data.products);
+        setTotalPages(res.data.totalPages);
+      } catch (error) {
+        console.error("Error scraping or fetching products", error);
+      }
+    };
+
+    scrapeAndFetch();
+  }, [currentPage, productCategory]);
+
+  // 1. Fetch saved cart from backend when userId changes (or on mount)
+  useEffect(() => {
+    if (!userId) return;
+
+    const fetchCart = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/user/cart/${userId}`);
+        setCart(res.data || []);
+      } catch (error) {
+        console.error("Failed to fetch cart", error);
+      }
+    };
+
+    fetchCart();
+  }, [userId]);
+
+  // 2. Update backend when cart changes, but prevent update if cart is empty initially
+  useEffect(() => {
+    if (!userId) return;
+    if (cart.length === 0) return;  // <-- This prevents wiping on initial load
+
+    const updateCart = async () => {
+      try {
+        await axios.post('http://localhost:5000/user/cart/update', {
+          userId,
+          cartItems: cart,
+        });
+      } catch (error) {
+        console.error("Failed to update cart", error);
+      }
+    };
+
+    updateCart();
+  }, [cart, userId]);
+
+  const addToCart = (product: Product) => {
+    setCart(prevCart => {
+      const existing = prevCart.find(item => item.productId === product._id);
+      if (existing) {
+        return prevCart.map(item =>
+          item.productId === product._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        return [
+          ...prevCart,
+          {
+            productId: product._id,
+            title: product.title,
+            image: product.image,
+            price: product.price,
+            quantity: 1
+          }
+        ];
+      }
+    });
+
+    setPopupProduct(product);
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 3000);
   };
 
-  scrapeAndFetch();
-}, [currentPage, productCategory]);
 
+
+  // Optionally, show cart item count
+  const totalItemsInCart = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const filteredProducts = products.filter(product => {
     const matchesAvailability =
@@ -91,8 +172,18 @@ const CarMats: React.FC = () => {
     return 0;
   });
 
+
   return (
     <>
+      {showPopup && popupProduct && (
+        <div className="cart-popup">
+          <img src={popupProduct.image} alt={popupProduct.title} />
+          <div className="cart-popup-text">
+            <strong>{popupProduct.title}</strong>
+            <p>added to cart</p>
+          </div>
+        </div>
+      )}
       <SecondNav />
       <Nav />
       <div className="car-mats-page">
@@ -185,6 +276,15 @@ const CarMats: React.FC = () => {
                   <p className={product.available ? 'in-stock' : 'out-stock'}>
                     {product.available ? 'In Stock' : 'Out of Stock'}
                   </p>
+                  {/* ✅ Add to Cart button */}
+                  <button
+                    onClick={() => addToCart(product)}
+                    disabled={!product.available}
+                    className="add-to-cart-btn"
+                  >
+                    {product.available ? 'Add to Cart' : 'Out of Stock'}
+                  </button>
+
                 </div>
               </div>
             ))}

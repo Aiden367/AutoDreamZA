@@ -1,23 +1,18 @@
 import React, { useState } from 'react';
 import styles from './SecondNav.module.css';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-// Import the logo image
+import { Link } from 'react-router-dom';
 import profileImage from "../FRONTEND/Images/user_icon_logo.png";
 import logo from "../FRONTEND/Images/AutoDream_Logo.jpg";
 
 const SecondNavbar: React.FC = () => {
-  // State to hold the search query
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  // Handle search input change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
-  // Handle search button click
   const handleSearchClick = () => {
     console.log('Search for:', searchQuery);
-    // Add the logic for search functionality here
   };
 
   return (
@@ -43,9 +38,17 @@ const SecondNavbar: React.FC = () => {
         </button>
       </div>
 
-      {/* Right: Profile Image */}
-      <div className={styles.profileContainer}>
-        <img src={profileImage} alt="Profile" className={styles.profileImage} />
+      {/* Right: Profile Image and Cart Button */}
+      <div className={styles.profileContainer} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {/* Cart Button */}
+        <Link to="/Cart" className={styles.cartButton} style={{ textDecoration: 'none', color: 'inherit' }}>
+          🛒 {/* You can replace with an SVG or image icon */}
+        </Link>
+
+        {/* Profile Image */}
+        <Link to="/Login">
+          <img src={profileImage} alt="Profile" className={styles.profileImage} />
+        </Link>
       </div>
     </nav>
   );

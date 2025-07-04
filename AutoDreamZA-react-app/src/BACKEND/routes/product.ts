@@ -3,7 +3,7 @@ import { Router, Request, Response } from "express";
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 const router = Router();
-const { MatProduct, RoofRackProduct, RimsProduct } = require('./models');
+const { MatProduct, RoofRackProduct, RimsProduct, RadioProduct } = require('./models');
 
 
 
@@ -20,9 +20,7 @@ async function scrapeAllProductDetails(): Promise<any[]> {
     { url: "https://www.booxe.co.za/product-tag/toyota-bin-mat/", type: "Toyota Bin Mat" },
     { url: "https://holdfast.co.za/product-category/shop-roof-racks/", type: "Roof Rack" },
     { url: "https://www.theracersedge.co.za/Wheels-Tyres", type: "Rims" },
-
-
-    // Add more URLs as needed
+    { url: "https://sbrprosound.co.za/product-category/car-audio/car-radios/android-radios/", type: "Android Radio" },
   ];
 
   const allProducts: any[] = [];
@@ -31,6 +29,7 @@ async function scrapeAllProductDetails(): Promise<any[]> {
     const baseUrl = entry.url;
     const matType = entry.type;
     const isRacersEdge = baseUrl.includes("theracersedge.co.za");
+    const isSBRProSound = baseUrl.includes("sbrprosound.co.za");
     let currentPage = 1;
     while (true) {
       const pageUrl = currentPage === 1 ? baseUrl : `${baseUrl}page/${currentPage}/`;
@@ -49,16 +48,29 @@ async function scrapeAllProductDetails(): Promise<any[]> {
       }
       const $ = cheerio.load(data);
       let productElements;
-
       if (isRacersEdge) {
         productElements = $("div.item-box > div.product-item");
+      } else if (isSBRProSound) {
+        productElements = $("li.product.type-product");
       } else {
         productElements = $("li.product.type-product");
       }
+
       if (!productElements.length) break;
       const pageProducts = productElements.map((i, el) => {
         if (isRacersEdge) {
-          const title = $(el).find("h2.product-title a").text().trim();
+          let title = $(el).find("a.product-loop-title").text().trim();
+          if (!title) {
+            // try h3 directly or some other fallback
+            title = $(el).find("h3.woocommerce-loop-product__title").text().trim();
+          }
+
+          if (!title) {
+            // fallback to some other identifier or skip
+            title = "Unknown Product";
+          }
+
+
           // grab the <img> once
           const $img = $(el).find(".picture img");
 
@@ -90,13 +102,51 @@ async function scrapeAllProductDetails(): Promise<any[]> {
           return {
             title,
             price,
-            image:imageUrl,
+            image: imageUrl,
             url: productUrl,
             available: true,
             manufacturer,
             type: matType  // Use type from `baseUrls` like "Rims"
           };
-        } else {
+        }
+        else if (isSBRProSound) {
+          
+          // Title is inside the anchor
+          const title = $(el).find("a.product-loop-title").text().trim();
+
+          // URL is the href of the same anchor
+          const productUrl = $(el).find("a.product-loop-title").attr("href")?.trim() || "";
+          const imageUrl = $(el).find("div.product-image img").attr("src")?.trim() || "";
+
+
+          let priceTextRaw = $(el).find("span.price").text().trim();
+          const priceText = priceTextRaw.replace(/R|\s|,/g, '');
+          const price = parseFloat(priceText) || 0;
+
+          const manufacturerMatch = title.match(/Nakamichi|Sony|Pioneer|Kenwood|JVC|JBL|Boss/i);
+          const manufacturer = manufacturerMatch ? manufacturerMatch[0] : "Unknown";
+
+          if (!title || !price || !imageUrl || !productUrl) {
+            console.log("❌ Skipping radio product due to missing info", { title, price, imageUrl, productUrl });
+            return null;
+          }
+
+          console.log("✅ Radio product scraped:", { title, price, imageUrl, productUrl });
+
+          return {
+            title,
+            price,
+            image: imageUrl,
+            url: productUrl,
+            available: true,
+            manufacturer,
+            type: matType,
+          };
+        }
+
+
+
+        else {
           // your existing logic for booxe.co.za
           let title = $(el).find("h2.woocommerce-loop-product__title").text().trim();
           if (!title) title = $(el).find("h2").text().trim();
@@ -150,9 +200,12 @@ async function scrapeAllProductDetails(): Promise<any[]> {
             Model = RoofRackProduct;
           } else if (type === 'rims') {
             Model = RimsProduct;
+          } else if (type.includes('radio')) {
+            Model = RadioProduct;
           } else {
             Model = MatProduct;
           }
+
 
 
           const exists = await Model.findOne({ url: p.url });
@@ -177,31 +230,38 @@ async function scrapeAllProductDetails(): Promise<any[]> {
 
 router.get('/scrape-if-needed', async (req: Request, res: Response): Promise<any> => {
   try {
-    const [matCount, roofRackCount, rimsCount] = await Promise.all([
+    const [matCount, roofRackCount, rimsCount, radioCount] = await Promise.all([
       MatProduct.countDocuments(),
       RoofRackProduct.countDocuments(),
-      RimsProduct.countDocuments()
+      RimsProduct.countDocuments(),
+      RadioProduct.countDocuments()
+
     ]);
 
-    if (matCount > 0 && roofRackCount > 0 && rimsCount > 0) {
+    if (matCount > 0 && roofRackCount > 0 && rimsCount > 0 ) {
+      // ✅ All categories are already populated → no scrape needed
       return res.status(200).json({
         message: "Already populated",
         scraped: false,
         matCount,
         roofRackCount,
-        rimsCount
+        rimsCount,
       });
     }
 
+
+
     const products = await scrapeAllProductDetails();
 
+    // Then add to your response
     res.status(200).json({
       message: "Scraped successfully",
       scraped: true,
       totalCount: products.length,
-      matCount: products.filter(p => p.type.toLowerCase() !== 'roof rack' && p.type.toLowerCase() !== 'rims').length,
-      roofRackCount: products.filter(p => p.type.toLowerCase() === 'roof rack').length,
-      rimsCount: products.filter(p => p.type.toLowerCase() === 'rims').length,
+      matCount: products.filter(p => !p.type.toLowerCase().includes('roof') && !p.type.toLowerCase().includes('rims') && !p.type.toLowerCase().includes('radio')).length,
+      roofRackCount: products.filter(p => p.type.toLowerCase().includes('roof')).length,
+      rimsCount: products.filter(p => p.type.toLowerCase().includes('rims')).length,
+      radioCount: products.filter(p => p.type.toLowerCase().includes('radio')).length,
     });
   } catch (error) {
     console.error("Error during conditional scrape:", error);
@@ -239,9 +299,12 @@ router.get('/products', async (req, res) => {
       Model = RoofRackProduct;
     } else if (productType === 'rims') {
       Model = RimsProduct;
+    } else if (productType === 'radio' || productType === 'android-radio') {
+      Model = RadioProduct;
     } else {
       Model = MatProduct;
     }
+
 
 
     const [products, total] = await Promise.all([

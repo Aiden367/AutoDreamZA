@@ -1,11 +1,51 @@
-const dotenv = require("dotenv");
-
+//const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 const { User } = require('./models');
 const jwt = require("jsonwebtoken");
 
 import { Router, Request, Response } from "express";
 const router = Router(); 
+
+
+router.post('/cart/update', async (req: Request, res: Response) => {
+  try {
+    const { userId, cartItems } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    user.cart = cartItems;
+    const updatedUser = await user.save();
+
+    // ✅ Custom response with updated cart
+    res.status(200).json({
+      message: 'Cart updated successfully',
+      cart: updatedUser.cart,
+      userId: updatedUser._id
+    });
+  } catch (error) {
+    console.error("Error saving cart:", error);
+    res.status(500).json({ error: "Failed to update cart" });
+  }
+});
+
+router.get('/cart/:userId', async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.params.userId).select('cart');
+    if (!user){
+       res.status(404).json({ error: 'User not found' });
+       return;
+    } ;
+    res.status(200).json(user.cart);
+  } catch (error) {
+    console.error("Error fetching cart:", error);
+    res.status(500).json({ error: "Failed to retrieve cart" });
+  }
+});
+
 
 
 router.post('/Register', async (req, res) => {
