@@ -7,6 +7,7 @@ import SecondNav from "../../../COMPONENTS/SecondNavbar";
 import CheckoutSteps from '../../../COMPONENTS/CheckoutSteps';
 import '../Styles/Checkout.css';
 import { loadStripe } from '@stripe/stripe-js';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import {
   Elements,
   CardElement,
@@ -31,6 +32,10 @@ const CheckoutPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showAddressModal, setShowAddressModal] = useState(false);
+  const initialOptions = {
+    clientId: "ATDpP5c5rb4sY-vLWRIw_vNGbO75TwRBHMRr80tWyqAOxq5SVGBzDf7pcdyRjBdyeGy0kfbIVzUzkdpX",
+    currency: "USD", // or "ZAR" if supported
+  };
 
   const [shippingAddress, setShippingAddress] = useState({
     fullName: '',
@@ -165,107 +170,174 @@ const CheckoutPage: React.FC = () => {
   const subtotal = total;
   const tax = subtotal * TAX_RATE;
   const orderTotal = subtotal + tax + DELIVERY_FEE;
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<'card' | 'paypal'>('card');
+
 
   return (
-    <>
-      <CheckoutSteps />
-      <SecondNav />
-      <Nav />
+    <PayPalScriptProvider options={initialOptions}>
+      <>
+        <CheckoutSteps />
+        <SecondNav />
+        <Nav />
 
-      <div className="checkout-container">
-       
+        <div className="checkout-container">
 
-        <div className="checkout-columns">
-          {/* Left Column */}
-          <div className="left-column">
-            {/* Shipping Block */}
-            <div className="block">
-              <h2>
-                {shippingAddress.fullName
-                  ? `Shipping to ${shippingAddress.fullName}`
-                  : 'Shipping Address'}
-              </h2>
 
-              {shippingAddress.address ? (
-                <div>
-                  <p>
-                    {[
-                      shippingAddress.address,
-                      shippingAddress.suburb,
-                      shippingAddress.city,
-                      shippingAddress.province,
-                      shippingAddress.postalCode,
-                      shippingAddress.mobileNumber,
+          <div className="checkout-columns">
+            {/* Left Column */}
+            <div className="left-column">
+              {/* Shipping Block */}
+              <div className="block">
+                <h2>
+                  {shippingAddress.fullName
+                    ? `Shipping to ${shippingAddress.fullName}`
+                    : 'Shipping Address'}
+                </h2>
 
-                    ]
-                      .filter(Boolean) // remove empty strings
-                      .join(', ')}
-                  </p>
-                  <button onClick={() => setShowAddressModal(true)}>Edit Address</button>
+                {shippingAddress.address ? (
+                  <div>
+                    <p>
+                      {[
+                        shippingAddress.address,
+                        shippingAddress.suburb,
+                        shippingAddress.city,
+                        shippingAddress.province,
+                        shippingAddress.postalCode,
+                        shippingAddress.mobileNumber,
+
+                      ]
+                        .filter(Boolean) // remove empty strings
+                        .join(', ')}
+                    </p>
+                    <button onClick={() => setShowAddressModal(true)}>Edit Address</button>
+                  </div>
+                ) : (
+                  <button onClick={() => setShowAddressModal(true)} className="checkout-btn">
+                    Add Delivery Address
+                  </button>
+                )}
+              </div>
+
+
+              <div className="block">
+                <h2>Choose Payment Method</h2>
+
+                <div className="payment-method-options">
+                  <label className="payment-option">
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="card"
+                      checked={selectedPaymentMethod === 'card'}
+                      onChange={() => setSelectedPaymentMethod('card')}
+                    />
+                    Pay with Card
+                  </label>
+
+                  <label className="payment-option">
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="paypal"
+                      checked={selectedPaymentMethod === 'paypal'}
+                      onChange={() => setSelectedPaymentMethod('paypal')}
+                    />
+                    Or Pay with PayPal
+                  </label>
                 </div>
-              ) : (
-                <button onClick={() => setShowAddressModal(true)} className="checkout-btn">
-                  Add Delivery Address
-                </button>
+
+
+
+                <div className="payment-method-container">
+                  {selectedPaymentMethod === 'card' && (
+                    <Elements stripe={stripePromise}>
+                      <PaymentForm onSuccess={() => setPaymentSuccess(true)} />
+                    </Elements>
+                  )}
+
+                  {selectedPaymentMethod === 'paypal' && (
+                    <div className="paypal-buttons-wrapper">
+                      <PayPalButtons
+                        style={{ layout: "vertical", color: "blue", shape: "pill", label: "paypal" }}
+                        createOrder={(data, actions) => {
+                          return actions.order.create({
+                            intent: "CAPTURE",
+                            purchase_units: [{
+                              amount: {
+                                value: orderTotal.toFixed(2),
+                                currency_code: initialOptions.currency || 'USD',
+                              },
+                            }],
+                          });
+                        }}
+                        onApprove={async (data, actions) => {
+                          if (!actions?.order?.capture) {
+                            setPaymentError("PayPal: Unable to capture order.");
+                            return;
+                          }
+                          try {
+                            const details = await actions.order.capture();
+                            setPaymentSuccess(true);
+                            alert(`Payment completed by ${details.payer?.name?.given_name || "PayPal User"}`);
+                          } catch (error) {
+                            console.error("Capture error", error);
+                            setPaymentError("PayPal payment failed. Try again.");
+                          }
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="right-column">
+              <h2>Order Summary</h2>
+              {shippingAddress.address && (
+                <p><strong>Shipping:</strong> {shippingAddress.fullName}, {shippingAddress.address}, {shippingAddress.city}</p>
               )}
+
+              <p><strong>Subtotal:</strong> R{subtotal.toFixed(2)}</p>
+              <p><strong>Tax (15%):</strong> R{tax.toFixed(2)}</p>
+              <p><strong>Delivery Fee:</strong> R{DELIVERY_FEE.toFixed(2)}</p>
+              <hr />
+              <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
+                Order Total: R{orderTotal.toFixed(2)}
+              </p>
             </div>
 
+          </div>
 
-            {/* Payment Block */}
-            <div className="block">
-              <h2>Credit Card Details</h2>
-              <Elements stripe={stripePromise}>
-                <PaymentForm onSuccess={() => setPaymentSuccess(true)} />
-              </Elements>
+          {paymentSuccess && (
+            <div className="success-message">
+              Payment successful! Thank you for your order.
             </div>
-          </div>
-
-          <div className="right-column">
-            <h2>Order Summary</h2>
-            {shippingAddress.address && (
-              <p><strong>Shipping:</strong> {shippingAddress.fullName}, {shippingAddress.address}, {shippingAddress.city}</p>
-            )}
-
-            <p><strong>Subtotal:</strong> R{subtotal.toFixed(2)}</p>
-            <p><strong>Tax (15%):</strong> R{tax.toFixed(2)}</p>
-            <p><strong>Delivery Fee:</strong> R{DELIVERY_FEE.toFixed(2)}</p>
-            <hr />
-            <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
-              Order Total: R{orderTotal.toFixed(2)}
-            </p>
-          </div>
-
+          )}
         </div>
 
-        {paymentSuccess && (
-          <div className="success-message">
-            Payment successful! Thank you for your order.
+        {showAddressModal && (
+          <div className="modal-overlay">
+            <div className="modal">
+              <button className="close-modal-btn" onClick={() => setShowAddressModal(false)}>×</button>
+              <h2>Enter Shipping Address</h2>
+              <input name="fullName" placeholder="Full Name" value={shippingAddress.fullName} onChange={handleAddressChange} />
+              <input name="mobileNumber" placeholder="Mobile Number" value={shippingAddress.mobileNumber} onChange={handleAddressChange} />
+              <input name="address" placeholder="Address" value={shippingAddress.address} onChange={handleAddressChange} />
+              <input name="suburb" placeholder="Suburb" value={shippingAddress.suburb} onChange={handleAddressChange} />
+              <input name="city" placeholder="City" value={shippingAddress.city} onChange={handleAddressChange} />
+              <input name="province" placeholder="Province" value={shippingAddress.province} onChange={handleAddressChange} />
+              <input name="postalCode" placeholder="Postal Code" value={shippingAddress.postalCode} onChange={handleAddressChange} />
+              <input name="deliveryInstructions" placeholder="Delivery Instructions" value={shippingAddress.deliveryInstructions} onChange={handleAddressChange} />
+              <div className="modal-buttons">
+                <button onClick={() => setShowAddressModal(false)} className="checkout-btn">Use this Address</button>
+              </div>
+            </div>
           </div>
         )}
-      </div>
 
-      {/* Address Modal */}
-      {showAddressModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h2>Enter Shipping Address</h2>
-            <input name="fullName" placeholder="Full Name" value={shippingAddress.fullName} onChange={handleAddressChange} />
-            <input name="mobileNumber" placeholder="Mobile Number" value={shippingAddress.mobileNumber} onChange={handleAddressChange} />
-            <input name="address" placeholder="Address" value={shippingAddress.address} onChange={handleAddressChange} />
-            <input name="suburb" placeholder="Suburb" value={shippingAddress.suburb} onChange={handleAddressChange} />
-            <input name="city" placeholder="City" value={shippingAddress.city} onChange={handleAddressChange} />
-            <input name="province" placeholder="Province" value={shippingAddress.province} onChange={handleAddressChange} />
-            <input name="postalCode" placeholder="Postal Code" value={shippingAddress.postalCode} onChange={handleAddressChange} />
-            <input name="deliveryInstructions" placeholder="Delivery Instructions" value={shippingAddress.deliveryInstructions} onChange={handleAddressChange} />
-            <div className="modal-buttons">
-              <button onClick={() => setShowAddressModal(false)} className="checkout-btn">Use this Address</button>
-
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
+      </>
+    </PayPalScriptProvider>
+  )
 };
 
 export default CheckoutPage;

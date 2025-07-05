@@ -105,6 +105,7 @@
 }
 
 .modal {
+  position: relative;
   background: #fff;
   padding: 2rem;
   border-radius: 1px;
@@ -113,6 +114,7 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   z-index: 10000;
 }
+
 
 /* Apply same professional font to buttons */
 .checkout-btn,
@@ -178,4 +180,145 @@ h1, h2, h3, h4, h5, h6 {
 
 .cancel-btn:hover {
   background-color: #bbb;
+}
+
+.payment-method-container {
+  margin-top: 1rem;
+  /* no extra border or shadow since you have .block wrapping */
+}
+
+/* Stripe Card Form */
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.payment-form label {
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.015em;
+}
+
+.card-name-input {
+  padding: 0.6rem 1.2rem;
+  font-size: 1.05rem;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  outline-offset: 2px;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
+
+.card-name-input:focus {
+  border-color: #f6c600; /* bright yellow accent to match buttons */
+  box-shadow: 0 0 5px #f6c600aa;
+}
+
+/* Stripe Card Element container styles (override Stripe defaults) */
+.StripeElement {
+  padding: 15px 20px !important;
+  border: 1px solid #ddd !important;
+  border-radius: 20px !important;
+  background-color: white !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.StripeElement--focus {
+  border-color: #f6c600 !important;
+  box-shadow: 0 0 5px #f6c600aa !important;
+}
+
+/* Accepted cards message */
+.accepted-cards-message {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+/* Submit Button */
+.checkout-btn {
+  background-color: #f6c600; /* same bright yellow */
+  color: #333; /* dark text to match your buttons */
+  font-weight: 400;
+  border-radius: 20px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.05rem;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-btn:hover:not(:disabled) {
+  background-color: #e5b800; /* slightly darker yellow */
+}
+
+.checkout-btn:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+  color: #999;
+}
+
+/* PayPal Buttons Wrapper */
+.paypal-buttons-wrapper {
+  max-width: 320px;
+  margin-top: 1rem;
+}
+
+.payment-method-options {
+  display: flex;
+  flex-direction: row;   /* force horizontal layout */
+  align-items: center;   /* align vertically centered */
+  gap: 2rem;             /* spacing between options */
+}
+
+
+.payment-option {
+  display: flex;           /* or inline-flex */
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  white-space: nowrap;     /* Prevents wrapping */
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  outline: none;
+}
+
+/* Prevent orange/yellow highlights on focus and hover */
+.close-modal-btn:hover,
+.close-modal-btn:focus,
+.close-modal-btn:active {
+  color: #333;           /* Keep same color on hover/focus */
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-start; /* aligns content to the left */
+  margin-top: 1rem;
+}
+
+.modal-buttons .checkout-btn {
+  padding: 0.4rem 1rem;        /* smaller button */
+  font-size: 0.95rem;
+  width: auto;
+  border-radius: 1px;
+  font-weight: 500;
 }
