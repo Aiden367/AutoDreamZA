@@ -8,6 +8,7 @@ import CheckoutSteps from '../../../COMPONENTS/CheckoutSteps';
 import '../Styles/Checkout.css';
 import { loadStripe } from '@stripe/stripe-js';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
 import {
   Elements,
   CardElement,
@@ -51,6 +52,26 @@ const CheckoutPage: React.FC = () => {
   const [paymentError, setPaymentError] = useState('');
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
+
+  const [userEmail, setUserEmail] = useState('');
+
+
+
+  useEffect(() => {
+    if (!userId) return;
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/user/${userId}`);
+        console.log("Fetched user info:", res.data);
+        setUserEmail(res.data.email);
+      } catch (err) {
+        console.error("Failed to fetch user data", err);
+      }
+    };
+    fetchUser();
+  }, [userId]);
+
+
   useEffect(() => {
     if (!userId) return;
 
@@ -59,6 +80,7 @@ const CheckoutPage: React.FC = () => {
       try {
         const res = await axios.get(`http://localhost:5000/user/cart/${userId}`);
         setCartItems(res.data || []);
+
       } catch (error) {
         console.error("Failed to fetch cart", error);
         setError('Failed to load cart');
@@ -94,6 +116,7 @@ const CheckoutPage: React.FC = () => {
       try {
         const res = await axios.post('http://localhost:5000/payment/create-payment-intent', {
           amount: Math.round(total * 100),
+          email: userEmail,
         });
 
         const clientSecret = res.data.clientSecret;

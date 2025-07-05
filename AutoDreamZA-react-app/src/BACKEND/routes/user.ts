@@ -7,6 +7,21 @@ import { Router, Request, Response } from "express";
 const router = Router(); 
 
 
+router.get('/:userId', async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.params.userId).select('-password'); // Exclude password
+    if (!user) {
+       res.status(404).json({ error: 'User not found' });
+       return
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    res.status(500).json({ error: 'Failed to fetch user details' });
+  }
+});
+
+
 router.post('/cart/update', async (req: Request, res: Response) => {
   try {
     const { userId, cartItems } = req.body;
