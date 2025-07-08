@@ -1,9 +1,52 @@
 import { Router, Request, Response } from "express";
 import Stripe from "stripe";
 import nodemailer from "nodemailer";
-
+const { User, Purchase } = require('./models');
 const router = Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+
+router.post('/purchase', async (req, res) => {
+  try {
+    const { userId, items, totalPrice, shippingAddress, paymentMethod, paymentId } = req.body;
+
+    if (!userId || !items || !totalPrice) {
+       res.status(400).json({ message: 'Missing required fields' });
+       return;
+    }
+
+    const newPurchase = new Purchase({
+      user: userId,
+      items,
+      totalPrice,
+      shippingAddress,
+      paymentMethod,
+      paymentId,
+    });
+
+    await newPurchase.save();
+
+    // ✅ Push purchase into the user's `purchases` array
+    await User.findByIdAndUpdate(userId, {
+      $push: { purchases: newPurchase._id }
+    });
+
+    res.status(201).json({ message: 'Purchase saved', purchase: newPurchase });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+router.get('/purchase/:userId', async (req, res) => {
+  try {
+    const purchases = await Purchase.find({ user: req.params.userId }).sort({ purchasedAt: -1 });
+    res.json(purchases);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 // ✅ Configure Nodemailer transporter (Gmail SMTP)
 const transporter = nodemailer.createTransport({

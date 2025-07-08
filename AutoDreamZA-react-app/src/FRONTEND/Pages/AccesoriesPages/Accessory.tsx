@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from "../../../COMPONENTS/Navbar";
 import CarInterior from "../../Images/Car_Interior_New_img.jpg";
+import CarMat from "../../Images/Car_mat_image.jpg";
+import RoofRack from "../../Images/Roof_Rack_image.jpg";
+import SeatCover from "../../Images/Seat_cover_iimage.jpg";
+import Rims from "../../Images/Rims_iimage.jpeg";
+import Hitches from "../../Images/Hitches_image.jpg";
 import SecondNav from "../../../COMPONENTS/SecondNavbar"
 import "../Styles/Accessories.css";
 const Accessory: React.FC = () => {
@@ -16,42 +21,31 @@ const Accessory: React.FC = () => {
             <div className="categories-wrapper">
                 <h1>Categories</h1>
                 <div className="categories-container" >
-                    <div className="category" onClick={() => handleNavigation('/CarInterior')}>
-                        <p>Car Interior</p>
-                        <img src={CarInterior}></img>
+                    <div className="category" onClick={() => handleNavigation('/CarMats')}>
+                        <img src={CarMat}></img>
+                        <p>Car Mats</p>
                     </div>
                     <div className="category" onClick={() => handleNavigation('/RoofRacks')}>
+                        <img src={RoofRack}></img>
                         <p>Roof Racks</p>
-                        <img src={CarInterior}></img>
-                    </div>
-                    <div className="category" onClick={() => handleNavigation('/DoorHandles')}>
-                        <p>Wheel Covers</p>
-                        <img src={CarInterior}></img>
-                    </div>
-                    <div className="category" onClick={() => handleNavigation('/DoorRubber')}>
-                        <p>License Plate and Disc Holder</p>
-                        <img src={CarInterior}></img>
-                    </div>
-                    <div className="category" onClick={() => handleNavigation('/GasSprings')}>
-                        <p>License Plate and Disc Holder</p>
-                        <img src={CarInterior}></img>
-                    </div>
-                    <div className="category" onClick={() => handleNavigation('/PedalPads')}>
-                        <p>Sun Visor</p>
-                        <img src={CarInterior}></img>
                     </div>
                     <div className="category" onClick={() => handleNavigation('/SeatCovers')}>
-                        <p>Trailer Hitch</p>
-                        <img src={CarInterior}></img>
+                        <img src={SeatCover}></img>
+                        <p>Seat Covers</p>
                     </div>
                     <div className="category" onClick={() => handleNavigation('/Rims')}>
+                        <img src={Rims}></img>
                         <p>Rims</p>
-                        <img src={CarInterior}></img>
                     </div>
-                    <div className="category" onClick={() => handleNavigation('/CarInterior')}>
-                        <p>Steering Wheel Covers</p>
-                        <img src={CarInterior}></img>
+                     <div className="category" onClick={() => handleNavigation('/Trailer hitches')}>
+                        <img src={Hitches}></img>
+                        <p>Rims</p>
                     </div>
+                    <div className="category" onClick={() => handleNavigation('/Trailer hitches')}>
+                        <img src={Hitches}></img>
+                        <p>Rims</p>
+                    </div>
+                  
                 </div>
             </div>
         </>

@@ -50,10 +50,12 @@ html, body {
 }
 
 .hero-content {
-    position: relative;
-    text-align: center;
-    z-index: 1;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+  margin-top: -400px; /* ← Move categories higher */
 }
+
 
 .hero-content h1 {
     font-size: 3rem;

@@ -55,6 +55,25 @@ const CheckoutPage: React.FC = () => {
 
   const [userEmail, setUserEmail] = useState('');
 
+  const savePurchase = async (paymentMethod: 'card' | 'paypal', paymentId: string) => {
+    try {
+      await axios.post('http://localhost:5000/payment/purchase', {
+        userId,
+        items: cartItems.map(({ productId, title, price, quantity }) => ({
+          productId,
+          title,
+          price,
+          quantity,
+        })),
+        totalPrice: orderTotal,
+        shippingAddress,
+        paymentMethod,
+        paymentId,
+      });
+    } catch (err) {
+      console.error('Failed to save purchase:', err);
+    }
+  };
 
 
   useEffect(() => {
@@ -99,7 +118,7 @@ const CheckoutPage: React.FC = () => {
 
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  const PaymentForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
+  const PaymentForm: React.FC<{ onSuccess: (paymentId: string) => void }> = ({ onSuccess }) => {
     const stripe = useStripe();
     const elements = useElements();
     const [processing, setProcessing] = useState(false);
@@ -136,7 +155,7 @@ const CheckoutPage: React.FC = () => {
         } else if (result.paymentIntent?.status === 'succeeded') {
           setProcessing(false);
           setPaymentSuccess(true);
-          onSuccess();
+          onSuccess(result.paymentIntent.id);
         }
       } catch (error) {
         setLocalError('Payment processing error');
@@ -275,9 +294,10 @@ const CheckoutPage: React.FC = () => {
                   {selectedPaymentMethod === 'card' && (
                     <Elements stripe={stripePromise}>
                       <PaymentForm
-                        onSuccess={async () => {
+                       onSuccess={async (paymentId: string) => {
                           setPaymentSuccess(true);
                           try {
+                            await savePurchase('card', paymentId);
                             // ✅ Clear user's cart in the backend
                             await axios.post(`http://localhost:5000/user/cart/clear/${userId}`);
 

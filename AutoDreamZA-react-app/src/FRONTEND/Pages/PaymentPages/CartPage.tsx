@@ -24,6 +24,25 @@ const CartPage: React.FC = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // you can adjust this
+
+  // Calculate displayed items for current page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = cartItems.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(cartItems.length / itemsPerPage);
+
+  const goToNextPage = () => {
+    setCurrentPage((page) => Math.min(page + 1, totalPages));
+  };
+
+  const goToPrevPage = () => {
+    setCurrentPage((page) => Math.max(page - 1, 1));
+  };
+
+
   const handleRemoveOne = async (productId: string) => {
     try {
       // Create new cart with quantity decreased by 1 for the matching item
@@ -122,7 +141,7 @@ const CartPage: React.FC = () => {
       <Nav />
 
       <div className="cart-container">
-        <h1 className="checkout-title">Your Cart</h1>
+        <h1 className="checkout-title">Shopping Cart</h1>
 
         <div className="cart-content">
           {cartItems.length === 0 ? (
@@ -137,7 +156,7 @@ const CartPage: React.FC = () => {
           ) : (
             <>
               <div className="cart-items-section">
-                {cartItems.map(item => (
+                {currentItems.map(item => (
                   <div key={item.productId} className="cart-item-card">
                     <img src={item.image} alt={item.title} className="cart-item-image" />
 
@@ -172,8 +191,19 @@ const CartPage: React.FC = () => {
                   </div>
 
 
-                ))}
 
+                ))}
+                <div className="pagination-controls">
+                  <button onClick={goToPrevPage} disabled={currentPage === 1}>
+                    Previous
+                  </button>
+
+                  <span>Page {currentPage} of {totalPages}</span>
+
+                  <button onClick={goToNextPage} disabled={currentPage === totalPages}>
+                    Next
+                  </button>
+                </div>
               </div>
 
 

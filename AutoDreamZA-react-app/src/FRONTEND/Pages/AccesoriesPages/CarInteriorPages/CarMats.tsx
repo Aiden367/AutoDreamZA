@@ -135,7 +135,6 @@ const CarMats: React.FC = () => {
 
   // Optionally, show cart item count
   const totalItemsInCart = cart.reduce((sum, item) => sum + item.quantity, 0);
-
   const filteredProducts = products.filter(product => {
     const matchesAvailability =
       availability === 'All' ||
@@ -253,7 +252,7 @@ const CarMats: React.FC = () => {
 
         {/* Product Section */}
         <div className="product-section">
-          <h1>Car Mats</h1>
+         
 
           <div className="search-bar">
             <input
@@ -270,13 +269,13 @@ const CarMats: React.FC = () => {
               <div key={product._id} className="product-card">
                 <img src={product.image} alt={product.title} />
                 <div className="product-info">
-                  <h2>{product.title}</h2>
-                  <p>{product.manufacturer}</p>
-                  <p>R{product.price}</p>
+                  <h3>{product.title}</h3>
+                  <p><strong>Manufacturer:</strong> {product.manufacturer}</p>
+                  
+                  <p><strong>Price:</strong> R{product.price.toFixed(2)}</p>
                   <p className={product.available ? 'in-stock' : 'out-stock'}>
-                    {product.available ? 'In Stock' : 'Out of Stock'}
+                    {product.available ? 'Available Now' : 'Currently Out of Stock'}
                   </p>
-                  {/* ✅ Add to Cart button */}
                   <button
                     onClick={() => addToCart(product)}
                     disabled={!product.available}
@@ -284,9 +283,9 @@ const CarMats: React.FC = () => {
                   >
                     {product.available ? 'Add to Cart' : 'Out of Stock'}
                   </button>
-
                 </div>
               </div>
+
             ))}
           </div>
 

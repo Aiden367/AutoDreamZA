@@ -9,94 +9,91 @@ html, body {
     box-sizing: border-box;
 }
 
-/* Rectangular Container */
+
+
+/* Wrapper */
 .categories-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 1000px; /* Increased to fit three per row */
-    max-height: 80vh;
-    overflow-y: auto;
+    width: 1000px;
+    height: auto;
+    max-height: none;
+    overflow-y: visible;
     border-radius: 15px;
     padding: 20px;
-    
-    
     position: absolute;
-    top: 60%; /* Moves it down */
-    left: 40%; /* Moves it to the left */
-   
+    top: 60%;
+    left: 40%;
     transform: translate(-50%, -50%);
-    height: 600px;
 }
 
-/* Category container */
+/* Container */
 .categories-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 10px; /* Increased for better spacing */
-    width: 100%;
+    justify-content: flex-start;
+    gap: 30px; /* Increased gap */
 }
+
+/* Heading */
 .categories-wrapper h1 {
     position: absolute;
-    top: -30px; /* Moves it above the wrapper */
-    left: 0; /* Aligns it to the left */
+    top: -30px;
+    left: 0;
     font-size: 24px;
     font-weight: bold;
     color: #333;
 }
-/* Category box */
+
+/* ✅ BIGGER CATEGORY BOX */
 .category {
+    width: 340px;
+    height: 340px;
     display: flex;
-    flex-direction: row; /* Aligns text and image in a row */
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* Pushes text left and image right */
-    width: calc((100% - 20px) / 3);
-    height: 160px;
+    justify-content: center;
     background-color: white;
-    border-radius: 0px;
-    border: 2px solid white;
+    border-radius: 12px;
+    border: 2px solid #ddd;
     padding: 10px;
-    text-align: left; /* Aligns text to the left */
-    transition: transform 0.2s ease-in-out;
+    text-align: center;
     cursor: pointer;
     box-sizing: border-box;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* ✅ BIGGER IMAGE */
+.category img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin: 0 auto;
 }
 
 /* Category text */
 .category p {
-    font-size: 16px;
+    font-size: 18px;
     font-family: 'Poppins', sans-serif;
-    margin: 0;
+    margin-top: 16px;
     color: #333;
-    flex-grow: 1; /* Allows text to take available space */
-    padding-left: 10px; /* Adds spacing from the left */
 }
 
-/* Category image */
-.category img {
-    width: 80px; /* Increased size */
-    height: 80px;
-    object-fit: contain; /* Ensures the image fits well */
-    margin-left: auto; /* Pushes image to the right */
-}
-
-
-
-/* Responsive Adjustments */
+/* Responsive */
 @media (max-width: 750px) {
     .categories-wrapper {
         width: 90%;
     }
 
     .category {
-        width: calc((100% - 10px) / 2); /* Two per row */
+        width: calc((100% - 10px) / 2);
     }
 }
 
 @media (max-width: 500px) {
     .category {
-        width: 100%; /* One per row */
+        width: 100%;
     }
 }

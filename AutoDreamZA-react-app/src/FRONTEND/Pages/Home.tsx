@@ -5,6 +5,10 @@ import SecondNav from "../../COMPONENTS/SecondNavbar"
 import "./Styles/Home.css";
 import AccessoriesImage from "../Images/Accesories_image.jpg";
 import HeadingImage from "../Images/yearone-GOkHtbgloRs-unsplash.jpg";
+import AudioImage from "../Images/Audiio_car.jpeg";
+import BatteryImage from "../Images/Batteries_car.jpg";
+import ElectricalImage from "../Images/Electrical_image.jpg";
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -37,15 +41,15 @@ const Home: React.FC = () => {
             </div>
             <div className="category" onClick={() => handleNavigation('/Audio')}>
 
-              <img src={AccessoriesImage} alt="Aduio" />
+              <img src={AudioImage} alt="Aduio" />
               <p>Audio</p>
             </div>
             <div className="category" onClick={() => handleNavigation('/Batteries')}>
-              <img src={AccessoriesImage} alt="Batteries" />
+              <img src={BatteryImage} alt="Batteries" />
               <p>Batteries and Battery Products</p>
             </div>
             <div className="category" onClick={() => handleNavigation('/Electrical')}>
-              <img src={AccessoriesImage} alt="Electrical" />
+              <img src={ElectricalImage} alt="Electrical" />
               <p>Electrical</p>
             </div>
             <div className="category" onClick={() => handleNavigation('/Engine')}>
