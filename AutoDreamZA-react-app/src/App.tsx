@@ -31,6 +31,8 @@ import Rims from './FRONTEND/Pages/AccesoriesPages/Rims';
 import { UserProvider } from './BACKEND/context/UserContext'; // adjust path if needed
 import CartPage from './FRONTEND/Pages/PaymentPages/CartPage';
 import CheckoutPage from './FRONTEND/Pages/PaymentPages/Checkout';
+import ProfilePage from './FRONTEND/Pages/ProfilePages/Profile';
+import PurchasesPage from './FRONTEND/Pages/ProfilePages/PurchasesPage';
 //import Register from './FRONTEND/Pages/Register';
 
 const App: React.FC = () => {
@@ -75,6 +77,8 @@ const App: React.FC = () => {
           <Route path="/CarInterior" element={<CarInterior />} />
           <Route path="/Cart" element={<CartPage />} />
           <Route path="/Checkout" element={<CheckoutPage />} />
+          <Route path="/Profile/:userId" element={<ProfilePage />} />
+          <Route path="/Purchases" element={<PurchasesPage />} />
         </Routes>
       </FilterProvider>
       </UserProvider>

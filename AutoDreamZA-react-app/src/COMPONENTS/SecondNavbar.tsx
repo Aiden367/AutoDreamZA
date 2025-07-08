@@ -3,9 +3,11 @@ import styles from './SecondNav.module.css';
 import { Link } from 'react-router-dom';
 import profileImage from "../FRONTEND/Images/user_icon_logo.png";
 import logo from "../FRONTEND/Images/AutoDream_Logo.jpg";
+import { useUser } from '../BACKEND/context/UserContext'; // Adjust path if needed
 
 const SecondNavbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const { userId } = useUser();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -46,9 +48,16 @@ const SecondNavbar: React.FC = () => {
         </Link>
 
         {/* Profile Image */}
-        <Link to="/Login">
-          <img src={profileImage} alt="Profile" className={styles.profileImage} />
-        </Link>
+        {userId ? (
+          <Link to={`/Profile/${userId}`}>
+            <img src={profileImage} alt="Profile" className={styles.profileImage} />
+          </Link>
+        ) : (
+          <Link to="/Login">
+            <img src={profileImage} alt="Profile" className={styles.profileImage} />
+          </Link>
+        )}
+
       </div>
     </nav>
   );

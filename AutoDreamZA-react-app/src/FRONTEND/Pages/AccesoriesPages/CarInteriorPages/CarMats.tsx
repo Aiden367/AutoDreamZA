@@ -188,7 +188,7 @@ const CarMats: React.FC = () => {
       <div className="car-mats-page">
         {/* Filter Sidebar */}
         <div className="filter-section">
-          <h2>Filters</h2>
+
 
           <div className="filter-group">
             <label>Availability</label>
@@ -241,18 +241,12 @@ const CarMats: React.FC = () => {
           </div>
         </div>
 
-        <div className="filter-group">
-          <label>Category</label>
-          <select value={productCategory} onChange={e => setProductCategory(e.target.value as 'mat' | 'roofrack')}>
-            <option value="mat">Car Mats</option>
-            <option value="roofrack">Roof Racks</option>
-          </select>
-        </div>
+
 
 
         {/* Product Section */}
         <div className="product-section">
-         
+
 
           <div className="search-bar">
             <input
@@ -271,7 +265,7 @@ const CarMats: React.FC = () => {
                 <div className="product-info">
                   <h3>{product.title}</h3>
                   <p><strong>Manufacturer:</strong> {product.manufacturer}</p>
-                  
+
                   <p><strong>Price:</strong> R{product.price.toFixed(2)}</p>
                   <p className={product.available ? 'in-stock' : 'out-stock'}>
                     {product.available ? 'Available Now' : 'Currently Out of Stock'}
@@ -290,9 +284,28 @@ const CarMats: React.FC = () => {
           </div>
 
           <div className="pagination">
-            <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>Previous</button>
-            <span>Page {currentPage} of {totalPages}</span>
-            <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>Next</button>
+            <button
+              onClick={() => {
+                setCurrentPage(p => Math.max(1, p - 1));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+
+            <button
+              onClick={() => {
+                setCurrentPage(p => Math.min(totalPages, p + 1));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+
+
+
           </div>
 
         </div>

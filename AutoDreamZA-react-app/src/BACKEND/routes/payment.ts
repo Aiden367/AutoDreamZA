@@ -41,12 +41,35 @@ router.post('/purchase', async (req, res) => {
 
 router.get('/purchase/:userId', async (req, res) => {
   try {
-    const purchases = await Purchase.find({ user: req.params.userId }).sort({ purchasedAt: -1 });
+    const { userId } = req.params;
+    const purchases = await Purchase.find({ user: userId }).sort({ purchasedAt: -1 }).lean();
+
+    const { MatProduct, RoofRackProduct, RimsProduct, RadioProduct } = require('./models');
+
+    // Helper: Find product image based on productId in any collection
+    const findProductImage = async (productId: string) => {
+      const collections = [MatProduct, RoofRackProduct, RimsProduct, RadioProduct];
+      for (const model of collections) {
+        const product = await model.findOne({ _id: productId }).lean();
+        if (product && product.image) return product.image;
+      }
+      return null;
+    };
+
+    // Enrich purchase items
+    for (const purchase of purchases) {
+      for (const item of purchase.items) {
+        item.imageUrl = await findProductImage(item.productId);
+      }
+    }
+
     res.json(purchases);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 // ✅ Configure Nodemailer transporter (Gmail SMTP)
 const transporter = nodemailer.createTransport({

@@ -1,0 +1,146 @@
+body, html {
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+
+/* Container */
+.login-container {
+  max-width: 600px;      /* Wider */
+  min-width: 400px;      /* Optional minimum width */
+  margin: 80px auto;
+  padding: 40px 50px;    /* More horizontal padding for rectangle shape */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  text-align: left;      /* Align text/labels left for professional feel */
+   margin: 200px auto 40px
+}
+
+
+/* Title */
+.login-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+  color: #1565c0;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Labels */
+.input-label {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: #444;
+  user-select: none;
+}
+
+/* Inputs */
+.input-field {
+  padding: 14px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1.8px solid #ccc;
+  background-color: #f9fafe;
+  box-shadow: inset 1px 1px 4px rgba(255, 255, 255, 0.7);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  outline-offset: 2px;
+  outline-color: transparent;
+}
+
+.input-field:hover {
+  border-color: #1976d2;
+  box-shadow: 0 0 8px rgba(25, 118, 210, 0.3);
+  cursor: text;
+}
+
+.input-field:focus {
+  border-color: #1565c0;
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.35);
+  background-color: #fff;
+  outline-color: #1565c0;
+}
+
+/* Button */
+.login-btn {
+  margin-top: 12px;
+  background: linear-gradient(135deg, #1e88e5, #1565c0);
+  color: #fff;
+  font-weight: 700;
+  padding: 14px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(21, 101, 192, 0.4);
+  transition: background 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.login-btn:hover {
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.login-btn:active {
+  transform: translateY(0) scale(1);
+}
+
+/* Error and Success Messages */
+.error-message {
+  margin-top: 20px;
+  color: #c62828;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.success-message {
+  margin-top: 20px;
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Register link message */
+.register-message {
+  margin-top: 28px;
+  font-size: 1rem;
+  color: #555;
+}
+
+.register-link {
+  color: #1565c0;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  color: #0d47a1;
+  text-decoration: underline;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .login-container {
+    margin: 40px 16px;
+    padding: 32px 20px;
+  }
+
+  .login-title {
+    font-size: 1.8rem;
+  }
+}

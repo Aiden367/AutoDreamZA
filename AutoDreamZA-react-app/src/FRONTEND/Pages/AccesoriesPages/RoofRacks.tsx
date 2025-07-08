@@ -162,7 +162,7 @@ const RoofRacks: React.FC = () => {
             <div className="car-mats-page">
                 {/* Filter Sidebar */}
                 <div className="filter-section">
-                    <h2>Filters</h2>
+                  
 
                     <div className="filter-group">
                         <label>Availability</label>
@@ -204,7 +204,7 @@ const RoofRacks: React.FC = () => {
 
                 {/* Product Section */}
                 <div className="product-section">
-                    <h1>Roof Racks</h1>
+                    
 
                     <div className="search-bar">
                         <input

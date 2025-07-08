@@ -3,7 +3,8 @@ import Nav from "../../COMPONENTS/Navbar"
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../../BACKEND/context/UserContext';
-import './Styles/Register.css'
+import SecondNav from "../../COMPONENTS/SecondNavbar"
+import './Styles/Login.css'
 const Login: React.FC = () => {
     const [enteredEmail, setEnteredEmail] = useState('');
     const [enteredFirstName, setEnteredFirstName] = useState('');
@@ -56,35 +57,50 @@ const Login: React.FC = () => {
 
 
     return (
+          <>
 
-        <div className='create-account-container'>
-            <h1>Customer Login</h1>
-            <form onSubmit={handleLogin}>
-                <div className="input-group">
-                    <input
-                        type="text"
-                        placeholder='Email'
-                        value={enteredEmail}
-                        onChange={(e) => setEnteredEmail(e.target.value)}
-                    />
-                </div>
-                <div className="input-group">
-                    <input
-                        type="text"
-                        placeholder='Password'
-                        value={enteredPassword}
-                        onChange={(e) => setEnteredPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit" className='login-btn'>Login</button>
+      <SecondNav />
+      <Nav />
+        <div className="login-container">
+    
+            <form onSubmit={handleLogin} className="login-form" noValidate>
+                <label htmlFor="email" className="input-label">Email</label>
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={enteredEmail}
+                    onChange={(e) => setEnteredEmail(e.target.value)}
+                    autoComplete="email"
+                    required
+                    className="input-field"
+                />
+
+                <label htmlFor="password" className="input-label">Password</label>
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="Enter your password"
+                    value={enteredPassword}
+                    onChange={(e) => setEnteredPassword(e.target.value)}
+                    autoComplete="current-password"
+                    required
+                    className="input-field"
+                />
+
+                <button type="submit" className="login-btn">Login</button>
             </form>
+
             {error && <p className="error-message">{error}</p>}
             {successMessage && <p className="success-message">{successMessage}</p>}
-            <p className="login-message">
-                Don't have an account? <Link to="/Register" className="login-link">Register here</Link>
+
+            <p className="register-message">
+                Don't have an account? <Link to="/Register" className="register-link">Register here</Link>
             </p>
         </div>
+        </>
+    );
 
-    )
+
 }
 export default Login;

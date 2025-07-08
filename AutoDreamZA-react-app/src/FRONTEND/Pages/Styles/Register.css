@@ -1,15 +1,120 @@
-.form-container{
-    background-color: (255,255.255.0.9);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px (0,0,0,0.1);
-    width: 700px;
-    text-align: center;
+.register-page {
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 140px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-input{
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+
+.create-account-container {
+  max-width: 600px;
+  min-width: 400px;
+  background: #fff;
+  padding: 50px 60px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  color: #222;
+  text-align: left;
+}
+
+.create-account-container h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+  color: #1565c0;
+  text-align: center;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group input {
+  padding: 14px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1.8px solid #ccc;
+  background-color: #f9fafe;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #1565c0;
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.3);
+  outline: none;
+  background-color: #fff;
+}
+
+/* Button matches login style */
+.create-account-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 14px 0;
+  background: linear-gradient(135deg, #1e88e5, #1565c0);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(21, 101, 192, 0.4);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.create-account-btn:hover {
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.error-message {
+  margin-top: 20px;
+  color: #c62828;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.success-message {
+  margin-top: 20px;
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Login redirect message */
+.login-redirect-message {
+  margin-top: 28px;
+  font-size: 1rem;
+  color: #555;
+  text-align: center;
+}
+
+.login-link {
+  color: #1565c0;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: #0d47a1;
+  text-decoration: underline;
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .create-account-container {
+    margin: 40px 16px;
+    padding: 32px 20px;
+  }
+
+  .create-account-container h1 {
+    font-size: 1.8rem;
+  }
 }

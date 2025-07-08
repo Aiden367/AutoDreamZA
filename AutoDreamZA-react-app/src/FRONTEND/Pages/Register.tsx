@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Nav from "../../COMPONENTS/Navbar"
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import SecondNav from "../../COMPONENTS/SecondNavbar"
 import './Styles/Register.css'
 const CreateAccount: React.FC = () => {
    const[enteredUsername,setEnteredUsername] = useState('');
@@ -51,11 +52,15 @@ const CreateAccount: React.FC = () => {
     }
   };
   return (
-    
-      <div className="create-account-container">
-        <div className='form-container'>
-          <h1>Create Account</h1>
-          <form onSubmit={handleRegister}>
+     <>
+
+      <SecondNav />
+      <Nav />
+  <div className="register-page">
+    <div className="create-account-container">
+      <div className='form-container'>
+        
+        <form onSubmit={handleRegister}>
           <div className="input-group">
             <input
               type="text"
@@ -64,7 +69,7 @@ const CreateAccount: React.FC = () => {
               onChange={(e) => setEnteredFirstName(e.target.value)}
             />
           </div>
-          <div className="create-account-container">
+          <div className="input-group">
             <input
               type="text"
               placeholder='Last Name'
@@ -72,7 +77,7 @@ const CreateAccount: React.FC = () => {
               onChange={(e) => setEnteredLastName(e.target.value)}
             />
           </div>
-          <div className="create-account-container">
+          <div className="input-group">
             <input
               type="text"
               placeholder='Username'
@@ -80,7 +85,7 @@ const CreateAccount: React.FC = () => {
               onChange={(e) => setEnteredUsername(e.target.value)}
             />
           </div>
-          <div className="create-account-container">
+          <div className="input-group">
             <input
               type="text"
               placeholder='Email'
@@ -88,30 +93,34 @@ const CreateAccount: React.FC = () => {
               onChange={(e) => setEnteredEmail(e.target.value)}
             />
           </div>
-          <div className="create-account-container">
+          <div className="input-group">
             <input
-              type="text"
+              type="password"
               placeholder='Password'
               value={enteredPassword}
               onChange={(e) => setEnteredPassword(e.target.value)}
             />
           </div>
-          <div className="create-account-container">
+          <div className="input-group">
             <input
-              type="text"
+              type="password"
               placeholder='Confirm Password'
             />
           </div>
-          <button type="submit" className="create-account-btn"> Create Account </button>
+          <button type="submit" className="create-account-btn">Create Account</button>
           {error && <p className="error-message">{error}</p>}
           {successMessage && <p className="success-message">{successMessage}</p>}
-          </form>
-        </div>
+        </form>
+
+        <p className="login-redirect">
+          Already have an account? <Link to="/Login" className="login-link">Login here</Link>
+        </p>
       </div>
+    </div>
+  </div>
+  </>
+);
 
-    
 
-
-  )
 }
 export default CreateAccount;
