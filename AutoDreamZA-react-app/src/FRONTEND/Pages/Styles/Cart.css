@@ -1,4 +1,4 @@
-.checkout-container {
+.cart-container {
   max-width: 1200px;
   margin: 40px auto;
   padding: 20px;
@@ -10,26 +10,40 @@
   text-align: center;
 }
 
-.checkout-content {
+.cart-content {
   display: flex;
   gap: 30px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Change this */
+  align-items: flex-start; /* Optional: Align top */
 }
 
 .cart-items-section {
-  flex: 2;
+  flex: 1;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+/* Flex container for title and price aligned left and right */
+.cart-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
 .cart-item-card {
   display: flex;
   gap: 20px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 20px;
-  margin-bottom: 20px;
-  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+  align-items: flex-start; /* allow details content to grow vertically */
 }
+
+.cart-item-card:last-child {
+  border-bottom: none;
+}
+
 
 .cart-item-image {
   width: 120px;
@@ -40,21 +54,76 @@
 
 .cart-item-details {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto; /* push footer to bottom if details grow */
+  padding-top: 10px;
+  border-top: 1px solid #eee;
 }
 
 .item-title {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
 }
 
-.checkout-summary {
-  flex: 1;
+/* Ensure price is bold and aligned right */
+.item-price {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #000;
+  white-space: nowrap;
+}
+
+.item-subtotal {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* Keep your existing quantity-controls styles */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Number between the buttons */
+.quantity-number {
+  font-weight: 600;
+  font-size: 1.1rem;
+  min-width: 30px;
+  text-align: center;
+}
+.cart-item-details p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.cart-item-details strong {
+  color: #000;
+  font-weight: 600;
+}
+
+
+.cart-summary {
+  flex: 0 0 300px; /* fixed width */
   background: #f9f9f9;
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   height: fit-content;
 }
+
 
 .summary-line {
   font-size: 1rem;
@@ -80,4 +149,65 @@
 
 .checkout-btn:hover {
   background-color: #0056b3;
+}
+
+
+.empty-cart-container {
+  max-width: 600px;
+  margin: 80px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.empty-cart-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.empty-cart-description {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.empty-cart-link .link-to-home {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.empty-cart-link .link-to-home:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+
+.remove-one-btn-cart,
+.add-btn {
+  background-color: transparent; /* or your preferred color */
+  color: black; /* adjust to your theme */
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0;       /* REMOVE vertical margin */
+  transition: background-color 0.2s ease;
+  display: flex;       /* center icon/image inside button */
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-one-btn-cart:hover,
+.add-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* subtle hover */
 }

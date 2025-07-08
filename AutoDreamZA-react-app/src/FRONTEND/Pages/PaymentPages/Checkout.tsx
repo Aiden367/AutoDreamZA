@@ -274,7 +274,20 @@ const CheckoutPage: React.FC = () => {
                 <div className="payment-method-container">
                   {selectedPaymentMethod === 'card' && (
                     <Elements stripe={stripePromise}>
-                      <PaymentForm onSuccess={() => setPaymentSuccess(true)} />
+                      <PaymentForm
+                        onSuccess={async () => {
+                          setPaymentSuccess(true);
+                          try {
+                            // ✅ Clear user's cart in the backend
+                            await axios.post(`http://localhost:5000/user/cart/clear/${userId}`);
+
+                            // ✅ Clear cart UI state
+                            setCartItems([]);
+                          } catch (error) {
+                            console.error("❌ Failed to clear cart after payment:", error);
+                          }
+                        }}
+                      />
                     </Elements>
                   )}
 

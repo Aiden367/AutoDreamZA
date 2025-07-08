@@ -31,11 +31,12 @@ import Rims from './FRONTEND/Pages/AccesoriesPages/Rims';
 import { UserProvider } from './BACKEND/context/UserContext'; // adjust path if needed
 import CartPage from './FRONTEND/Pages/PaymentPages/CartPage';
 import CheckoutPage from './FRONTEND/Pages/PaymentPages/Checkout';
-
 //import Register from './FRONTEND/Pages/Register';
 
 const App: React.FC = () => {
   return (
+    
+    
     <Router>
       {/* Wrap the Routes in FilterProvider */}
       <UserProvider>
@@ -78,6 +79,7 @@ const App: React.FC = () => {
       </FilterProvider>
       </UserProvider>
     </Router>
+    
   );
 };
 

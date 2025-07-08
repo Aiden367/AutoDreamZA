@@ -7,6 +7,48 @@ import { Router, Request, Response } from "express";
 const router = Router(); 
 
 
+router.delete('/cart/:userId/:productId', async (req: Request, res: Response) => {
+  try {
+    const { userId, productId } = req.params;
+
+    const user = await User.findById(userId);
+    if (!user) {
+       res.status(404).json({ error: "User not found" });
+       return;
+    }
+
+    user.cart = user.cart.filter((item: any) => item.productId !== productId);
+    await user.save();
+
+    res.status(200).json({ message: "Item removed from cart", cart: user.cart });
+  } catch (error) {
+    console.error("Error removing item from cart:", error);
+    res.status(500).json({ error: "Failed to remove item from cart" });
+  }
+});
+
+
+router.post('/cart/clear/:userId', async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId);
+
+    if (!user) {
+       res.status(404).json({ error: "User not found" });
+       return
+    }
+
+    user.cart = []; // Clear the cart
+    await user.save();
+
+    res.status(200).json({ message: "Cart cleared successfully" });
+  } catch (error) {
+    console.error("Error clearing cart:", error);
+    res.status(500).json({ error: "Failed to clear cart" });
+  }
+});
+
+
 router.get('/:userId', async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.params.userId).select('-password'); // Exclude password

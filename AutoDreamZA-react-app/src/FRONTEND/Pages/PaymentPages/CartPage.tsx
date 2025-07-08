@@ -6,6 +6,8 @@ import SecondNav from "../../../COMPONENTS/SecondNavbar";
 import '../Styles/Cart.css';
 import CheckoutSteps from '../../../COMPONENTS/CheckoutSteps';
 import { useNavigate } from 'react-router-dom';
+import TrashIcon from '../../Images/bin.png';
+import PlusIcon from '../../Images/plus.png';
 
 type CartItem = {
   productId: string;
@@ -21,6 +23,55 @@ const CartPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const handleRemoveOne = async (productId: string) => {
+    try {
+      // Create new cart with quantity decreased by 1 for the matching item
+      const updatedItems = cartItems
+        .map(item => {
+          if (item.productId === productId) {
+            const newQuantity = item.quantity - 1;
+            return newQuantity > 0 ? { ...item, quantity: newQuantity } : null;
+          }
+          return item;
+        })
+        .filter(Boolean) as CartItem[]; // remove null items where quantity was 0
+
+      // Update cart on backend
+      const res = await axios.post('http://localhost:5000/user/cart/update', {
+        userId,
+        cartItems: updatedItems
+      });
+
+      setCartItems(res.data.cart); // update state with backend response
+    } catch (error) {
+      console.error("Error removing one item", error);
+      alert("Failed to update cart.");
+    }
+  };
+
+
+  const handleIncreaseQuantity = async (productId: string) => {
+    try {
+      const updatedItems = cartItems.map(item => {
+        if (item.productId === productId) {
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      });
+
+      const res = await axios.post('http://localhost:5000/user/cart/update', {
+        userId,
+        cartItems: updatedItems
+      });
+
+      setCartItems(res.data.cart); // Update cart with latest from backend
+    } catch (error) {
+      console.error("Error increasing item quantity", error);
+      alert("Failed to update item quantity.");
+    }
+  };
+
 
   useEffect(() => {
     if (!userId) return;
@@ -45,7 +96,24 @@ const CartPage: React.FC = () => {
   if (loading) return <p>Loading your cart...</p>;
   if (error) return <p>{error}</p>;
 
-  if (cartItems.length === 0) return <p>Your cart is empty.</p>;
+  if (cartItems.length === 0) {
+    return (
+      <>
+        <SecondNav />
+        <Nav />
+        <div className="empty-cart-container">
+          <h1 className="empty-cart-title">Your AutoDream Cart is Empty</h1>
+          <p className="empty-cart-description">
+            You haven’t added any products to your cart yet. Once you do, they’ll appear here.
+          </p>
+          <p className="empty-cart-link">
+            <a href="/" className="link-to-home">Continue shopping on AutoDreamZA</a>
+          </p>
+        </div>
+      </>
+    );
+  }
+
 
   return (
     <>
@@ -53,41 +121,81 @@ const CartPage: React.FC = () => {
       <SecondNav />
       <Nav />
 
-      <div className="checkout-container">
+      <div className="cart-container">
         <h1 className="checkout-title">Your Cart</h1>
 
-        <div className="checkout-content">
-          {/* Left: Cart Items */}
-          <div className="cart-items-section">
-            {cartItems.map(item => (
-              <div key={item.productId} className="cart-item-card">
-                <img src={item.image} alt={item.title} className="cart-item-image" />
-                <div className="cart-item-details">
-                  <h2 className="item-title">{item.title}</h2>
-                  <p>Price: <strong>R{item.price}</strong></p>
-                  <p>Quantity: <strong>{item.quantity}</strong></p>
-                  <p>Subtotal: <strong>R{(item.price * item.quantity).toFixed(2)}</strong></p>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="cart-content">
+          {cartItems.length === 0 ? (
+            <div className="empty-cart">
+              <p>Your cart is currently empty.</p>
+              {/* Optional: Add an image or link to go back shopping */}
+              {/* <img src="/assets/empty-cart.png" alt="Empty cart" className="empty-cart-img" /> */}
+              <button className="checkout-btn" onClick={() => navigate('/')}>
+                Continue Shopping
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="cart-items-section">
+                {cartItems.map(item => (
+                  <div key={item.productId} className="cart-item-card">
+                    <img src={item.image} alt={item.title} className="cart-item-image" />
 
-          {/* Right: Summary */}
-          <div className="checkout-summary">
-            <h2>Order Summary</h2>
-            <p className="summary-line">
-              Total Items: <strong>{cartItems.reduce((sum, item) => sum + item.quantity, 0)}</strong>
-            </p>
-            <p className="summary-total">
-              Total: <strong>R{cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}</strong>
-            </p>
-            <button className="checkout-btn" onClick={() => navigate('/Checkout')}>
-              Proceed to Checkout
-            </button>
-          </div>
+                    <div className="cart-item-details">
+                      {/* Header: title on left, price on right */}
+                      <div className="cart-item-header">
+                        <h2 className="item-title">{item.title}</h2>
+                        <p className="item-price">R{item.price.toFixed(2)}</p>
+                      </div>
+
+                      {/* Show quantity controls at bottom */}
+                      <div className="quantity-controls">
+                        <button
+                          className="remove-one-btn-cart"
+                          onClick={() => handleRemoveOne(item.productId)}
+                          aria-label={`Remove one ${item.title}`}
+                        >
+                          <img src={TrashIcon} alt="Remove item" className="icon-btn" />
+                        </button>
+
+                        <span className="quantity-number">{item.quantity}</span>
+
+                        <button
+                          className="add-btn"
+                          onClick={() => handleIncreaseQuantity(item.productId)}
+                          aria-label={`Add one ${item.title}`}
+                        >
+                          <img src={PlusIcon} alt="Add item" className="icon-btn" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+
+                ))}
+
+              </div>
+
+
+              {/* Right: Summary */}
+              <div className="cart-summary">
+                <h2>Order Summary</h2>
+                <p className="summary-line">
+                  Total Items: <strong>{cartItems.reduce((sum, item) => sum + item.quantity, 0)}</strong>
+                </p>
+                <p className="summary-total">
+                  Total: <strong>R{cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}</strong>
+                </p>
+                <button className="checkout-btn" onClick={() => navigate('/Checkout')}>
+                  Proceed to Checkout
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
   );
+
 };
 export default CartPage;
