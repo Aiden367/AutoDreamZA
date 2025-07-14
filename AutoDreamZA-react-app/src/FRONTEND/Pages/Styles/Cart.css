@@ -1,7 +1,8 @@
 .cart-container {
   max-width: 1200px;
-  margin: 40px auto;
+  margin: 80px auto;
   padding: 20px;
+ 
 }
 
 .checkout-title {
@@ -136,9 +137,9 @@
   margin: 20px 0;
 }
 
-.checkout-btn {
-  background-color: #007bff;
-  color: white;
+.cart-btn {
+  background-color: #f6c600;
+  color: black;
   padding: 12px 20px;
   border: none;
   border-radius: 8px;
@@ -147,8 +148,8 @@
   font-size: 1rem;
 }
 
-.checkout-btn:hover {
-  background-color: #0056b3;
+.cart-btn:hover {
+  background-color: #e5b800;
 }
 
 

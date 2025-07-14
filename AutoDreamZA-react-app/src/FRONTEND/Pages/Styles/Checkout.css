@@ -2,6 +2,8 @@
   padding: 2rem;
   background-color: #f9f9f9;
   min-height: 100vh;
+  margin-top:60px;
+  
 }
 
 .checkout-title {
@@ -91,7 +93,7 @@
     position: static;
   }
 }
-.modal-overlay {
+.modal-overlay-address {
   position: fixed;
   top: 0;
   left: 0;
@@ -104,7 +106,7 @@
   align-items: center;
 }
 
-.modal {
+.modal-address {
   position: relative;
   background: #fff;
   padding: 2rem;
@@ -114,6 +116,27 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   z-index: 10000;
 }
+
+.modal-address input {
+  display: block;
+  width: 75%;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fafafa;
+  color: #333;
+}
+
+.modal-address input:focus {
+  border-color: #f6c600;
+  box-shadow: 0 0 5px rgba(246, 198, 0, 0.4);
+  outline: none;
+}
+
 
 
 /* Apply same professional font to buttons */
@@ -209,7 +232,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid #ddd;
   outline-offset: 2px;
   transition: border-color 0.3s ease;
-  width: 100%;
+  width: 25%;
 }
 
 .card-name-input:focus {
@@ -243,12 +266,12 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #f6c600; /* same bright yellow */
   color: #333; /* dark text to match your buttons */
   font-weight: 400;
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 0.6rem 1.2rem;
   font-size: 1.05rem;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 50%;
   transition: background-color 0.3s ease;
 }
 

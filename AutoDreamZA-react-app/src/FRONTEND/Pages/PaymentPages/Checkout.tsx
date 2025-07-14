@@ -372,8 +372,8 @@ const CheckoutPage: React.FC = () => {
         </div>
 
         {showAddressModal && (
-          <div className="modal-overlay">
-            <div className="modal">
+          <div className="modal-overlay-address">
+            <div className="modal-address">
               <button className="close-modal-btn" onClick={() => setShowAddressModal(false)}>×</button>
               <h2>Enter Shipping Address</h2>
               <input name="fullName" placeholder="Full Name" value={shippingAddress.fullName} onChange={handleAddressChange} />

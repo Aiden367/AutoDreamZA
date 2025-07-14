@@ -216,7 +216,7 @@ const CartPage: React.FC = () => {
                 <p className="summary-total">
                   Total: <strong>R{cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}</strong>
                 </p>
-                <button className="checkout-btn" onClick={() => navigate('/Checkout')}>
+                <button className="cart-btn" onClick={() => navigate('/Checkout')}>
                   Proceed to Checkout
                 </button>
               </div>

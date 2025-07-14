@@ -1,10 +1,9 @@
-/* Global Reset */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
-    background: #F1F1F1;
+    background: #F1F1F1; /* <- THIS is what you change */
     color: #000;
     box-sizing: border-box;
 }
@@ -12,25 +11,26 @@ html, body {
 
 
 /* Wrapper */
-.categories-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 1000px;
-    height: auto;
-    max-height: none;
-    overflow-y: visible;
-    border-radius: 15px;
-    padding: 20px;
-    position: absolute;
-    top: 60%;
-    left: 40%;
-    transform: translate(-50%, -50%);
+.categories-wrapper-accesories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+  position: relative; /* changed from absolute */
+  top: auto;
+  left: auto;
+  transform: none;
+  margin-top: 200px ;
+ 
 }
 
 /* Container */
-.categories-container {
+.categories-container-accesories {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;

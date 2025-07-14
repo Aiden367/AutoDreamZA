@@ -18,8 +18,8 @@ const Accessory: React.FC = () => {
         <>
             <SecondNav />
             <Nav />
-            <div className="categories-wrapper">
-                <h1>Categories</h1>
+            <div className="categories-wrapper-accesories">
+               
                 <div className="categories-container" >
                     <div className="category" onClick={() => handleNavigation('/CarMats')}>
                         <img src={CarMat}></img>

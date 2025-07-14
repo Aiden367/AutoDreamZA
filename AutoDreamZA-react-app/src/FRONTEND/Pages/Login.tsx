@@ -84,9 +84,9 @@ const Login: React.FC = () => {
 
     return (
         <>
-
-            <SecondNav />
+          
             <Nav />
+            <SecondNav />
             <div className="login-container">
 
                 <form onSubmit={handleLogin} className="login-form" noValidate>
@@ -133,8 +133,8 @@ const Login: React.FC = () => {
                 </p>
 
                 {showForgotPassword && (
-                    <div className="modal-overlay">
-                        <div className="modal-content">
+                    <div className="modal-overlay-forgot-password">
+                        <div className="modal-content-forgot-password">
                             <h3>Reset Password</h3>
                             <label htmlFor="resetEmail" className="input-label">Enter your email address</label>
                             <input
@@ -148,11 +148,11 @@ const Login: React.FC = () => {
                                 style={{ marginBottom: '10px' }}
                             />
 
-                            <div className="modal-buttons">
+                            <div className="modal-buttons-forgot-password">
                                 <button onClick={handleSendResetLink} className="login-btn">
                                     Send Reset Link
                                 </button>
-                                <button onClick={() => setShowForgotPassword(false)} className="cancel-btn">
+                                <button onClick={() => setShowForgotPassword(false)} className="login-btn">
                                     Cancel
                                 </button>
                             </div>

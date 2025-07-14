@@ -222,7 +222,6 @@ const RoofRacks: React.FC = () => {
                                 <img src={product.image} alt={product.title} />
                                 <div className="product-info">
                                     <h3>{product.title}</h3>
-                                    <p><strong>Manufacturer:</strong> {product.manufacturer}</p>
                                     <p><strong>Type:</strong> {product.type}</p>
                                     <p><strong>Price:</strong> R{product.price.toFixed(2)}</p>
                                     <p className={product.available ? 'in-stock' : 'out-stock'}>
@@ -231,7 +230,7 @@ const RoofRacks: React.FC = () => {
                                     <button
                                         onClick={() => addToCart(product)}
                                         disabled={!product.available}
-                                        className="add-to-cart-btn"
+                                        className="add-to-cart-btn-purchase"
                                     >
                                         {product.available ? 'Add to Cart' : 'Out of Stock'}
                                     </button>

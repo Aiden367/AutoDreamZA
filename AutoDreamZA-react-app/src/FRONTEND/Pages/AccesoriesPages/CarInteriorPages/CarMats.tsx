@@ -273,7 +273,7 @@ const CarMats: React.FC = () => {
                   <button
                     onClick={() => addToCart(product)}
                     disabled={!product.available}
-                    className="add-to-cart-btn"
+                    className="add-to-cart-btn-purchase"
                   >
                     {product.available ? 'Add to Cart' : 'Out of Stock'}
                   </button>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-
+import '../Styles/ResetPassword.css'
 const ResetPassword: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');  // get token from URL query params
+  const token = searchParams.get('token');
   const navigate = useNavigate();
 
   const [newPassword, setNewPassword] = useState('');
@@ -25,13 +25,13 @@ const ResetPassword: React.FC = () => {
       const response = await fetch(`http://localhost:5000/user/reset-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, newPassword }),  // send token here
+        body: JSON.stringify({ token, newPassword }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setMessage('Password reset successful. You can now log in.');
+        setMessage('✅ Password reset successful. Redirecting to login...');
         setTimeout(() => navigate('/Login'), 3000);
       } else {
         setMessage(data.error || 'Reset failed');
@@ -43,8 +43,8 @@ const ResetPassword: React.FC = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2>Reset Your Password</h2>
+    <div className="reset-container">
+      <h2 className="reset-title">Reset Your Password</h2>
       <input
         type="password"
         placeholder="New password"
@@ -60,7 +60,7 @@ const ResetPassword: React.FC = () => {
         className="input-field"
       />
       <button onClick={handleReset} className="login-btn">Submit</button>
-      {message && <p>{message}</p>}
+      {message && <p className={`reset-message ${message.includes('success') ? 'success' : 'error'}`}>{message}</p>}
     </div>
   );
 };
