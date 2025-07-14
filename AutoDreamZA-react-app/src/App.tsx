@@ -33,6 +33,8 @@ import CartPage from './FRONTEND/Pages/PaymentPages/CartPage';
 import CheckoutPage from './FRONTEND/Pages/PaymentPages/Checkout';
 import ProfilePage from './FRONTEND/Pages/ProfilePages/Profile';
 import PurchasesPage from './FRONTEND/Pages/ProfilePages/PurchasesPage';
+import AccountSettingsPage from './FRONTEND/Pages/ProfilePages/AccountSettingsPage';
+import ChangePasswordPage from './FRONTEND/Pages/ProfilePages/ResetPasswordPage';
 //import Register from './FRONTEND/Pages/Register';
 
 const App: React.FC = () => {
@@ -79,6 +81,8 @@ const App: React.FC = () => {
           <Route path="/Checkout" element={<CheckoutPage />} />
           <Route path="/Profile/:userId" element={<ProfilePage />} />
           <Route path="/Purchases" element={<PurchasesPage />} />
+          <Route path="/AccountSettings" element={<AccountSettingsPage />} />
+          <Route path="/ResetPassword" element={<ChangePasswordPage />} />
         </Routes>
       </FilterProvider>
       </UserProvider>

@@ -52,11 +52,21 @@ const UserSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
+  phoneNumber: { type: String }, // optional
   password: { type: String, required: true },
   role: { type: String, required: true },
-  cart: [CartItemSchema], // 🛒 add this line
-  purchases: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Purchase' }]
+  cart: [CartItemSchema],
+  purchases: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Purchase' }],
+
+  // 2FA fields
+  otp: { type: String },
+  otpExpires: { type: Date },
+
+  // Add these for password reset
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
 });
+
 
 const User = mongoose.model("User",UserSchema);
 

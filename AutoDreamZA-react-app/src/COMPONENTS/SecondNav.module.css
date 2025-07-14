@@ -71,3 +71,16 @@
     border-radius: 50%;
   }
   
+  .logoutButton {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #333; /* dark gray for contrast on white background */
+  font-size: 1rem;
+  padding: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.logoutButton:hover {
+  color: #1565c0; /* blue highlight on hover */
+}

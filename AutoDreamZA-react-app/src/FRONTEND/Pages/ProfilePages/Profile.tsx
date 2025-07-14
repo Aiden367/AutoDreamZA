@@ -35,7 +35,7 @@ const ProfilePage: React.FC = () => {
   };
 
   const handleLoginSecurityClick = () => {
-    navigate(`/login-security/${userId}`);  // Example route for login security
+     navigate(`/AccountSettings?userId=${userId}`); // Example route for login security
   };
 
   const handlePurchasesClick = () => {

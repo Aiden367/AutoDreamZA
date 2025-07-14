@@ -13,10 +13,11 @@ interface PurchaseItem {
 }
 
 interface Purchase {
-  id: string;
-  purchaseDate: string;
+  _id: string;
+  purchasedAt: string;
   items: PurchaseItem[];
 }
+
 
 const PurchasesPage: React.FC = () => {
   const [purchases, setPurchases] = useState<Purchase[]>([]);
@@ -75,15 +76,15 @@ const PurchasesPage: React.FC = () => {
             <tbody>
               {purchases.map((purchase) => (
                 <tr
-                  key={purchase.id}
+                  key={purchase._id}
                   onClick={() => setSelectedPurchase(purchase)}
                   className="clickable-row"
                 >
-                  <td>{purchase.id ? purchase.id.slice(-6).toUpperCase() : 'N/A'}</td>
+                  <td>{purchase._id ? purchase._id.slice(-6).toUpperCase() : 'N/A'}</td>
 
                   <td>{purchase.items.length}</td>
                   <td>R{calculateTotal(purchase.items).toFixed(2)}</td>
-                  <td>{formatDate(purchase.purchaseDate)}</td>
+                  <td>{formatDate(purchase.purchasedAt)}</td>
                 </tr>
               ))}
             </tbody>
@@ -94,8 +95,8 @@ const PurchasesPage: React.FC = () => {
           <div className="purchase-modal-overlay" onClick={() => setSelectedPurchase(null)}>
             <div className="purchase-modal" onClick={(e) => e.stopPropagation()}>
               <h2>Purchase Details</h2>
-              <p><strong>Purchase ID:</strong> {selectedPurchase.id}</p>
-              <p><strong>Date:</strong> {formatDate(selectedPurchase.purchaseDate)}</p>
+              <p><strong>Purchase ID:</strong> {selectedPurchase._id}</p>
+              <p><strong>Date:</strong> {formatDate(selectedPurchase.purchasedAt)}</p>
               <hr />
               {selectedPurchase.items.map((item, idx) => (
                 <div key={idx} className="modal-item">
