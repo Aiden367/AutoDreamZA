@@ -1,16 +1,28 @@
-/* Purchase.css */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+  color: #212121;
+}
 
 .purchases-container {
-  padding: 40px;
-  max-width: 900px;
+  padding: 40px 24px;
+  max-width: 1000px;
   margin: 0 auto;
   background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  margin-top: 60px;
 }
 
 .purchases-title {
-  font-size: 2rem;
-  color: #1565c0;
-  margin-bottom: 24px;
+  font-size: 2.2rem;
+  color: #1a237e;
+  text-align: center;
+  margin-bottom: 32px;
 }
 
 .purchases-table-container {
@@ -20,21 +32,23 @@
 .purchases-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .purchases-table th, .purchases-table td {
   padding: 16px;
   text-align: left;
   font-size: 0.95rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eaeaea;
 }
 
 .purchases-table th {
-  background-color: #f5f5f5;
+  background-color: #e3f2fd;
   font-weight: 600;
+  color: #0d47a1;
 }
 
 .purchases-table .clickable-row {
@@ -43,7 +57,15 @@
 }
 
 .purchases-table .clickable-row:hover {
-  background-color: #f1f8ff;
+  background-color: #f0f8ff;
+}
+
+.empty-message,
+.error-message {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 30px;
+  color: #999;
 }
 
 /* Modal Styles */
@@ -61,32 +83,66 @@
 }
 
 .purchase-modal {
-  background: #fff;
-  padding: 30px;
+  background: #ffffff;
+  padding: 30px 24px;
   border-radius: 10px;
+  width: 95%;
   max-width: 500px;
-  width: 90%;
-  max-height: 80%;
+  max-height: 90%;
   overflow-y: auto;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.purchase-modal h2 {
+  margin-bottom: 16px;
+  color: #1a237e;
+}
+
+.purchase-modal p {
+  margin: 4px 0;
+  font-size: 0.95rem;
 }
 
 .modal-item {
   margin-bottom: 16px;
   border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
+}
+
+.modal-item strong {
+  display: block;
+  font-weight: 600;
 }
 
 .close-button {
-  background-color: #1565c0;
+  display: block;
+  margin: 0 auto;
+  margin-top: 24px;
+  background-color: #1a237e;
   color: white;
   border: none;
-  padding: 10px 16px;
+  padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
-  margin-top: 20px;
+  font-weight: 500;
 }
 
 .close-button:hover {
   background-color: #0d47a1;
+}
+
+
+.purchase-modal {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

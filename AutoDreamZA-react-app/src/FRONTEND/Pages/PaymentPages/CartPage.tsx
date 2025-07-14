@@ -141,7 +141,7 @@ const CartPage: React.FC = () => {
       <Nav />
 
       <div className="cart-container">
-        <h1 className="checkout-title">Shopping Cart</h1>
+      
 
         <div className="cart-content">
           {cartItems.length === 0 ? (

@@ -29,7 +29,8 @@
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.2.0",
     "simplex-noise": "^4.0.3",
-    "stripe": "^18.3.0"
+    "stripe": "^18.3.0",
+    "swiper": "^11.2.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
@@ -39,6 +40,7 @@
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "@types/swiper": "^5.4.3",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
