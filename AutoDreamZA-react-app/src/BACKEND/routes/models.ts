@@ -140,5 +140,21 @@ const RadioProductSchema = new Schema(
 
 const RadioProduct = mongoose.model("RadioProduct",RadioProductSchema);
 
+const AudioSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    price: { type: Number, required: true },
+    image: { type: String, required: true },
+    url: { type: String, required: true, unique: true },
+    available: { type: Boolean, default: true },
+    manufacturer: { type: String, default: "Booxe" },
+    type: { type: String }
+  },
+  { timestamps: true ,collection: "RadioProduct"}
+);
+
+
+const AudioProduct = mongoose.model("AudioProduct",AudioSchema);
+
 
 module.exports = {User,MatProduct,RoofRackProduct,RimsProduct,RadioProduct,Purchase};
