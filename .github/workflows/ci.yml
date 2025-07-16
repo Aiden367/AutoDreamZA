@@ -41,12 +41,7 @@ jobs:
         run: npx tsc --project tsconfig.server.json
         working-directory: AutoDreamZA-react-app
 
-      - name: 🚀 Start Backend Server with Atlas URI
-        run: |
-          echo "Starting backend..."
-          npx ts-node -P tsconfig.server.json src/BACKEND/server.ts &
-          echo "✅ Backend started in background"
-          sleep 20
+      - name: 🚀 Start Backend and Wait for Readiness
         working-directory: AutoDreamZA-react-app
         env:
           ATLAS_URI: ${{ secrets.ATLAS_URI }}
@@ -55,20 +50,29 @@ jobs:
           VITE_STRIPE_PUBLISHABLE_KEY: ${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-
-      - name: ⏳ Wait for Backend to be Ready
         run: |
+          echo "Starting backend..."
+          npx ts-node -P tsconfig.server.json src/BACKEND/server.ts &
+          BACKEND_PID=$!
           echo "Waiting for backend to start..."
           for i in {1..40}; do
             if curl --silent --fail http://localhost:5000/health; then
               echo "✅ Backend is up!"
-              exit 0
+              break
             fi
             echo "Retrying in 2s... ($i/40)"
             sleep 2
           done
-          echo "❌ Backend failed to start in time"
-          exit 1
+
+          if ! curl --silent --fail http://localhost:5000/health; then
+            echo "❌ Backend failed to start in time"
+            kill $BACKEND_PID
+            exit 1
+          fi
+
+          # Optionally kill backend after check or keep it running if next steps depend on it
+          kill $BACKEND_PID
+          echo "Backend startup verified."
 
       - name: 🔒 Check Security Middleware
         run: |
