@@ -31,6 +31,7 @@
     align-items: center;
     gap: 20px; /* Add spacing between links */
     flex-grow: 1; /* Allow links to take available space */
+    
   }
   
   .link-container {
