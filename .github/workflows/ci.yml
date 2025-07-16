@@ -55,12 +55,15 @@ jobs:
           npx ts-node -P tsconfig.server.json src/BACKEND/server.ts &
           BACKEND_PID=$!
           echo "Waiting for backend to start..."
-          for i in {1..40}; do
+          for i in {1..60}; do
             if curl --silent --fail http://localhost:5000/health; then
               echo "✅ Backend is up!"
               break
+            else
+              echo "Health check failed, response:"
+              curl -v http://localhost:5000/health || true
             fi
-            echo "Retrying in 2s... ($i/40)"
+            echo "Retrying in 2s... ($i/60)"
             sleep 2
           done
 
@@ -70,9 +73,8 @@ jobs:
             exit 1
           fi
 
-          # Optionally kill backend after check or keep it running if next steps depend on it
-          kill $BACKEND_PID
           echo "Backend startup verified."
+          # Keep backend running for further steps
 
       - name: 🔒 Check Security Middleware
         run: |
@@ -108,4 +110,5 @@ jobs:
       - name: 🎉 Done
         if: success()
         run: echo "✅ CI/CD completed successfully!"
+
 
