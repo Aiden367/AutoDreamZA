@@ -6,7 +6,20 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 import { Router, Request, Response } from "express";
 import { sendOtp } from '../utils/sendOtp';
+import rateLimit from 'express-rate-limit';
 const router = Router();
+
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOCK_TIME = 30 * 60 * 1000; // 30 minutes
+
+// Limit login attempts to 5 per 15 minutes per IP
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5,
+  message: 'Too many login attempts from this IP, please try again after 15 minutes',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 
 router.delete('/cart/:userId/:productId', async (req: Request, res: Response) => {
@@ -158,31 +171,50 @@ router.post('/Register', async (req, res) => {
   }
 })
 
-router.post('/Login', async (req, res) => {
+router.post('/Login', loginLimiter, async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
+
     if (!user) {
-      res.status(401).send({ error: "Invalid username or password" })
-      return
+       res.status(401).send({ error: "Invalid username or password" });
+       return;
+    }
+
+    // Check if account is locked
+    if (user.lockUntil && user.lockUntil > Date.now()) {
+      const minutesLeft = Math.ceil((user.lockUntil - Date.now()) / 60000);
+      res.status(423).send({ error: `Account locked. Try again in ${minutesLeft} minutes.` });
+      return;
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
+
     if (!isMatch) {
-      res.status(401).send({ error: "Invalid username or password" })
-      return
+      // Increment failed attempts
+      user.failedLoginAttempts = (user.failedLoginAttempts || 0) + 1;
+
+      // Lock account if attempts exceed max
+      if (user.failedLoginAttempts >= MAX_LOGIN_ATTEMPTS) {
+        user.lockUntil = Date.now() + LOCK_TIME;
+      }
+
+      await user.save();
+       res.status(401).send({ error: "Invalid username or password" });
+       return;
     }
+
+    // Successful login: reset attempts and lockUntil
+    user.failedLoginAttempts = 0;
+    user.lockUntil = null;
+    await user.save();
 
     const token = jwt.sign({
       id: user._id,
       username: user.username,
       role: user.role
-    },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
+    }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    // Respond with the token, user info, and account details
     res.status(200).send({
       token,
       user: {
@@ -191,11 +223,11 @@ router.post('/Login', async (req, res) => {
         role: user.role
       }
     });
-
   } catch (error) {
     console.error("Could not log the user in", error);
+    res.status(500).send({ error: "Internal server error" });
   }
-})
+});
 
 
 
@@ -363,6 +395,9 @@ router.post('/reset-password', async (req, res) => {
     res.status(500).json({ error: 'Failed to reset password' });
   }
 });
+
+
+
 
 
 module.exports = router;

@@ -14,7 +14,7 @@ if (result.error) {
   }
 // Load the .env file from the BACKEND folder
 console.log("Loaded .env", process.env.ATLAS_URI)
-const connectionString = process.env.ATLAS_URI || "";
+const connectionString = process.env.MONGO_URI || process.env.ATLAS_URI || "";
 const connectToDatabase = async () => {
     try{
         console.log("ATLAS_URI:", connectionString);

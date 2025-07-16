@@ -62,10 +62,15 @@ const UserSchema = new mongoose.Schema({
   otp: { type: String },
   otpExpires: { type: Date },
 
-  // Add these for password reset
+  // Password reset fields
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
+
+  // Fields for brute-force protection
+  failedLoginAttempts: { type: Number, default: 0 },
+  lockUntil: { type: Date, default: null },
 });
+
 
 
 const User = mongoose.model("User",UserSchema);
