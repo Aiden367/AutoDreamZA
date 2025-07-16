@@ -53,13 +53,13 @@ jobs:
       - name: ⏳ Wait for Backend to be Ready
         run: |
           echo "Waiting for backend to start..."
-          for i in {1..20}; do
+          for i in {1..40}; do
             if curl --silent --fail http://localhost:5000/user/Login; then
               echo "✅ Backend is up!"
               exit 0
             fi
-            echo "Retrying in 1s... ($i/100)"
-            sleep 1
+            echo "Retrying in 2s... ($i/40)"
+            sleep 2
           done
           echo "❌ Backend failed to start in time"
           exit 1
