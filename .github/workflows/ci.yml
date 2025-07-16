@@ -1,10 +1,12 @@
-name: CI/CD Pipeline (Dev)
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   run-app:
@@ -23,45 +25,63 @@ jobs:
           --health-retries=5
 
     steps:
-      - name: Checkout code
+      - name: 🛎 Checkout Code
         uses: actions/checkout@v4
 
-      - name: Use Node.js
+      - name: 🛠 Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: '18'
           cache: 'npm'
 
-      - name: Install frontend/backend dependencies
+      - name: 📦 Install Dependencies
         run: npm ci
         working-directory: AutoDreamZA-react-app
 
-      - name: Build TypeScript (optional)
+      - name: 🔧 Build TypeScript Backend
         run: npx tsc --project tsconfig.server.json
         working-directory: AutoDreamZA-react-app
 
-      - name: Start Backend Server in Background
+      - name: 🚀 Start Backend Server
         run: |
-          echo "🚀 Starting backend server..."
           npx ts-node -P tsconfig.server.json src/BACKEND/server.ts &
+          echo "Started backend server in background"
         working-directory: AutoDreamZA-react-app
         env:
           MONGO_URI: mongodb://localhost:27017/autodreamdb
 
-      - name: Wait for Backend to be Ready
+      - name: ⏳ Wait for Backend to be Ready
         run: |
-          echo "⏳ Waiting for backend to start..."
+          echo "Waiting for backend to start..."
           for i in {1..20}; do
             if curl --silent http://localhost:5000/user/Login; then
               echo "✅ Backend is up!"
               exit 0
             fi
-            echo "⏱️ Retrying in 1 second... ($i/20)"
+            echo "Retrying in 1s... ($i/20)"
             sleep 1
           done
-          echo "❌ Backend did not start in time."
+          echo "❌ Backend failed to start in time"
           exit 1
 
-      - name: Kill Backend Server
+      - name: 🔒 Check Security Middleware
+        run: |
+          cd AutoDreamZA-react-app
+          FILE=src/BACKEND/server.ts
+
+          echo "🔍 Checking for Helmet (Clickjacking, HSTS)..."
+          grep -q "helmet" $FILE && echo "✅ Helmet present" || echo "❌ Helmet missing"
+
+          echo "🔍 Checking for express-rate-limit (DDoS)..."
+          grep -q "rateLimit" $FILE && echo "✅ express-rate-limit present" || echo "❌ express-rate-limit missing"
+
+          echo "🔍 Checking for xss-clean..."
+          grep -q "xss-clean" $FILE && echo "✅ xss-clean present" || echo "❌ xss-clean missing"
+
+      - name: 🧹 Cleanup - Kill Backend Server
         run: pkill -f ts-node
+
+      - name: 🎉 Done
+        if: success()
+        run: echo "✅ CI/CD completed successfully!"
 
