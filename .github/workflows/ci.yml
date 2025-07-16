@@ -46,7 +46,7 @@ jobs:
           echo "Starting backend..."
           npx ts-node -P tsconfig.server.json src/BACKEND/server.ts &
           echo "✅ Backend started in background"
-          sleep 5
+          sleep 20
         working-directory: AutoDreamZA-react-app
         env:
           ATLAS_URI: ${{ secrets.ATLAS_URI }}
