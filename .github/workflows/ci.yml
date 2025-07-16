@@ -1,4 +1,4 @@
-name: Launch AutoDream App (Dev)
+name: CI/CD Pipeline (Dev)
 
 on:
   push:
