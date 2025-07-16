@@ -128,7 +128,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./AutoDreamZA-react-app
-          file: ./AutoDreamZA-react-app/Dockerfile
+          file: ./AutoDreamZA-react-app/DockerFile
           push: true
           tags: aiden367/autodreamza:latest
 
