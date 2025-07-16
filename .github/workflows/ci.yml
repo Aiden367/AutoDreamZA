@@ -66,17 +66,19 @@ jobs:
 
       - name: 🔒 Check Security Middleware
         run: |
-          cd AutoDreamZA-react-app
-          FILE=src/BACKEND/server.ts
+          FILE=AutoDreamZA-react-app/src/BACKEND/server.ts
 
           echo "🔍 Checking for Helmet (Clickjacking, HSTS)..."
-          grep -q "helmet" $FILE && echo "✅ Helmet present" || echo "❌ Helmet missing"
+          grep -q "helmet" "$FILE" && grep -q "app.use(helmet" "$FILE" \
+            && echo "✅ Helmet present" || echo "❌ Helmet missing"
 
           echo "🔍 Checking for express-rate-limit (DDoS)..."
-          grep -q "rateLimit" $FILE && echo "✅ express-rate-limit present" || echo "❌ express-rate-limit missing"
+          grep -q "rateLimit" "$FILE" && grep -q "app.use(limiter" "$FILE" \
+            && echo "✅ express-rate-limit present" || echo "❌ express-rate-limit missing"
 
           echo "🔍 Checking for xss-clean..."
-          grep -q "xss-clean" $FILE && echo "✅ xss-clean present" || echo "❌ xss-clean missing"
+          grep -q "xss-clean" "$FILE" \
+            && echo "✅ xss-clean present" || echo "❌ xss-clean missing"
 
       - name: 🧹 Cleanup - Kill Backend Server
         run: pkill -f ts-node
@@ -84,4 +86,3 @@ jobs:
       - name: 🎉 Done
         if: success()
         run: echo "✅ CI/CD completed successfully!"
-
