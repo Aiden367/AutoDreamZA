@@ -1,0 +1,114 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-app:
+    name: Run Frontend and Backend with MongoDB Atlas
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛎 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🛠 Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: npm ci
+        working-directory: AutoDreamZA-react-app
+
+      - name: 🗝 Create .env file
+        run: |
+          echo "ATLAS_URI=${{ secrets.ATLAS_URI }}" > .env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> .env
+          echo "VITE_STRIPE_PUBLISHABLE_KEY=${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY }}" >> .env
+          echo "EMAIL_USER=${{ secrets.EMAIL_USER }}" >> .env
+          echo "EMAIL_PASS=${{ secrets.EMAIL_PASS }}" >> .env
+        working-directory: AutoDreamZA-react-app
+
+      - name: 🔧 Build TypeScript Backend
+        run: npx tsc --project tsconfig.server.json
+        working-directory: AutoDreamZA-react-app
+
+      - name: 🚀 Start Backend and Wait for Readiness
+        working-directory: AutoDreamZA-react-app
+        env:
+          ATLAS_URI: ${{ secrets.ATLAS_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          VITE_STRIPE_PUBLISHABLE_KEY: ${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+        run: |
+          echo "Starting backend..."
+          npx ts-node -P tsconfig.server.json src/BACKEND/server.ts &
+          BACKEND_PID=$!
+          echo "Waiting for backend to start..."
+          for i in {1..60}; do
+            if curl --silent --fail http://localhost:5000/health/ServerHealth; then
+              echo "✅ Backend is up!"
+              break
+            else
+              echo "Health check failed, response:"
+              curl -v http://localhost:5000/health/ServerHealth || true
+            fi
+            echo "Retrying in 2s... ($i/60)"
+            sleep 2
+          done
+
+          if ! curl --silent --fail http://localhost:5000/health/ServerHealth; then
+            echo "❌ Backend failed to start in time"
+            kill $BACKEND_PID
+            exit 1
+          fi
+
+          echo "Backend startup verified."
+          # Keep backend running for further steps
+
+      - name: 🔒 Check Security Middleware
+        run: |
+          FILE=AutoDreamZA-react-app/src/BACKEND/server.ts
+
+          echo "🔍 Checking for Helmet..."
+          if grep -iq "helmet" "$FILE" && grep -iq "app.use(helmet" "$FILE"; then
+            echo "✅ Helmet present"
+          else
+            echo "❌ Helmet missing"
+            exit 1
+          fi
+
+          echo "🔍 Checking for express-rate-limit..."
+          if grep -iq "rateLimit" "$FILE" && grep -iq "app.use(limiter" "$FILE"; then
+            echo "✅ express-rate-limit present"
+          else
+            echo "❌ express-rate-limit missing"
+            exit 1
+          fi
+
+          echo "🔍 Checking for xss-clean..."
+          if grep -iq "xss-clean" "$FILE"; then
+            echo "✅ xss-clean present"
+          else
+            echo "❌ xss-clean missing"
+            exit 1
+          fi
+
+      - name: 🧹 Cleanup - Kill Backend Server
+        run: pkill -f ts-node || true
+
+      - name: 🎉 Done
+        if: success()
+        run: echo "✅ CI/CD completed successfully!"
+
+
