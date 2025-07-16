@@ -157,4 +157,4 @@ const AudioSchema = new Schema(
 const AudioProduct = mongoose.model("AudioProduct",AudioSchema);
 
 
-module.exports = {User,MatProduct,RoofRackProduct,RimsProduct,RadioProduct,Purchase};
+module.exports = {User,MatProduct,RoofRackProduct,RimsProduct,RadioProduct,Purchase,AudioProduct};
