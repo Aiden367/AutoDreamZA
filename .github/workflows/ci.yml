@@ -42,17 +42,25 @@ jobs:
 
       - name: Start Backend Server in Background
         run: |
+          echo "🚀 Starting backend server..."
           npx ts-node -P tsconfig.server.json src/BACKEND/server.ts &
-          echo "Starting backend server..."
-          sleep 5
         working-directory: AutoDreamZA-react-app
         env:
           MONGO_URI: mongodb://localhost:27017/autodreamdb
 
-      - name: Test Backend Server Endpoint
+      - name: Wait for Backend to be Ready
         run: |
-          echo "Testing /user/Login endpoint..."
-          curl --fail http://localhost:5000/user/Login || exit 1
+          echo "⏳ Waiting for backend to start..."
+          for i in {1..20}; do
+            if curl --silent http://localhost:5000/user/Login; then
+              echo "✅ Backend is up!"
+              exit 0
+            fi
+            echo "⏱️ Retrying in 1 second... ($i/20)"
+            sleep 1
+          done
+          echo "❌ Backend did not start in time."
+          exit 1
 
       - name: Kill Backend Server
         run: pkill -f ts-node
