@@ -29,7 +29,7 @@ jobs:
 
       - name: 🗝 Create .env file
         run: |
-          echo "ATLAS_URI=${{ secrets.ATLAS_URI }}" >> .env
+          echo "ATLAS_URI=${{ secrets.ATLAS_URI }}" > .env
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
           echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> .env
           echo "VITE_STRIPE_PUBLISHABLE_KEY=${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY }}" >> .env
@@ -46,7 +46,15 @@ jobs:
           echo "Starting backend..."
           npx ts-node -P tsconfig.server.json src/BACKEND/server.ts &
           echo "✅ Backend started in background"
+          sleep 5
         working-directory: AutoDreamZA-react-app
+        env:
+          ATLAS_URI: ${{ secrets.ATLAS_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          VITE_STRIPE_PUBLISHABLE_KEY: ${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
 
       - name: ⏳ Wait for Backend to be Ready
         run: |
@@ -96,6 +104,4 @@ jobs:
       - name: 🎉 Done
         if: success()
         run: echo "✅ CI/CD completed successfully!"
-
-
 
