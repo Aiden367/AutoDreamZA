@@ -61,7 +61,7 @@ jobs:
               break
             else
               echo "Health check failed, response:"
-              curl -v http://localhost:5000/health || true
+              curl -v http://localhost:5000/user/health || true
             fi
             echo "Retrying in 2s... ($i/60)"
             sleep 2
