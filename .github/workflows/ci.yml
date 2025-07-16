@@ -42,13 +42,14 @@ jobs:
         run: npx tsc --project tsconfig.server.json
         working-directory: AutoDreamZA-react-app
 
-      - name: 🚀 Start Backend Server
+      - name: 🚀 Start Backend Server with Atlas URI
         run: |
+          echo "Starting backend with remote MongoDB Atlas..."
           npx ts-node -P tsconfig.server.json src/BACKEND/server.ts &
-          echo "Started backend server in background"
+          echo "✅ Backend server started in background"
         working-directory: AutoDreamZA-react-app
         env:
-          MONGO_URI: mongodb://localhost:27017/autodreamdb
+          MONGO_URI: ${{ secrets.ATLAS_URI }}
 
       - name: ⏳ Wait for Backend to be Ready
         run: |
@@ -98,4 +99,5 @@ jobs:
       - name: 🎉 Done
         if: success()
         run: echo "✅ CI/CD completed successfully!"
+
 
