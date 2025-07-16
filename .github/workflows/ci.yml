@@ -100,4 +100,6 @@ jobs:
         if: success()
         run: echo "✅ CI/CD completed successfully!"
 
+        run: echo "✅ CI/CD completed successfully!"
+
 
