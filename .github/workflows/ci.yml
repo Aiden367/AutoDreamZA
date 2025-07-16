@@ -56,18 +56,18 @@ jobs:
           BACKEND_PID=$!
           echo "Waiting for backend to start..."
           for i in {1..60}; do
-            if curl --silent --fail http://localhost:5000/health/health; then
+            if curl --silent --fail http://localhost:5000/health/ServerHealth; then
               echo "✅ Backend is up!"
               break
             else
               echo "Health check failed, response:"
-              curl -v http://localhost:5000/health/health || true
+              curl -v http://localhost:5000/health/ServerHealth || true
             fi
             echo "Retrying in 2s... ($i/60)"
             sleep 2
           done
 
-          if ! curl --silent --fail http://localhost:5000/health/health; then
+          if ! curl --silent --fail http://localhost:5000/health/ServerHealth; then
             echo "❌ Backend failed to start in time"
             kill $BACKEND_PID
             exit 1
