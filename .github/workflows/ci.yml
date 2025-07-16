@@ -61,13 +61,13 @@ jobs:
               break
             else
               echo "Health check failed, response:"
-              curl -v http://localhost:5000/user/health || true
+              curl -v http://localhost:5000/health/health || true
             fi
             echo "Retrying in 2s... ($i/60)"
             sleep 2
           done
 
-          if ! curl --silent --fail http://localhost:5000/health; then
+          if ! curl --silent --fail http://localhost:5000/health/health; then
             echo "❌ Backend failed to start in time"
             kill $BACKEND_PID
             exit 1
