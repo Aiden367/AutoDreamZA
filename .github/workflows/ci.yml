@@ -40,11 +40,20 @@ jobs:
         run: npx tsc --project tsconfig.server.json
         working-directory: AutoDreamZA-react-app
 
-      - name: Start Backend Server
+      - name: Start Backend Server in Background
         run: |
-          npx ts-node -P tsconfig.server.json src/BACKEND/server.ts
+          npx ts-node -P tsconfig.server.json src/BACKEND/server.ts &
+          echo "Starting backend server..."
+          sleep 5
         working-directory: AutoDreamZA-react-app
         env:
           MONGO_URI: mongodb://localhost:27017/autodreamdb
 
+      - name: Test Backend Server Endpoint
+        run: |
+          echo "Testing /user/Login endpoint..."
+          curl --fail http://localhost:5000/user/Login || exit 1
+
+      - name: Kill Backend Server
+        run: pkill -f ts-node
 
