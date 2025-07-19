@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Nav from "../../../COMPONENTS/Navbar";
 import SecondNav from "../../../COMPONENTS/SecondNavbar";
 import { useUser } from '../../../BACKEND/context/UserContext';
-import '../Styles/AccountSettings.css'; // or rename it AccountSettings.css
+import '../Styles/AccountSettings.css'; 
 
 const AccountSettings: React.FC = () => {
   const { userId } = useUser();
-
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -17,7 +16,6 @@ const AccountSettings: React.FC = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
 
-  // Load current user info (email/phone)
   useEffect(() => {
     const fetchUser = async () => {
       const res = await fetch(`http://localhost:5000/user/${userId}`);
@@ -30,21 +28,17 @@ const AccountSettings: React.FC = () => {
 
   const handleUpdateAccount = async (e: React.FormEvent) => {
     e.preventDefault();
-    // ✅ Prevent update if OTP hasn't been verified
     if (!otpVerified) {
       setError('You must verify the OTP before updating your account.');
       return;
     }
-
     try {
       const response = await fetch('http://localhost:5000/user/update-account', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, email, phoneNumber, currentPassword, newPassword }),
       });
-
       const data = await response.json();
-
       if (response.ok) {
         setMessage(data.message);
         setError('');
@@ -65,7 +59,7 @@ const AccountSettings: React.FC = () => {
       const res = await fetch('http://localhost:5000/user/request-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })  // can also be userId if you modify backend
+        body: JSON.stringify({ email }) 
       });
       const data = await res.json();
       if (res.ok) {
@@ -87,7 +81,6 @@ const AccountSettings: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, otp })
       });
-
       const data = await res.json();
       if (res.ok) {
         setOtpVerified(true);

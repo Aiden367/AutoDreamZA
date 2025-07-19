@@ -39,24 +39,19 @@ const RoofRacks: React.FC = () => {
     useEffect(() => {
         const scrapeAndFetchProducts = async () => {
             try {
-                // Optional: scrape only if needed
                 await axios.get('http://localhost:5000/product/scrape-if-needed');
-
-                // ✅ Fetch only RoofRackProduct items
                 const res = await axios.get('http://localhost:5000/product/products', {
                     params: {
-                        type: 'roofrack',   // 👈 this is crucial
+                        type: 'roofrack',
                         page: 1,
                         limit: 50
                     }
                 });
-
-                setProducts(res.data.products); // ✅ Make sure you're using .products
+                setProducts(res.data.products);
             } catch (error) {
                 console.error("Error fetching roof rack products:", error);
             }
         };
-
         scrapeAndFetchProducts();
     }, []);
 
@@ -93,6 +88,10 @@ const RoofRacks: React.FC = () => {
     }, [cart, userId]);
 
     const addToCart = (product: Product) => {
+        if (!userId) {
+            alert("Please login to add items to your cart.");
+            return;
+        }
         setCart(prevCart => {
             const existing = prevCart.find(item => item.productId === product._id);
             if (existing) {
@@ -114,7 +113,6 @@ const RoofRacks: React.FC = () => {
                 ];
             }
         });
-
         setPopupProduct(product);
         setShowPopup(true);
         setTimeout(() => setShowPopup(false), 3000);
@@ -162,7 +160,7 @@ const RoofRacks: React.FC = () => {
             <div className="car-mats-page">
                 {/* Filter Sidebar */}
                 <div className="filter-section">
-                  
+
 
                     <div className="filter-group">
                         <label>Availability</label>
@@ -204,7 +202,7 @@ const RoofRacks: React.FC = () => {
 
                 {/* Product Section */}
                 <div className="product-section">
-                    
+
 
                     <div className="search-bar">
                         <input

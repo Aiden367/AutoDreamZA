@@ -26,8 +26,8 @@ const PurchaseSchema = new Schema(
       postalCode: { type: String },
       deliveryInstructions: { type: String },
     },
-    paymentMethod: { type: String },   // 'card' or 'paypal'
-    paymentId: { type: String },       // transaction id from payment gateway
+    paymentMethod: { type: String },   
+    paymentId: { type: String },       
     purchasedAt: { type: Date, default: Date.now },
   },
   { timestamps: true, collection: 'Purchase' }
@@ -58,21 +58,17 @@ const UserSchema = new mongoose.Schema({
   cart: [CartItemSchema],
   purchases: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Purchase' }],
 
-  // 2FA fields
+  
   otp: { type: String },
   otpExpires: { type: Date },
 
-  // Password reset fields
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
 
-  // Fields for brute-force protection
+
   failedLoginAttempts: { type: Number, default: 0 },
   lockUntil: { type: Date, default: null },
 });
-
-
-
 const User = mongoose.model("User",UserSchema);
 
 const MatProductSchema = new Schema(
@@ -87,8 +83,6 @@ const MatProductSchema = new Schema(
   },
   { timestamps: true, collection: "MatProduct" }
 );
-
-
 const MatProduct = mongoose.model("MatProduct",MatProductSchema);
 
 
@@ -104,8 +98,6 @@ const RoofRackProductSchema = new Schema(
   },
   { timestamps: true ,collection: "RoofRackProduct"}
 );
-
-
 const RoofRackProduct = mongoose.model("RoofRackProduct",RoofRackProductSchema);
 
 const RimsProductSchema = new Schema(
@@ -120,8 +112,6 @@ const RimsProductSchema = new Schema(
   },
   { timestamps: true ,collection: "RimsProduct"}
 );
-
-
 const RimsProduct = mongoose.model("RimsProduct",RimsProductSchema);
 
 const RadioProductSchema = new Schema(
@@ -136,25 +126,9 @@ const RadioProductSchema = new Schema(
   },
   { timestamps: true ,collection: "RadioProduct"}
 );
-
-
 const RadioProduct = mongoose.model("RadioProduct",RadioProductSchema);
 
-const AudioSchema = new Schema(
-  {
-    title: { type: String, required: true },
-    price: { type: Number, required: true },
-    image: { type: String, required: true },
-    url: { type: String, required: true, unique: true },
-    available: { type: Boolean, default: true },
-    manufacturer: { type: String, default: "Booxe" },
-    type: { type: String }
-  },
-  { timestamps: true ,collection: "RadioProduct"}
-);
 
 
-const AudioProduct = mongoose.model("AudioProduct",AudioSchema);
 
-
-module.exports = {User,MatProduct,RoofRackProduct,RimsProduct,RadioProduct,Purchase,AudioProduct};
+module.exports = {User,MatProduct,RoofRackProduct,RimsProduct,RadioProduct,Purchase};

@@ -3,14 +3,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Nav from "../../../COMPONENTS/Navbar";
 import SecondNav from "../../../COMPONENTS/SecondNavbar";
 
-// Placeholder images - replace with your own paths or imports
+
 const myOrdersImg = "https://img.icons8.com/ios-filled/64/000000/purchase-order.png";
 const loginSecurityImg = "https://img.icons8.com/ios-filled/64/000000/lock--v1.png";
 const purchasesImg = "https://img.icons8.com/ios-filled/64/000000/shopping-cart.png";
 
 const ProfilePage: React.FC = () => {
   const { userId } = useParams();
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const [userData, setUserData] = useState<any>(null);
 
   useEffect(() => {
@@ -23,23 +23,21 @@ const ProfilePage: React.FC = () => {
         console.error("Error fetching user data", error);
       }
     };
-
     if (userId) {
       fetchUserData();
     }
   }, [userId]);
 
-  // Navigate to different pages
   const handleMyOrdersClick = () => {
-    navigate(`/orders/${userId}`);  // Example route for orders
+    navigate(`/orders/${userId}`);  
   };
 
   const handleLoginSecurityClick = () => {
-     navigate(`/AccountSettings?userId=${userId}`); // Example route for login security
+     navigate(`/AccountSettings?userId=${userId}`); 
   };
 
   const handlePurchasesClick = () => {
-    navigate(`/Purchases`);  // Your purchases page route
+    navigate(`/Purchases`);  
   };
 
   const blockStyle: React.CSSProperties = {

@@ -35,22 +35,12 @@ const Login: React.FC = () => {
                 },
                 body: JSON.stringify(loginData),
             });
-
-
             if (response.ok) {
                 const result = await response.json();
                 setSuccessMessage('Login Successful');
-
-                // Save token to localStorage (optional)
                 localStorage.setItem('token', result.token);
-
-                // **Add this line to update your userId in context**
                 setUserId(result.user.id);
-
-                // Optionally save userId in localStorage too (for persistence on refresh)
                 localStorage.setItem('userId', result.user.id);
-
-                // Navigate after setting userId
                 navigate('/Home');
             } else {
                 const errorData = await response.json();
@@ -84,7 +74,6 @@ const Login: React.FC = () => {
 
     return (
         <>
-          
             <Nav />
             <SecondNav />
             <div className="login-container">

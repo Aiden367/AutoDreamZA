@@ -6,6 +6,11 @@ import SecondNav from "../../../../COMPONENTS/SecondNavbar"
 import { useUser } from '../../../../BACKEND/context/UserContext'; // adjust the path if needed
 
 
+interface AlertProps {
+  message: string;
+  onClose: () => void;
+}
+
 type Product = {
   _id: string;
   title: string;
@@ -104,6 +109,10 @@ const CarMats: React.FC = () => {
   }, [cart, userId]);
 
   const addToCart = (product: Product) => {
+    if (!userId) {
+      alert("Please login to add items to your cart.");
+      return;
+    }
     setCart(prevCart => {
       const existing = prevCart.find(item => item.productId === product._id);
       if (existing) {
@@ -130,6 +139,7 @@ const CarMats: React.FC = () => {
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 3000);
   };
+
 
 
 

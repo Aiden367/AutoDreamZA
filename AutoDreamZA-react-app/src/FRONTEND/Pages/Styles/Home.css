@@ -1,5 +1,19 @@
 @import url('https://fonts.cdnfonts.com/css/futura-pt');
 
+
+
+html,
+body {
+  height: 100%;
+  background-color: white !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+
 /* Root Variables */
 :root {
   font-family: 'Futura PT', system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -9,25 +23,7 @@
 }
 
 
-/* Global Reset */
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  background: #fff;
-  color: #000;
-}
 
-body,
-html {
-  background-color: #ffffff;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-}
 
 /* Root Variables */
 :root {
@@ -93,30 +89,53 @@ html {
   background-color: #000000;
 }
 
-/* Features Section */
 .features {
+  background-color: #1a1a1a;
+  color: #f2f2f2;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   padding: 4rem 2rem;
-  background: #f5f5f5;
-  color: #000;
   width: 100%;
+  font-family: 'Futura PT', sans-serif;
+  border-top: 1px solid #333;
 }
 
 .feature {
-  flex: 1;
-  margin: 0 1rem;
-  text-align: center;
+  flex: 1 1 220px;
+  margin: 1rem;
+  text-align: left;
 }
 
 .feature h2 {
-  font-size: 2rem;
+  font-size: 1.2rem;
   margin-bottom: 1rem;
+  color: #ffffff;
+  border-bottom: 1px solid #444;
+  padding-bottom: 0.5rem;
 }
 
 .feature p {
-  font-size: 1rem;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
+
+.feature p:hover {
+  color: #fff;
+}
+
+/* Optional: footer bottom text */
+.footer-bottom {
+  text-align: center;
+  width: 100%;
+  margin-top: 2rem;
+  color: #777;
+  font-size: 0.8rem;
+}
+
 
 /* Upload Form Section */
 .upload-form {
@@ -229,7 +248,8 @@ html {
 }
 
 .product-item {
-  background: #f5f5f5;
+  background-color: white !important;
+
   padding: 1rem;
   border-radius: 2px;
   text-align: center;
@@ -266,6 +286,16 @@ html {
   background-color: #b00500;
 }
 
+
+.category-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  /* Adjust to match image size */
+  cursor: pointer;
+}
+
 /* Category heading */
 .category-heading {
   font-size: 16px;
@@ -278,6 +308,7 @@ html {
 }
 
 .categories-container {
+  background-color: white !important;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -289,7 +320,7 @@ html {
   /* Padding inside container */
   background-color: #ffffff;
   /* White background for clarity */
-  border: 1.5px solid #e2e2e8;
+
   /* Light subtle border */
   border-radius: 2px;
   /* Rounded corners */
@@ -307,52 +338,56 @@ html {
   /* Slightly stronger shadow on hover */
 }
 
-/* Category Item Improvements */
-.category {
+.category-home {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #d1d1d6;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* Vertically center content */
-  width: 160px;
-  height: 160px;
-  padding: 20px;
-  background-color: #fafafa;
-  /* Light subtle off-white for better contrast */
-  border-radius: 12px;
-  border: 1.8px solid #d1d1d6;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
-  cursor: pointer;
+  background-color: white !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  text-align: center;
 }
 
-.category:hover {
+.category-home:hover {
   transform: translateY(-6px) scale(1.06);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
   border-color: #b00500;
-  /* Accent color on hover */
 }
 
-/* Category Image */
-.category img {
+.category-home img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  object-fit: cover;
+  border-radius: 50%;
 }
 
-/* Category Text */
-.category p {
+
+.category-label {
   font-size: 1rem;
   font-family: 'Futura PT', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  margin-top: 14px;
   color: #2c2c2c;
   font-weight: 600;
   letter-spacing: 0.02em;
+  margin-top: 10px;
+  text-align: center;
 }
 
+/* Text below the circle */
+.category-home p {
+  font-size: 1rem;
+  font-family: 'Futura PT', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #2c2c2c;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 0;
+  /* reset */
+  text-align: center;
+  cursor: pointer;
+}
 
 
 
@@ -427,9 +462,10 @@ html {
 
 .popular-products-section {
   padding: 20px 40px;
-  background-color: #f9f9f9;
+
   margin-bottom: 50px;
   margin-top: -400px;
+  background-color: white !important;
 }
 
 .popular-products-section h2 {

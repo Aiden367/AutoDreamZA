@@ -40,31 +40,25 @@ const Rims: React.FC = () => {
     useEffect(() => {
         const scrapeAndFetchProducts = async () => {
             try {
-                // Optional: scrape only if needed
                 await axios.get('http://localhost:5000/product/scrape-if-needed');
-
-                // ✅ Fetch only RoofRackProduct items
                 const res = await axios.get('http://localhost:5000/product/products', {
                     params: {
-                        type: 'rims',   // 👈 this is crucial
+                        type: 'rims',
                         page: 1,
                         limit: 50
                     }
                 });
-
-                setProducts(res.data.products); // ✅ Make sure you're using .products
+                setProducts(res.data.products);
             } catch (error) {
                 console.error("Error fetching roof rack products:", error);
             }
         };
-
         scrapeAndFetchProducts();
     }, []);
 
 
     useEffect(() => {
         if (!userId) return;
-
         const fetchCart = async () => {
             try {
                 const res = await axios.get(`http://localhost:5000/user/cart/${userId}`);
@@ -95,6 +89,10 @@ const Rims: React.FC = () => {
     }, [cart, userId]);
 
     const addToCart = (product: Product) => {
+        if (!userId) {
+            alert("Please login to add items to your cart.");
+            return;
+        }
         setCart(prevCart => {
             const existing = prevCart.find(item => item.productId === product._id);
             if (existing) {
@@ -140,8 +138,6 @@ const Rims: React.FC = () => {
 
         return matchesAvailability && matchesManufacturer && matchesPrice && matchesSearch;
     });
-
-
     const sortedProducts = [...filteredProducts].sort((a, b) => {
         if (priceSort === 'asc') return a.price - b.price;
         if (priceSort === 'desc') return b.price - a.price;
@@ -164,7 +160,7 @@ const Rims: React.FC = () => {
             <div className="car-mats-page">
                 {/* Filter Sidebar */}
                 <div className="filter-section">
-                    
+
 
                     <div className="filter-group">
                         <label>Availability</label>
@@ -206,7 +202,7 @@ const Rims: React.FC = () => {
 
                 {/* Product Section */}
                 <div className="product-section">
-                   
+
 
                     <div className="search-bar">
                         <input
@@ -224,7 +220,7 @@ const Rims: React.FC = () => {
                                 <img src={product.image} alt={product.title} />
                                 <div className="product-info">
                                     <h3>{product.title}</h3>
-                                    
+
                                     <p><strong>Type:</strong> {product.type}</p>
                                     <p><strong>Price:</strong> R{product.price.toFixed(2)}</p>
                                     <p className={product.available ? 'in-stock' : 'out-stock'}>

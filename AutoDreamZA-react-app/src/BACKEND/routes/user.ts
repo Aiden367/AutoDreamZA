@@ -10,11 +10,10 @@ import rateLimit from 'express-rate-limit';
 const router = Router();
 
 const MAX_LOGIN_ATTEMPTS = 5;
-const LOCK_TIME = 30 * 60 * 1000; // 30 minutes
+const LOCK_TIME = 30 * 60 * 1000; 
 
-// Limit login attempts to 5 per 15 minutes per IP
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000, 
   max: 5,
   message: 'Too many login attempts from this IP, please try again after 15 minutes',
   standardHeaders: true,
@@ -25,16 +24,13 @@ const loginLimiter = rateLimit({
 router.delete('/cart/:userId/:productId', async (req: Request, res: Response) => {
   try {
     const { userId, productId } = req.params;
-
     const user = await User.findById(userId);
     if (!user) {
       res.status(404).json({ error: "User not found" });
       return;
     }
-
     user.cart = user.cart.filter((item: any) => item.productId !== productId);
     await user.save();
-
     res.status(200).json({ message: "Item removed from cart", cart: user.cart });
   } catch (error) {
     console.error("Error removing item from cart:", error);
@@ -122,7 +118,7 @@ router.post('/cart/update', async (req: Request, res: Response) => {
     user.cart = cartItems;
     const updatedUser = await user.save();
 
-    // ✅ Custom response with updated cart
+   
     res.status(200).json({
       message: 'Cart updated successfully',
       cart: updatedUser.cart,
@@ -181,7 +177,7 @@ router.post('/Login', loginLimiter, async (req, res) => {
        return;
     }
 
-    // Check if account is locked
+    
     if (user.lockUntil && user.lockUntil > Date.now()) {
       const minutesLeft = Math.ceil((user.lockUntil - Date.now()) / 60000);
       res.status(423).send({ error: `Account locked. Try again in ${minutesLeft} minutes.` });
@@ -191,10 +187,8 @@ router.post('/Login', loginLimiter, async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      // Increment failed attempts
+      
       user.failedLoginAttempts = (user.failedLoginAttempts || 0) + 1;
-
-      // Lock account if attempts exceed max
       if (user.failedLoginAttempts >= MAX_LOGIN_ATTEMPTS) {
         user.lockUntil = Date.now() + LOCK_TIME;
       }
@@ -204,7 +198,6 @@ router.post('/Login', loginLimiter, async (req, res) => {
        return;
     }
 
-    // Successful login: reset attempts and lockUntil
     user.failedLoginAttempts = 0;
     user.lockUntil = null;
     await user.save();
@@ -270,7 +263,7 @@ router.post('/verify-otp', async (req: Request, res: Response) => {
       res.status(400).json({ error: 'Invalid or expired OTP' });
       return
     }
-    // Clear OTP so it can’t be reused
+    
     user.otp = null;
     user.otpExpires = null;
     await user.save();
@@ -291,19 +284,13 @@ router.post('/update-account', async (req: Request, res: Response) => {
       res.status(404).json({ error: 'User not found' });
       return
     }
-
-    // Verify current password before updating anything sensitive
     const isMatch = await bcrypt.compare(currentPassword, user.password);
     if (!isMatch) {
       res.status(400).json({ error: 'Incorrect current password' });
       return
     }
-
-    // Update email and phone if provided
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
-
-    // Update password if newPassword is provided
     if (newPassword) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(newPassword, salt);
@@ -319,7 +306,6 @@ router.post('/update-account', async (req: Request, res: Response) => {
   }
 });
 
-// Send password reset email
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
 
@@ -330,17 +316,12 @@ router.post('/forgot-password', async (req, res) => {
       return
     };
 
-
     const token = crypto.randomBytes(20).toString('hex');
-    const expires = Date.now() + 3600000; // 1 hour
-
+    const expires = Date.now() + 3600000; 
     user.resetPasswordToken = token;
     user.resetPasswordExpires = expires;
     await user.save();
-
     const resetUrl = `http://localhost:5173/ResetPassword?token=${token}`;
-
-
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -363,15 +344,13 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 router.post('/reset-password', async (req, res) => {
-  // Get token from body or query
+ 
   const token = req.body.token || req.query.token;
   const { newPassword } = req.body;
-
   if (!token) {
      res.status(400).json({ error: 'Token is required' });
      return
   }
-
   try {
     const user = await User.findOne({
       resetPasswordToken: token,
@@ -382,7 +361,6 @@ router.post('/reset-password', async (req, res) => {
      res.status(400).json({ error: 'Invalid or expired token' });
      return
     }
-
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(newPassword, salt);
     user.resetPasswordToken = null;
@@ -395,9 +373,5 @@ router.post('/reset-password', async (req, res) => {
     res.status(500).json({ error: 'Failed to reset password' });
   }
 });
-
-
-
-
 
 module.exports = router;

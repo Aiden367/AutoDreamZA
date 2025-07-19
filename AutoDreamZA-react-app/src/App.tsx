@@ -35,6 +35,8 @@ import ProfilePage from './FRONTEND/Pages/ProfilePages/Profile';
 import PurchasesPage from './FRONTEND/Pages/ProfilePages/PurchasesPage';
 import AccountSettingsPage from './FRONTEND/Pages/ProfilePages/AccountSettingsPage';
 import ChangePasswordPage from './FRONTEND/Pages/ProfilePages/ResetPasswordPage';
+import { CartProvider } from './BACKEND/context/CartContext';
+
 //import Register from './FRONTEND/Pages/Register';
 
 const App: React.FC = () => {
@@ -44,6 +46,7 @@ const App: React.FC = () => {
     <Router>
       {/* Wrap the Routes in FilterProvider */}
       <UserProvider>
+       
       <FilterProvider>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -85,6 +88,7 @@ const App: React.FC = () => {
           <Route path="/ResetPassword" element={<ChangePasswordPage />} />
         </Routes>
       </FilterProvider>
+      
       </UserProvider>
     </Router>
     

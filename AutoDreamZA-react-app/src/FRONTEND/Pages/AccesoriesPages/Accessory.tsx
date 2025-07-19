@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from "../../../COMPONENTS/Navbar";
-import CarInterior from "../../Images/Car_Interior_New_img.jpg";
 import CarMat from "../../Images/Car_mat_image.jpg";
 import RoofRack from "../../Images/Roof_Rack_image.jpg";
 import SeatCover from "../../Images/Seat_cover_iimage.jpg";
