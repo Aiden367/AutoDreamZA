@@ -2,7 +2,7 @@
 
 > A modern, full-stack eCommerce web application specializing in the sale of vehicle parts. Designed for speed, scalability, and user experience, the platform features a sleek UI and robust backend architecture. Built with React, Node.js, TypeScript, and MongoDB, it supports secure payments via Stripe and PayPal, OTP-based user verification, Dockerized deployment, and a CI/CD pipeline powered by GitHub Actions.
 
-![Project Screenshot](./images/screenshot.png) <!-- Replace with your image path -->
+
 
 
 
@@ -14,12 +14,6 @@
 - [Features](#features)
 - [Screenshots](#screenshots)
 - [Tech Stack](#tech-stack)
-- [Installation](#installation)
-- [Usage](#usage)
-- [CI/CD](#cicd)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 
 ---
 
@@ -111,15 +105,3 @@ Building **AutoDream** has pushed me beyond my comfort zone, especially on the f
 | React (TypeScript) | Node.js + Express  | MongoDB  | Helmet, xss-clean, RateLimit | Stripe, PayPal   | Docker + GitHub Actions |
 
 ---
-
-## 🛠️ Installation
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/yourusername/autodream-app.git
-cd autodream-app
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/yourusername/autodream-app.git
-cd autodream-app
