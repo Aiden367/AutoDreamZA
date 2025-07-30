@@ -55,13 +55,13 @@ Building **AutoDream** has pushed me beyond my comfort zone, especially on the f
 
 ## 📸 Screenshots
 
-### Homepage
+## Homepage
 ![Home_page](https://github.com/user-attachments/assets/5aec1097-8714-4512-af2a-744b3a775d77)
 
-### Cart Page
+## Cart Page
 ![cart_page](https://github.com/user-attachments/assets/2307438d-68fb-4269-9898-a8f0fa572d18)
 
-### Checkout Page
+## Checkout Page
 #### Shipping Address 
 ![shipping_address_page](https://github.com/user-attachments/assets/d4b8c84d-72d4-4a0b-95e2-a4478b30364e)
 #### Payment with card
