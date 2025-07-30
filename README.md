@@ -1,6 +1,6 @@
-# 🌐 Full-Stack Web Application
+# 🌐 AutoDream Web Application
 
-> A secure, scalable, and production-ready web application built with React, Node.js, and TypeScript. Includes Stripe and PayPal payments, CI/CD health checks, scraping features, and robust security.
+> A full-stack, production-ready web application for managing users, products, and secure payments. Built with React, Node.js, TypeScript, and MongoDB. Features Stripe/PayPal payments, OTP verification, Dockerized services, and GitHub Actions CI/CD.
 
 ![Project Screenshot](./images/screenshot.png) <!-- Replace with your image path -->
 
@@ -14,6 +14,7 @@
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
 - [Usage](#usage)
+- [CI/CD](#cicd)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
@@ -22,19 +23,21 @@
 
 ## 📖 About the Project
 
-This web application provides a full-stack solution with user authentication, product browsing, and integrated payments via Stripe and PayPal. Built with a focus on security, performance, and maintainability, it uses TypeScript throughout, integrates a CI/CD pipeline, and includes protections against common web vulnerabilities.
+**AutoDream** is a full-stack web platform for handling user registration, product listings, and secure checkout experiences. It includes modern security measures like OTP verification for password reset and profile changes, uses Stripe & PayPal for handling payments, and deploys using Docker and GitHub Actions CI/CD.
 
 ---
 
 ## 🚀 Features
 
-- ✅ User authentication with secure JWT tokens
-- ✅ Product routes and data handling using MongoDB
-- ✅ Stripe & PayPal payment integration
-- ✅ CI/CD-ready with `/health` endpoint for health checks
-- ✅ XSS & security headers via `helmet` and `xss-clean`
-- ✅ Web scraping functionality using Cheerio and Axios
-- ✅ Express rate limiting to prevent abuse
+- ✅ JWT-based authentication
+- ✅ Secure OTP system for password reset & data updates
+- ✅ Product CRUD operations
+- ✅ Payment gateways: **Stripe** & **PayPal**
+- ✅ CI/CD pipeline via **GitHub Workflows**
+- ✅ Dockerized backend services
+- ✅ Rate limiting & security headers
+- ✅ Cheerio web scraping functionality
+- ✅ Health check endpoint for uptime monitoring
 
 ---
 
@@ -46,24 +49,19 @@ This web application provides a full-stack solution with user authentication, pr
 ### Payment Integration
 ![Payment](./images/payment.png)
 
-> Put your images in the `/images` folder and reference them with relative paths.
-
 ---
 
 ## 🧰 Tech Stack
 
-| Frontend        | Backend         | Language     | Database | Security                | Payment         | CI/CD |
-|-----------------|-----------------|--------------|----------|--------------------------|------------------|--------|
-| React (TypeScript) | Node.js + Express | TypeScript   | MongoDB  | Helmet, xss-clean, RateLimit | Stripe, PayPal   | GitHub Actions / Render / Vercel |
+| Frontend           | Backend            | Database | Security                   | Payments        | DevOps              |
+|--------------------|--------------------|----------|-----------------------------|------------------|---------------------|
+| React (TypeScript) | Node.js + Express  | MongoDB  | Helmet, xss-clean, RateLimit | Stripe, PayPal   | Docker + GitHub Actions |
 
 ---
 
 ## 🛠️ Installation
 
-Clone the repository and install dependencies:
-
+### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/yourproject.git
-cd yourproject
-npm install
-
+git clone https://github.com/yourusername/autodream-app.git
+cd autodream-app
