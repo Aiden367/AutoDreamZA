@@ -44,6 +44,8 @@ Building **AutoDream** has pushed me beyond my comfort zone, especially on the f
 - ✅ Rate limiting & security headers
 - ✅ Cheerio web scraping functionality
 - ✅ Health check endpoint for uptime monitoring
+- ✅ Emailed Reciepts
+  
 
 ---
 
