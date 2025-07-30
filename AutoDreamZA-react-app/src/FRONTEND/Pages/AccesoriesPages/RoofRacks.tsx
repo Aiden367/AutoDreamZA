@@ -136,8 +136,6 @@ const RoofRacks: React.FC = () => {
 
         return matchesAvailability && matchesManufacturer && matchesPrice && matchesSearch;
     });
-
-
     const sortedProducts = [...filteredProducts].sort((a, b) => {
         if (priceSort === 'asc') return a.price - b.price;
         if (priceSort === 'desc') return b.price - a.price;
@@ -160,8 +158,6 @@ const RoofRacks: React.FC = () => {
             <div className="car-mats-page">
                 {/* Filter Sidebar */}
                 <div className="filter-section">
-
-
                     <div className="filter-group">
                         <label>Availability</label>
                         <select value={availability} onChange={(e) => setAvailability(e.target.value)}>
@@ -170,7 +166,6 @@ const RoofRacks: React.FC = () => {
                             <option value="OutOfStock">Out of Stock</option>
                         </select>
                     </div>
-
                     <div className="filter-group">
                         <label>Manufacturer</label>
                         <select value={manufacturer} onChange={(e) => setManufacturer(e.target.value)}>
@@ -181,7 +176,6 @@ const RoofRacks: React.FC = () => {
                             <option value="Toyota">Toyota</option>
                         </select>
                     </div>
-
                     <div className="filter-group">
                         <label>Sort by Price</label>
                         <select value={priceSort} onChange={(e) => setPriceSort(e.target.value)}>
@@ -190,7 +184,6 @@ const RoofRacks: React.FC = () => {
                             <option value="desc">Highest to Lowest</option>
                         </select>
                     </div>
-
                     {/* Optional: Min/Max price input */}
                     <div className="filter-group">
                         <label>Min Price</label>
@@ -202,8 +195,6 @@ const RoofRacks: React.FC = () => {
 
                 {/* Product Section */}
                 <div className="product-section">
-
-
                     <div className="search-bar">
                         <input
                             type="text"
@@ -213,7 +204,6 @@ const RoofRacks: React.FC = () => {
                             className="search-input"
                         />
                     </div>
-
                     <div className="product-grid">
                         {sortedProducts.map(product => (
                             <div key={product._id} className="product-card">

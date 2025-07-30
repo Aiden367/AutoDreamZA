@@ -14,10 +14,6 @@ const { Product } = require('./routes/models');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-
-
-
-
 // Initialize MongoDB connection and start the server
 connectToDatabase()
   .then(() => {
@@ -34,17 +30,15 @@ connectToDatabase()
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
-// Create a rate limiter
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  standardHeaders: true, // return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // disable the `X-RateLimit-*` headers
+  windowMs: 15 * 60 * 1000, 
+  max: 100, 
+  standardHeaders: true, 
+  legacyHeaders: false, 
   message: 'Too many requests from this IP, please try again after 15 minutes.',
 });
 app.use(xss());
 app.use(helmet());
-// Use CORS and JSON middleware
 app.use(cors());
 app.use(express.json());
 

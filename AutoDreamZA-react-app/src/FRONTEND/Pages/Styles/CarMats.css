@@ -3,7 +3,7 @@
 .car-mats-page {
   display: flex;
   gap: 0px;
-  margin-top: 60px;  /* Push entire container down */
+  margin-top: 60px;  
   padding: 30px;
   background-color: #f9f9f9;
 }
@@ -16,7 +16,7 @@
   background: linear-gradient(145deg, #ffffff, #f7f9fc);
   border-radius: 18px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-  border: 2px solid #1e88e5; /* stronger, branded accent border */
+  border: 2px solid #1e88e5; 
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 18px;
-  color: #1e88e5; /* match border color for harmony */
+  color: #1e88e5; 
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1.2px;
@@ -92,7 +92,7 @@
   background-color: #fff;
 }
 
-/* Optional: scrollbar styling if needed */
+
 .filter-section::-webkit-scrollbar {
   width: 8px;
 }
@@ -102,7 +102,7 @@
   border-radius: 4px;
 }
 
-/* Adjust responsive margins/padding */
+
 @media (max-width: 768px) {
   .filter-section {
     width: 100%;

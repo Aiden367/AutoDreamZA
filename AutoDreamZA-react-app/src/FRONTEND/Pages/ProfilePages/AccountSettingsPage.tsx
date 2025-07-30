@@ -108,14 +108,12 @@ const AccountSettings: React.FC = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-
           <label>Phone Number</label>
           <input
             type="tel"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
-
           {!otpSent ? (
             <button type="button" onClick={handleSendOtp}>
               Send OTP to Email
@@ -136,7 +134,6 @@ const AccountSettings: React.FC = () => {
           ) : (
             <p className="success">✅ OTP Verified</p>
           )}
-
           <label>Current Password</label>
           <input
             type="password"
@@ -144,17 +141,14 @@ const AccountSettings: React.FC = () => {
             onChange={(e) => setCurrentPassword(e.target.value)}
             required
           />
-
           <label>New Password (optional)</label>
           <input
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
-
           <button type="submit" disabled={!otpVerified}>Update Account</button>
         </form>
-
         {message && <p className="success">{message}</p>}
         {error && <p className="error">{error}</p>}
       </div>

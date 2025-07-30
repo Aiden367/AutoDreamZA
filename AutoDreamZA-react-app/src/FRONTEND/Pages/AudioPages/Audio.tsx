@@ -13,8 +13,6 @@ type Product = {
   manufacturer: string;
   price: number;
 };
-
-
 const Audio: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [availability, setAvailability] = useState('All');
@@ -32,13 +30,10 @@ const Audio: React.FC = () => {
   useEffect(() => {
   const scrapeAndFetch = async () => {
     try {
-      // Trigger conditional scrape
       await axios.get('http://localhost:5000/product/scrape-if-needed');
-
-      // Correct request with query parameters
       const res = await axios.get('http://localhost:5000/product/products', {
         params: {
-          type: productCategory,  // either 'mat' or 'roofrack'
+          type: productCategory,  
           page: currentPage,
           limit: 20,
         },
@@ -83,8 +78,6 @@ const Audio: React.FC = () => {
 
     return matchesAvailability && matchesManufacturer && matchesType && matchesPrice && matchesSearch;
   });
-
-
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (priceSort === 'asc') return a.price - b.price;
     if (priceSort === 'desc') return b.price - a.price;
@@ -99,7 +92,6 @@ const Audio: React.FC = () => {
         {/* Filter Sidebar */}
         <div className="filter-section">
           <h2>Filters</h2>
-
           <div className="filter-group">
             <label>Availability</label>
             <select value={availability} onChange={(e) => setAvailability(e.target.value)}>
@@ -108,7 +100,6 @@ const Audio: React.FC = () => {
               <option value="OutOfStock">Out of Stock</option>
             </select>
           </div>
-
           <div className="filter-group">
             <label>Manufacturer</label>
             <select value={manufacturer} onChange={(e) => setManufacturer(e.target.value)}>
@@ -131,8 +122,6 @@ const Audio: React.FC = () => {
               <option value="Rubber Mat">Rubber Mat</option>
             </select>
           </div>
-
-
           <div className="filter-group">
             <label>Sort by Price</label>
             <select value={priceSort} onChange={(e) => setPriceSort(e.target.value)}>
@@ -141,7 +130,6 @@ const Audio: React.FC = () => {
               <option value="desc">Highest to Lowest</option>
             </select>
           </div>
-
           {/* Optional: Min/Max price input */}
           <div className="filter-group">
             <label>Min Price</label>
@@ -150,7 +138,6 @@ const Audio: React.FC = () => {
             <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
           </div>
         </div>
-
         <div className="filter-group">
           <label>Category</label>
           <select value={productCategory} onChange={e => setProductCategory(e.target.value as 'mat' | 'roofrack')}>
@@ -158,8 +145,6 @@ const Audio: React.FC = () => {
             <option value="roofrack">Roof Racks</option>
           </select>
         </div>
-
-
         {/* Product Section */}
         <div className="product-section">
           <h1>Car Mats</h1>
@@ -173,7 +158,6 @@ const Audio: React.FC = () => {
               className="search-input"
             />
           </div>
-
           <div className="product-grid">
             {sortedProducts.map(product => (
               <div key={product._id} className="product-card">
@@ -189,7 +173,6 @@ const Audio: React.FC = () => {
               </div>
             ))}
           </div>
-
           <div className="pagination">
             <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>Previous</button>
             <span>Page {currentPage} of {totalPages}</span>

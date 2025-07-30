@@ -3,14 +3,14 @@ html, body {
     padding: 0;
     height: 100%;
     width: 100%;
-    background: #F1F1F1; /* <- THIS is what you change */
+    background: #F1F1F1; 
     color: #000;
     box-sizing: border-box;
 }
 
 
 
-/* Wrapper */
+
 .categories-wrapper-accesories {
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@ html, body {
   margin: 0 auto;
   padding: 20px;
   border-radius: 15px;
-  position: relative; /* changed from absolute */
+  position: relative; 
   top: auto;
   left: auto;
   transform: none;
@@ -29,15 +29,15 @@ html, body {
  
 }
 
-/* Container */
+
 .categories-container-accesories {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 30px; /* Increased gap */
+    gap: 30px; 
 }
 
-/* Heading */
+
 .categories-wrapper h1 {
     position: absolute;
     top: -30px;
@@ -47,7 +47,7 @@ html, body {
     color: #333;
 }
 
-/* ✅ Rounded Accessory Categories */
+
 .category {
   width: 200px;
   height: 200px;
@@ -71,7 +71,6 @@ html, body {
   border-color: #b00500;
 }
 
-
 .category img {
   width: 100%;
   height: 100%;
@@ -79,7 +78,6 @@ html, body {
   border-radius: 50%;
 }
 
-/* Category text */
 .category p {
     font-size: 18px;
     font-family: 'Poppins', sans-serif;
@@ -87,7 +85,6 @@ html, body {
     color: #333;
 }
 
-/* Responsive */
 @media (max-width: 750px) {
     .categories-wrapper {
         width: 90%;

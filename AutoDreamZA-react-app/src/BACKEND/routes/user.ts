@@ -1,4 +1,4 @@
-//const dotenv = require("dotenv");
+
 const bcrypt = require("bcrypt");
 const { User } = require('./models');
 const jwt = require("jsonwebtoken");
@@ -38,28 +38,23 @@ router.delete('/cart/:userId/:productId', async (req: Request, res: Response) =>
   }
 });
 
-
 router.post('/change-password', async (req: Request, res: Response): Promise<void> => {
   const { userId, currentPassword, newPassword } = req.body;
-
   try {
     const user = await User.findById(userId);
     if (!user) {
       res.status(404).json({ error: 'User not found' });
       return;
     }
-
     const isMatch = await bcrypt.compare(currentPassword, user.password);
     if (!isMatch) {
       res.status(400).json({ error: 'Incorrect current password' });
       return;
     }
-
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(newPassword, salt);
     user.password = hashedPassword;
     await user.save();
-
     res.status(200).json({ message: 'Password updated successfully' });
   } catch (error) {
     console.error('Error changing password:', error);
@@ -67,21 +62,16 @@ router.post('/change-password', async (req: Request, res: Response): Promise<voi
   }
 });
 
-
-
 router.post('/cart/clear/:userId', async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const user = await User.findById(userId);
-
     if (!user) {
       res.status(404).json({ error: "User not found" });
       return
     }
-
-    user.cart = []; // Clear the cart
+    user.cart = [];
     await user.save();
-
     res.status(200).json({ message: "Cart cleared successfully" });
   } catch (error) {
     console.error("Error clearing cart:", error);
@@ -89,10 +79,9 @@ router.post('/cart/clear/:userId', async (req: Request, res: Response) => {
   }
 });
 
-
 router.get('/:userId', async (req: Request, res: Response) => {
   try {
-    const user = await User.findById(req.params.userId).select('-password'); // Exclude password
+    const user = await User.findById(req.params.userId).select('-password'); 
     if (!user) {
       res.status(404).json({ error: 'User not found' });
       return
@@ -104,21 +93,16 @@ router.get('/:userId', async (req: Request, res: Response) => {
   }
 });
 
-
 router.post('/cart/update', async (req: Request, res: Response) => {
   try {
     const { userId, cartItems } = req.body;
-
     const user = await User.findById(userId);
     if (!user) {
       res.status(404).json({ error: 'User not found' });
       return;
     }
-
     user.cart = cartItems;
     const updatedUser = await user.save();
-
-   
     res.status(200).json({
       message: 'Cart updated successfully',
       cart: updatedUser.cart,
@@ -144,8 +128,6 @@ router.get('/cart/:userId', async (req: Request, res: Response) => {
   }
 });
 
-
-
 router.post('/Register', async (req, res) => {
   try {
     const { username, firstName, lastName, email, password, role } = req.body;
@@ -161,7 +143,6 @@ router.post('/Register', async (req, res) => {
     });
     const savedUser = await user.save()
     res.status(201).send({ user: savedUser })
-
   } catch (error) {
     console.error('Error saving user or creating account', error);
   }
@@ -171,28 +152,22 @@ router.post('/Login', loginLimiter, async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-
     if (!user) {
        res.status(401).send({ error: "Invalid username or password" });
        return;
     }
-
-    
     if (user.lockUntil && user.lockUntil > Date.now()) {
       const minutesLeft = Math.ceil((user.lockUntil - Date.now()) / 60000);
       res.status(423).send({ error: `Account locked. Try again in ${minutesLeft} minutes.` });
       return;
     }
-
     const isMatch = await bcrypt.compare(password, user.password);
-
     if (!isMatch) {
       
       user.failedLoginAttempts = (user.failedLoginAttempts || 0) + 1;
       if (user.failedLoginAttempts >= MAX_LOGIN_ATTEMPTS) {
         user.lockUntil = Date.now() + LOCK_TIME;
       }
-
       await user.save();
        res.status(401).send({ error: "Invalid username or password" });
        return;
@@ -201,7 +176,6 @@ router.post('/Login', loginLimiter, async (req, res) => {
     user.failedLoginAttempts = 0;
     user.lockUntil = null;
     await user.save();
-
     const token = jwt.sign({
       id: user._id,
       username: user.username,
@@ -222,25 +196,19 @@ router.post('/Login', loginLimiter, async (req, res) => {
   }
 });
 
-
-
 router.post('/request-otp', async (req: Request, res: Response) => {
   const { email } = req.body;
-
   try {
     const user = await User.findOne({ email });
     if (!user) {
       res.status(404).json({ error: 'User not found' });
       return;
     }
-
     const otp = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit code
     const otpExpires = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes from now
-
     user.otp = otp;
     user.otpExpires = otpExpires;
     await user.save();
-
     await sendOtp(email, otp);
     res.status(200).json({ message: 'OTP sent to your email' });
   } catch (err) {
@@ -263,11 +231,9 @@ router.post('/verify-otp', async (req: Request, res: Response) => {
       res.status(400).json({ error: 'Invalid or expired OTP' });
       return
     }
-    
     user.otp = null;
     user.otpExpires = null;
     await user.save();
-
     res.status(200).json({ message: 'OTP verified' });
   } catch (err) {
     console.error('Error verifying OTP:', err);
@@ -296,10 +262,8 @@ router.post('/update-account', async (req: Request, res: Response) => {
       const hashedPassword = await bcrypt.hash(newPassword, salt);
       user.password = hashedPassword;
     }
-
     await user.save();
     res.status(200).json({ message: 'Account updated successfully' });
-
   } catch (error) {
     console.error('Error updating account:', error);
     res.status(500).json({ error: 'Failed to update account' });
@@ -308,14 +272,12 @@ router.post('/update-account', async (req: Request, res: Response) => {
 
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
-
   try {
     const user = await User.findOne({ email });
     if (!user) {
       res.status(404).json({ error: 'Email not found' })
       return
     };
-
     const token = crypto.randomBytes(20).toString('hex');
     const expires = Date.now() + 3600000; 
     user.resetPasswordToken = token;
@@ -329,13 +291,11 @@ router.post('/forgot-password', async (req, res) => {
         pass: process.env.EMAIL_PASS,
       },
     });
-
     await transporter.sendMail({
       to: email,
       subject: 'Reset your password',
       text: `Reset your password using this link: ${resetUrl}`,
     });
-
     res.status(200).json({ message: 'Password reset email sent' });
   } catch (err) {
     console.error('Forgot password error:', err);
@@ -344,7 +304,6 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 router.post('/reset-password', async (req, res) => {
- 
   const token = req.body.token || req.query.token;
   const { newPassword } = req.body;
   if (!token) {
@@ -356,7 +315,6 @@ router.post('/reset-password', async (req, res) => {
       resetPasswordToken: token,
       resetPasswordExpires: { $gt: Date.now() },
     });
-
     if (!user) {
      res.status(400).json({ error: 'Invalid or expired token' });
      return
@@ -365,7 +323,6 @@ router.post('/reset-password', async (req, res) => {
     user.password = await bcrypt.hash(newPassword, salt);
     user.resetPasswordToken = null;
     user.resetPasswordExpires = null;
-
     await user.save();
     res.status(200).json({ message: 'Password successfully reset' });
   } catch (err) {

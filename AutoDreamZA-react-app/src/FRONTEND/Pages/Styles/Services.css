@@ -1,4 +1,4 @@
-/* Global Reset */
+
 html, body {
     margin: 0;
     padding: 0;
@@ -9,94 +9,81 @@ html, body {
     box-sizing: border-box;
 }
 
-/* Rectangular Container */
 .categories-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 1000px; /* Increased to fit three per row */
+    width: 1000px; 
     max-height: 80vh;
     overflow-y: auto;
     border-radius: 15px;
     padding: 20px;
-    
-    
     position: absolute;
-    top: 60%; /* Moves it down */
-    left: 40%; /* Moves it to the left */
-   
+    top: 60%; 
+    left: 40%; 
     transform: translate(-50%, -50%);
     height: 600px;
 }
 
-/* Category container */
 .categories-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 10px; /* Increased for better spacing */
+    gap: 10px; 
     width: 100%;
 }
 .categories-wrapper h1 {
     position: absolute;
-    top: -30px; /* Moves it above the wrapper */
-    left: 0; /* Aligns it to the left */
+    top: -30px; 
+    left: 0; 
     font-size: 24px;
     font-weight: bold;
     color: #333;
 }
-/* Category box */
+
 .category {
     display: flex;
-    flex-direction: row; /* Aligns text and image in a row */
+    flex-direction: row; 
     align-items: center;
-    justify-content: space-between; /* Pushes text left and image right */
+    justify-content: space-between; 
     width: calc((100% - 20px) / 3);
     height: 160px;
     background-color: white;
     border-radius: 0px;
     border: 2px solid white;
     padding: 10px;
-    text-align: left; /* Aligns text to the left */
+    text-align: left; 
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
     box-sizing: border-box;
 }
-
-/* Category text */
 .category p {
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
     margin: 0;
     color: #333;
-    flex-grow: 1; /* Allows text to take available space */
-    padding-left: 10px; /* Adds spacing from the left */
+    flex-grow: 1; 
+    padding-left: 10px; 
 }
 
-/* Category image */
 .category img {
-    width: 80px; /* Increased size */
+    width: 80px; 
     height: 80px;
-    object-fit: contain; /* Ensures the image fits well */
-    margin-left: auto; /* Pushes image to the right */
+    object-fit: contain; 
+    margin-left: auto; 
 }
-
-
-
-/* Responsive Adjustments */
 @media (max-width: 750px) {
     .categories-wrapper {
         width: 90%;
     }
 
     .category {
-        width: calc((100% - 10px) / 2); /* Two per row */
+        width: calc((100% - 10px) / 2); 
     }
 }
-
 @media (max-width: 500px) {
     .category {
-        width: 100%; /* One per row */
+        width: 100%; 
     }
 }

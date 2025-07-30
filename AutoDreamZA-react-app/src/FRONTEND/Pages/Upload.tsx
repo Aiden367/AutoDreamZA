@@ -6,39 +6,31 @@ import "./Styles/Home.css";
 const Upload: React.FC = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // Form state
   const [productName, setProductName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
-
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const handleNavigation = (path: string) => {
     setMenuOpen(false);
     navigate(path);
   };
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setImageFile(e.target.files[0]);
     }
   };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Uploading product:", { productName, description, price, imageFile });
-    // Reset form or show success message as needed
   };
 
   return (
     <>
       <Nav />
-
       <button className="login-button" onClick={() => navigate('/login')}>
         Login
       </button>
-
       {/* Hamburger Toggle Button */}
       <button 
         className={`waffle-toggle ${menuOpen ? 'open' : ''}`} 
@@ -48,7 +40,6 @@ const Upload: React.FC = () => {
         <span className="bar"></span>
         <span className="bar"></span>
       </button>
-
       <nav className={`waffle-menu ${menuOpen ? 'open' : ''}`}>
         <div className="waffle-grid">
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/')}>Home</a>
@@ -58,14 +49,12 @@ const Upload: React.FC = () => {
           <a href="#" className="waffle-item" onClick={() => handleNavigation('/upload')}>Upload</a>
         </div>
       </nav>
-
       <div className="hero">
         <div className="hero-content">
           <h1>Upload</h1>
           <p>Fill out the form below to upload a new product</p>
         </div>
       </div>
-
       <div className="upload-form">
         <form onSubmit={handleSubmit}>
           <div>

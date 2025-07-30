@@ -23,29 +23,21 @@ const CartPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // you can adjust this
-
-  // Calculate displayed items for current page
+  const itemsPerPage = 5; 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = cartItems.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPages = Math.ceil(cartItems.length / itemsPerPage);
-
   const goToNextPage = () => {
     setCurrentPage((page) => Math.min(page + 1, totalPages));
   };
-
   const goToPrevPage = () => {
     setCurrentPage((page) => Math.max(page - 1, 1));
   };
-
-
   const handleRemoveOne = async (productId: string) => {
     try {
-      // Create new cart with quantity decreased by 1 for the matching item
       const updatedItems = cartItems
         .map(item => {
           if (item.productId === productId) {
@@ -54,21 +46,17 @@ const CartPage: React.FC = () => {
           }
           return item;
         })
-        .filter(Boolean) as CartItem[]; // remove null items where quantity was 0
-
-      // Update cart on backend
+        .filter(Boolean) as CartItem[]; 
       const res = await axios.post('http://localhost:5000/user/cart/update', {
         userId,
         cartItems: updatedItems
       });
-
-      setCartItems(res.data.cart); // update state with backend response
+      setCartItems(res.data.cart); 
     } catch (error) {
       console.error("Error removing one item", error);
       alert("Failed to update cart.");
     }
   };
-
 
   const handleIncreaseQuantity = async (productId: string) => {
     try {
@@ -78,13 +66,11 @@ const CartPage: React.FC = () => {
         }
         return item;
       });
-
       const res = await axios.post('http://localhost:5000/user/cart/update', {
         userId,
         cartItems: updatedItems
       });
-
-      setCartItems(res.data.cart); // Update cart with latest from backend
+      setCartItems(res.data.cart); 
     } catch (error) {
       console.error("Error increasing item quantity", error);
       alert("Failed to update item quantity.");
@@ -94,12 +80,11 @@ const CartPage: React.FC = () => {
 
   useEffect(() => {
     if (!userId) return;
-
     const fetchCart = async () => {
       setLoading(true);
       try {
         const res = await axios.get(`http://localhost:5000/user/cart/${userId}`);
-        setCartItems(res.data || []);  // <-- Set cartItems here!
+        setCartItems(res.data || []);  
       } catch (error) {
         console.error("Failed to fetch cart", error);
         setError('Failed to load cart');
@@ -107,11 +92,29 @@ const CartPage: React.FC = () => {
         setLoading(false);
       }
     };
-
     fetchCart();
   }, [userId]);
 
-  if (!userId) return <p>Please log in to view your cart.</p>;
+  if (!userId) {
+  return (
+    <>
+      <SecondNav />
+      <Nav />
+      <div className="not-logged-in-wrapper">
+        <div className="not-logged-in-card">
+          <h1 className="not-logged-in-title">You're Not Logged In</h1>
+          <p className="not-logged-in-message">
+            Please log in to access your cart and manage your orders.
+          </p>
+          <button className="login-btn-cart" onClick={() => navigate('/login')}>
+            Login to Your Account
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
+
   if (loading) return <p>Loading your cart...</p>;
   if (error) return <p>{error}</p>;
 
@@ -141,7 +144,7 @@ const CartPage: React.FC = () => {
       <Nav />
 
       <div className="cart-container">
-      
+
 
         <div className="cart-content">
           {cartItems.length === 0 ? (
@@ -159,14 +162,12 @@ const CartPage: React.FC = () => {
                 {currentItems.map(item => (
                   <div key={item.productId} className="cart-item-card">
                     <img src={item.image} alt={item.title} className="cart-item-image" />
-
                     <div className="cart-item-details">
                       {/* Header: title on left, price on right */}
                       <div className="cart-item-header">
                         <h2 className="item-title">{item.title}</h2>
                         <p className="item-price">R{item.price.toFixed(2)}</p>
                       </div>
-
                       {/* Show quantity controls at bottom */}
                       <div className="quantity-controls">
                         <button
@@ -176,9 +177,7 @@ const CartPage: React.FC = () => {
                         >
                           <img src={TrashIcon} alt="Remove item" className="icon-btn" />
                         </button>
-
                         <span className="quantity-number">{item.quantity}</span>
-
                         <button
                           className="add-btn"
                           onClick={() => handleIncreaseQuantity(item.productId)}
@@ -197,9 +196,7 @@ const CartPage: React.FC = () => {
                   <button onClick={goToPrevPage} disabled={currentPage === 1}>
                     Previous
                   </button>
-
                   <span>Page {currentPage} of {totalPages}</span>
-
                   <button onClick={goToNextPage} disabled={currentPage === totalPages}>
                     Next
                   </button>

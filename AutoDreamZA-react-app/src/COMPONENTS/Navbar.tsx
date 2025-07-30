@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 type LinkType = {
   label: string;
   href: string;
-  submenu?: { label: string; href: string }[]; // Add submenu support
+  submenu?: { label: string; href: string }[]; 
 };
 
 const Links: React.FC<{ links: LinkType[] }> = ({ links }) => {

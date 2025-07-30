@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useFilter } from "./FilterContext"; // Import context
+import { useFilter } from "./FilterContext"; 
 
 const PriceFilter: React.FC = () => {
   const { minPrice, maxPrice, setMinPrice, setMaxPrice } = useFilter();

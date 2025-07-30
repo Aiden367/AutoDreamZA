@@ -14,8 +14,8 @@
 .cart-content {
   display: flex;
   gap: 30px;
-  flex-wrap: nowrap; /* Change this */
-  align-items: flex-start; /* Optional: Align top */
+  flex-wrap: nowrap; 
+  align-items: flex-start;
 }
 
 .cart-items-section {
@@ -25,7 +25,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   padding: 20px;
 }
-/* Flex container for title and price aligned left and right */
+
 .cart-item-header {
   display: flex;
   justify-content: space-between;
@@ -38,7 +38,7 @@
   gap: 20px;
   padding: 20px 0;
   border-bottom: 1px solid #eee;
-  align-items: flex-start; /* allow details content to grow vertically */
+  align-items: flex-start; 
 }
 
 .cart-item-card:last-child {
@@ -63,7 +63,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto; /* push footer to bottom if details grow */
+  margin-top: auto; 
   padding-top: 10px;
   border-top: 1px solid #eee;
 }
@@ -75,7 +75,7 @@
   margin: 0;
 }
 
-/* Ensure price is bold and aligned right */
+
 .item-price {
   font-weight: 600;
   font-size: 1.2rem;
@@ -89,14 +89,14 @@
   color: #555;
 }
 
-/* Keep your existing quantity-controls styles */
+
 .quantity-controls {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* Number between the buttons */
+
 .quantity-number {
   font-weight: 600;
   font-size: 1.1rem;
@@ -117,7 +117,7 @@
 
 
 .cart-summary {
-  flex: 0 0 300px; /* fixed width */
+  flex: 0 0 300px; 
   background: #f9f9f9;
   padding: 20px;
   border-radius: 2px;
@@ -194,23 +194,23 @@
 
 .remove-one-btn-cart,
 .add-btn {
-  background-color: transparent; /* or your preferred color */
-  color: black; /* adjust to your theme */
+  background-color: transparent; 
+  color: black; 
   padding: 6px 12px;
   border: none;
   border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
-  margin-top: 0;       /* REMOVE vertical margin */
+  margin-top: 0;      
   transition: background-color 0.2s ease;
-  display: flex;       /* center icon/image inside button */
+  display: flex;       
   align-items: center;
   justify-content: center;
 }
 
 .remove-one-btn-cart:hover,
 .add-btn:hover {
-  background-color: rgba(0, 0, 0, 0.1); /* subtle hover */
+  background-color: rgba(0, 0, 0, 0.1); 
 }
 
 
@@ -233,4 +233,65 @@
 .pagination-controls button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+
+.not-logged-in-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+  background: linear-gradient(145deg, #f4f6f9, #e2e8f0);
+  padding: 2rem;
+}
+
+.not-logged-in-card {
+  background-color: white;
+  padding: 3rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.not-logged-in-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 1rem;
+}
+
+.not-logged-in-message {
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 2rem;
+}
+
+.login-btn-cart {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  background-color: #2b6cb0;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn-cart:hover {
+  background-color: #2c5282;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

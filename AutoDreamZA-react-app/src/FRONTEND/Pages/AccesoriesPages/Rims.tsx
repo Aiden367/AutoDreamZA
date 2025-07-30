@@ -13,7 +13,6 @@ type Product = {
     manufacturer: string;
     price: number;
 };
-
 type CartItem = {
     productId: string;
     title: string;
@@ -21,8 +20,6 @@ type CartItem = {
     price: number;
     quantity: number;
 };
-
-
 const Rims: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [availability, setAvailability] = useState('All');
@@ -35,8 +32,7 @@ const Rims: React.FC = () => {
     const { userId } = useUser();
     const [showPopup, setShowPopup] = useState(false);
     const [popupProduct, setPopupProduct] = useState<Product | null>(null);
-
-
+    
     useEffect(() => {
         const scrapeAndFetchProducts = async () => {
             try {
@@ -55,8 +51,6 @@ const Rims: React.FC = () => {
         };
         scrapeAndFetchProducts();
     }, []);
-
-
     useEffect(() => {
         if (!userId) return;
         const fetchCart = async () => {
@@ -67,10 +61,8 @@ const Rims: React.FC = () => {
                 console.error("Failed to load cart", error);
             }
         };
-
         fetchCart();
     }, [userId]);
-
     useEffect(() => {
         if (!userId || cart.length === 0) return;
 
@@ -114,7 +106,6 @@ const Rims: React.FC = () => {
                 ];
             }
         });
-
         setPopupProduct(product);
         setShowPopup(true);
         setTimeout(() => setShowPopup(false), 3000);

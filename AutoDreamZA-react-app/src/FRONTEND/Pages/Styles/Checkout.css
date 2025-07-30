@@ -11,15 +11,15 @@
   margin-bottom: 2rem;
 }
 
-/* Two-column layout */
+
 .checkout-columns {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* Align top */
+  align-items: flex-start; 
   gap: 2rem;
 }
 
-/* Left column */
+
 .left-column {
   flex: 1;
   display: flex;
@@ -35,7 +35,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 2rem;
-
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   line-height: 1.5;
@@ -74,7 +73,6 @@
   margin-top: 1rem;
 }
 
-/* Shared block style */
 .block {
   background-color: #ffffff;
   padding: 1.5rem;
@@ -82,12 +80,11 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Responsive fallback */
+
 @media (max-width: 768px) {
   .checkout-columns {
     flex-direction: column;
   }
-
   .right-column {
     width: 100%;
     position: static;
@@ -137,18 +134,15 @@
   outline: none;
 }
 
-
-
-/* Apply same professional font to buttons */
 .checkout-btn,
 .modal-buttons .checkout-btn,
 button {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333; /* same as order summary */
-  font-weight: 400; /* normal weight, not bold */
-  font-size: 1.05rem; /* match order summary p text */
+  color: #333; 
+  font-weight: 400; 
+  font-size: 1.05rem; 
   letter-spacing: 0.015em;
-  background-color: #f6c600; /* Bright yellow */
+  background-color: #f6c600; 
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 20px;
@@ -162,18 +156,16 @@ button {
 .checkout-btn:hover,
 .modal-buttons .checkout-btn:hover,
 button:hover {
-  background-color: #e5b800; /* Slightly darker yellow on hover */
+  background-color: #e5b800; 
 }
 
-/* Headings use same font family and color as order summary, but bolder and bigger */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #222; /* slightly darker for headings */
+  color: #222; 
   letter-spacing: 0.03em;
   font-weight: 600;
 }
 
-/* Specific for your checkout-title and right-column h2 (already defined) */
 .checkout-title {
   font-weight: 600;
   font-size: 2rem;
@@ -207,10 +199,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .payment-method-container {
   margin-top: 1rem;
-  /* no extra border or shadow since you have .block wrapping */
+  
 }
 
-/* Stripe Card Form */
 .payment-form {
   display: flex;
   flex-direction: column;
@@ -236,11 +227,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card-name-input:focus {
-  border-color: #f6c600; /* bright yellow accent to match buttons */
+  border-color: #f6c600; 
   box-shadow: 0 0 5px #f6c600aa;
 }
 
-/* Stripe Card Element container styles (override Stripe defaults) */
 .StripeElement {
   padding: 15px 20px !important;
   border: 1px solid #ddd !important;
@@ -254,17 +244,17 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 5px #f6c600aa !important;
 }
 
-/* Accepted cards message */
+
 .accepted-cards-message {
   font-size: 0.9rem;
   color: #666;
   margin-bottom: 1rem;
 }
 
-/* Submit Button */
+
 .checkout-btn {
-  background-color: #f6c600; /* same bright yellow */
-  color: #333; /* dark text to match your buttons */
+  background-color: #f6c600; 
+  color: #333; 
   font-weight: 400;
   border-radius: 10px;
   padding: 0.6rem 1.2rem;
@@ -276,7 +266,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .checkout-btn:hover:not(:disabled) {
-  background-color: #e5b800; /* slightly darker yellow */
+  background-color: #e5b800; 
 }
 
 .checkout-btn:disabled {
@@ -285,7 +275,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #999;
 }
 
-/* PayPal Buttons Wrapper */
 .paypal-buttons-wrapper {
   max-width: 320px;
   margin-top: 1rem;
@@ -293,19 +282,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .payment-method-options {
   display: flex;
-  flex-direction: row;   /* force horizontal layout */
-  align-items: center;   /* align vertically centered */
-  gap: 2rem;             /* spacing between options */
+  flex-direction: row;   
+  align-items: center;   
+  gap: 2rem;             
 }
-
-
 .payment-option {
-  display: flex;           /* or inline-flex */
+  display: flex;          
   align-items: center;
   gap: 0.5rem;
   font-size: 1rem;
   cursor: pointer;
-  white-space: nowrap;     /* Prevents wrapping */
+  white-space: nowrap;    
 }
 
 .close-modal-btn {
@@ -322,11 +309,11 @@ h1, h2, h3, h4, h5, h6 {
   outline: none;
 }
 
-/* Prevent orange/yellow highlights on focus and hover */
+
 .close-modal-btn:hover,
 .close-modal-btn:focus,
 .close-modal-btn:active {
-  color: #333;           /* Keep same color on hover/focus */
+  color: #333;           
   outline: none;
   box-shadow: none;
   background: transparent;
@@ -334,12 +321,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .modal-buttons {
   display: flex;
-  justify-content: flex-start; /* aligns content to the left */
+  justify-content: flex-start; 
   margin-top: 1rem;
 }
 
 .modal-buttons .checkout-btn {
-  padding: 0.4rem 1rem;        /* smaller button */
+  padding: 0.4rem 1rem;       
   font-size: 0.95rem;
   width: auto;
   border-radius: 1px;

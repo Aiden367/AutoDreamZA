@@ -8,9 +8,9 @@
   align-items: center;
   justify-content: space-between;
   position: fixed;
-  top: 50px; /* Moves it below the second navbar */
+  top: 50px; 
   left: 0;
-  z-index: 1000; /* Lower than the second navbar */
+  z-index: 1000; 
   padding: 0 20px;
   box-sizing: border-box;
 }
@@ -24,22 +24,20 @@
     cursor: pointer;
   }
   
-  /* Updated links container: use flex for better centering */
+ 
   .links-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px; /* Add spacing between links */
-    flex-grow: 1; /* Allow links to take available space */
+    gap: 20px; 
+    flex-grow: 1; 
     
   }
-  
   .link-container {
     position: relative;
     display: inline-block;
   }
-  
-  /* Link styles */
+
   .link {
     text-decoration: none;
     text-align: center;
@@ -48,27 +46,26 @@
     border: 2px solid white;
     background-color: white;
     display: inline-block;
-    border-radius: 4px; /* Optional: add rounded corners */
+    border-radius: 4px; 
     transition: background-color 0.3s, color 0.3s;
-    white-space: nowrap; /* Prevent text from breaking into a new line */
+    white-space: nowrap; 
     font-family:'Arial'
   }
   
-  /* Hover effect */
+
   .link:hover {
     background-color: gray;
     color: white;
   }
   
-  /* Ensure the parent item has position relative for dropdown */
   .nav-item {
     position: relative;
     display: inline-block;
   }
   
-  /* Dropdown Menu Style */
+ 
   .dropdown-menu {
-    display: none; /* Hide by default */
+    display: none; 
     position: absolute;
     top: 100%;
     left: 0;
@@ -80,12 +77,12 @@
     padding: 10px 0;
   }
   
-  /* Show dropdown on hover */
+  
   .nav-item:hover .dropdown-menu {
     display: block;
   }
   
-  /* Dropdown link styles */
+  
   .dropdown-link {
     text-decoration: none;
     color: white;
@@ -94,25 +91,25 @@
     transition: background-color 0.3s, color 0.3s;
   }
   
-  /* Highlight dropdown link blue on hover */
+ 
   .dropdown-link:hover {
     background-color: blue;
     color: white;
   }
   
-  /* Make the navbar responsive */
+  
   @media (max-width: 768px) {
-    /* Stack nav items vertically on smaller screens */
+
     .navbar {
       flex-direction: column;
       align-items: flex-start;
-      padding: 10px 0; /* Add some space at the top and bottom */
+      padding: 10px 0; 
     }
   
-    /* Ensure links take full width on mobile */
+    
     .links-container {
       width: 100%;
-      justify-content: flex-start; /* Align links to the left */
+      justify-content: flex-start; 
       padding: 0 20px; 
     }
   
@@ -126,10 +123,9 @@
       width: 100%;
       padding: 12px 20px;
       text-align: left;
-      font-size: 16px; /* Adjust font size for mobile */
+      font-size: 16px; 
     }
   
-    /* Adjust dropdown to full width on mobile */
     .dropdown-menu {
       min-width: 100%;
     }

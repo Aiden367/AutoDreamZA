@@ -11,7 +11,6 @@ interface PurchaseItem {
   quantity: number;
   imageUrl?: string;
 }
-
 interface Purchase {
   _id: string;
   purchasedAt: string;
@@ -24,7 +23,6 @@ const PurchasesPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedPurchase, setSelectedPurchase] = useState<Purchase | null>(null);
-
   const { userId } = useUser();
 
   useEffect(() => {
@@ -46,7 +44,6 @@ const PurchasesPage: React.FC = () => {
 
   const formatDate = (dateString: string) =>
     new Date(dateString).toLocaleDateString();
-
   const calculateTotal = (items: PurchaseItem[]) =>
     items.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -56,13 +53,11 @@ const PurchasesPage: React.FC = () => {
       <Nav />
       <div className="purchases-container">
         <h1 className="purchases-title">My Purchases</h1>
-
         {loading && <p>Loading purchases...</p>}
         {error && <p className="error-message">{error}</p>}
         {!loading && !error && purchases.length === 0 && (
           <p className="empty-message">You have no purchases yet.</p>
         )}
-
         <div className="purchases-table-container">
           <table className="purchases-table">
             <thead>
@@ -81,7 +76,6 @@ const PurchasesPage: React.FC = () => {
                   className="clickable-row"
                 >
                   <td>{purchase._id ? purchase._id.slice(-6).toUpperCase() : 'N/A'}</td>
-
                   <td>{purchase.items.length}</td>
                   <td>R{calculateTotal(purchase.items).toFixed(2)}</td>
                   <td>{formatDate(purchase.purchasedAt)}</td>

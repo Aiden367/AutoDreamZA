@@ -22,9 +22,7 @@ async function scrapeAllProductDetails(): Promise<any[]> {
     { url: "https://www.theracersedge.co.za/Wheels-Tyres", type: "Rims" },
     { url: "https://sbrprosound.co.za/product-category/car-audio/car-radios/android-radios/", type: "Android Radio" },
   ];
-
   const allProducts: any[] = [];
-
   for (const entry of baseUrls) {
     const baseUrl = entry.url;
     const matType = entry.type;
@@ -61,44 +59,27 @@ async function scrapeAllProductDetails(): Promise<any[]> {
         if (isRacersEdge) {
           let title = $(el).find("a.product-loop-title").text().trim();
           if (!title) {
-            // try h3 directly or some other fallback
             title = $(el).find("h3.woocommerce-loop-product__title").text().trim();
           }
-
           if (!title) {
-            // fallback to some other identifier or skip
             title = "Unknown Product";
           }
-
-
-          // grab the <img> once
           const $img = $(el).find(".picture img");
-
-          // prefer the lazy URL
           let imageUrl =
             $img.attr("data-lazyloadsrc") ||
-            $img.attr("data-lazy-load-src") ||   // in case they use a different name
+            $img.attr("data-lazy-load-src") ||   
             $img.attr("src") ||
             "";
-
-          // resolve relative paths
           if (imageUrl.startsWith("/")) {
             imageUrl = new URL(imageUrl, baseUrl).href;
           }
-
-
-
           const productUrl = "https://www.theracersedge.co.za" + ($(el).find("a").attr("href") || "");
           const priceTextRaw = $(el).find(".actual-price").text().trim();
           const priceText = priceTextRaw.replace(/[R\s\u00A0]/g, '').replace(',', '.');
           const price = parseFloat(priceText) || 0;
-
-
           if (!title || !price || !imageUrl || !productUrl) return null;
-
           const manufacturerMatch = title.match(/Ford|BMW|Toyota|Renault|Nissan|Mazda|Volkswagen|Isuzu|Hyundai|BAIC/i);
           const manufacturer = manufacturerMatch ? manufacturerMatch[0] : "Unknown";
-
           return {
             title,
             price,
@@ -106,33 +87,23 @@ async function scrapeAllProductDetails(): Promise<any[]> {
             url: productUrl,
             available: true,
             manufacturer,
-            type: matType  // Use type from `baseUrls` like "Rims"
+            type: matType  
           };
         }
         else if (isSBRProSound) {
-          
-          // Title is inside the anchor
           const title = $(el).find("a.product-loop-title").text().trim();
-
-          // URL is the href of the same anchor
           const productUrl = $(el).find("a.product-loop-title").attr("href")?.trim() || "";
           const imageUrl = $(el).find("div.product-image img").attr("src")?.trim() || "";
-
-
           let priceTextRaw = $(el).find("span.price").text().trim();
           const priceText = priceTextRaw.replace(/R|\s|,/g, '');
           const price = parseFloat(priceText) || 0;
-
           const manufacturerMatch = title.match(/Nakamichi|Sony|Pioneer|Kenwood|JVC|JBL|Boss/i);
           const manufacturer = manufacturerMatch ? manufacturerMatch[0] : "Unknown";
-
           if (!title || !price || !imageUrl || !productUrl) {
             console.log("❌ Skipping radio product due to missing info", { title, price, imageUrl, productUrl });
             return null;
           }
-
           console.log("✅ Radio product scraped:", { title, price, imageUrl, productUrl });
-
           return {
             title,
             price,
@@ -143,38 +114,27 @@ async function scrapeAllProductDetails(): Promise<any[]> {
             type: matType,
           };
         }
-
-
-
         else {
-          // your existing logic for booxe.co.za
           let title = $(el).find("h2.woocommerce-loop-product__title").text().trim();
           if (!title) title = $(el).find("h2").text().trim();
-
           let imageRelative = $(el).find("img").attr("src");
           if (!imageRelative) {
             const srcset = $(el).find("source").attr("srcset");
             if (srcset) imageRelative = srcset.split(' ')[0];
           }
           const image = imageRelative ? new URL(imageRelative, baseUrl).href : "";
-
           let priceText = $(el).find(".price .woocommerce-Price-amount").first().text().trim();
           if (!priceText) priceText = $(el).find(".price").first().text().trim();
           const price = parseFloat(priceText.replace("R", "").replace(",", "").replace(".", "") || "0") / 100;
-
           let productUrl = $(el).find("a.woocommerce-LoopProduct-link").attr("href");
           if (!productUrl) productUrl = $(el).find("a").first().attr("href");
-
           if (!title || !price || !image || !productUrl) return null;
-
           const manufacturerMatch = title.match(/Ford|BMW|Toyota|Renault|Nissan|Mazda|Volkswagen|Isuzu|Hyundai|BAIC/i);
           const manufacturer = manufacturerMatch ? manufacturerMatch[0] : "Unknown";
-
           const type = (() => {
             const match = title.toLowerCase().match(/boot mat|floor mat|bin mat|rubber mat|carpet mat|roof rack/);
             return match ? match[0].replace(/\b\w/g, c => c.toUpperCase()) : "Unknown";
           })();
-
           return {
             title,
             price,
@@ -186,15 +146,10 @@ async function scrapeAllProductDetails(): Promise<any[]> {
           };
         }
       }).get().filter(p => p);
-
-
       for (const p of pageProducts) {
         try {
-          // ❌ Skip products with unknown type
           if (!p.type || p.type.toLowerCase() === 'unknown') continue;
-
           const type = p.type.toLowerCase();
-
           let Model;
           if (type === 'roof rack') {
             Model = RoofRackProduct;
@@ -205,9 +160,6 @@ async function scrapeAllProductDetails(): Promise<any[]> {
           } else {
             Model = MatProduct;
           }
-
-
-
           const exists = await Model.findOne({ url: p.url });
           if (!exists) {
             await new Model(p).save();
@@ -217,16 +169,11 @@ async function scrapeAllProductDetails(): Promise<any[]> {
           console.error("Error saving product:", err);
         }
       }
-
-
       currentPage++;
     }
   }
-
   return allProducts;
 }
-
-
 
 router.get('/scrape-if-needed', async (req: Request, res: Response): Promise<any> => {
   try {
@@ -237,9 +184,7 @@ router.get('/scrape-if-needed', async (req: Request, res: Response): Promise<any
       RadioProduct.countDocuments()
 
     ]);
-
     if (matCount > 0 && roofRackCount > 0 && rimsCount > 0 ) {
-      // ✅ All categories are already populated → no scrape needed
       return res.status(200).json({
         message: "Already populated",
         scraped: false,
@@ -248,12 +193,7 @@ router.get('/scrape-if-needed', async (req: Request, res: Response): Promise<any
         rimsCount,
       });
     }
-
-
-
     const products = await scrapeAllProductDetails();
-
-    // Then add to your response
     res.status(200).json({
       message: "Scraped successfully",
       scraped: true,
@@ -272,8 +212,6 @@ router.get('/scrape-if-needed', async (req: Request, res: Response): Promise<any
   }
 });
 
-
-
 router.get('/scrape-force', async (req, res) => {
   try {
     const products = await scrapeAllProductDetails(); // this scrapes all baseUrls
@@ -284,16 +222,12 @@ router.get('/scrape-force', async (req, res) => {
   }
 });
 
-
 router.get('/products', async (req, res) => {
   try {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 20;
     const skip = (page - 1) * limit;
-
-    // Determine which model to query based on query param 'type'
     const productType = (req.query.type as string || 'mat').toLowerCase();
-
     let Model;
     if (productType === 'roofrack' || productType === 'roof-rack') {
       Model = RoofRackProduct;
@@ -304,14 +238,10 @@ router.get('/products', async (req, res) => {
     } else {
       Model = MatProduct;
     }
-
-
-
     const [products, total] = await Promise.all([
       Model.find().skip(skip).limit(limit),
       Model.countDocuments()
     ]);
-
     res.status(200).json({
       products,
       total,
@@ -324,6 +254,5 @@ router.get('/products', async (req, res) => {
     res.status(500).send("Error fetching products");
   }
 });
-
 
 module.exports = router;

@@ -15,8 +15,6 @@ const CreateAccount: React.FC = () => {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
-
-
   const nameRegex = /^[A-Za-z]+$/;
   const usernameRegex = /^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{10,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -24,39 +22,30 @@ const CreateAccount: React.FC = () => {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-
-
     if (!nameRegex.test(enteredFirstName)) {
       setError("First name must contain only letters");
       return;
     }
-
     if (!nameRegex.test(enteredLastName)) {
       setError("Last name must contain only letters");
       return;
     }
-
     if (!usernameRegex.test(enteredUsername)) {
       setError("Username must be at least 10 characters long and include at least one number and one special character");
       return;
     }
-
     if (!emailRegex.test(enteredEmail)) {
       setError("Please enter a valid email address");
       return;
     }
-
     if (!passwordRegex.test(enteredPassword)) {
       setError("Password must be at least 10 characters long and include at least one number and one special character");
       return;
     }
-
     if (enteredPassword !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
-
-    
     const userData = {
       username: enteredUsername,
       firstName: enteredFirstName,
@@ -65,14 +54,11 @@ const CreateAccount: React.FC = () => {
       password: enteredPassword,
       role: 'user'
     };
-
-   
     const response = await fetch('http://localhost:5000/user/Register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData),
     });
-
     if (response.ok) {
       const result = await response.json();
       setSuccessMessage('User registered successfully!');
@@ -152,7 +138,6 @@ const CreateAccount: React.FC = () => {
               {error && <p className="error-message">{error}</p>}
               {successMessage && <p className="success-message">{successMessage}</p>}
             </form>
-
             <p className="login-redirect">
               Already have an account? <Link to="/Login" className="login-link">Login here</Link>
             </p>

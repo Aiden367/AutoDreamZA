@@ -79,8 +79,6 @@ const ProfilePage: React.FC = () => {
       <Nav />
       <div style={{ padding: '40px', maxWidth: '900px', margin: '0 auto' }}>
         <h1 style={{ fontSize: '2rem', color: '#1565c0', marginBottom: '24px' }}>User Profile</h1>
-        
-
         {/* Buttons container */}
         <div
           style={{
@@ -101,7 +99,6 @@ const ProfilePage: React.FC = () => {
             <div style={titleStyle}>My Orders</div>
             <div style={subtitleStyle}>Track, return, or buy things again.</div>
           </div>
-
           {/* Login Security */}
           <div
             onClick={handleLoginSecurityClick}
@@ -113,7 +110,6 @@ const ProfilePage: React.FC = () => {
             <div style={titleStyle}>Login Security</div>
             <div style={subtitleStyle}>Edit login, name, and mobile number.</div>
           </div>
-
           {/* Purchases */}
           <div
             onClick={handlePurchasesClick}

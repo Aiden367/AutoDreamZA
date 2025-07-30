@@ -4,8 +4,7 @@ import "./Styles/Home.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import PriceFilter from "../../COMPONENTS/PriceFilter";
-import { useFilter } from "../../COMPONENTS/FilterContext"; // Import context
-
+import { useFilter } from "../../COMPONENTS/FilterContext"; 
 interface Product {
   _id: string;
   title: string;
@@ -19,8 +18,6 @@ const Products: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-
-  // Use the filter context
   const { minPrice, maxPrice } = useFilter();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -40,8 +37,6 @@ const Products: React.FC = () => {
     };
     fetchProducts();
   }, []);
-
-  // Apply filtering based on the context values
   useEffect(() => {
     const filtered = products.filter((product) => {
       const price = parseFloat(product.price);
@@ -53,7 +48,6 @@ const Products: React.FC = () => {
   return (
     <>
       <Nav />
-
       <button className="login-button" onClick={() => navigate("/login")}>
         Login
       </button>
@@ -84,17 +78,14 @@ const Products: React.FC = () => {
           </a>
         </div>
       </nav>
-
       <div className="hero">
         <div className="hero-content">
           <h1>Our Products</h1>
           <p>Discover our range of innovative offerings.</p>
         </div>
       </div>
-
       {/* Price Filter Component */}
       <PriceFilter />
-
       <div className="product-grid">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (

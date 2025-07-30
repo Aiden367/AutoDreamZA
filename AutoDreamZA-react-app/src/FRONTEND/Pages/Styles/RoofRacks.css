@@ -2,12 +2,12 @@
   display: flex;
   gap: 30px;
   padding: 30px;
-  background-color: #f9f9f9; /* Page background */
+  background-color: #f9f9f9; 
 }
 
 .filter-section {
   width: 260px;
-  background-color: #f0f0f0; /* <-- Different color for filter container */
+  background-color: #f0f0f0; 
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);

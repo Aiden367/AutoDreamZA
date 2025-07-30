@@ -3,7 +3,7 @@ import styles from './SecondNav.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import profileImage from "../FRONTEND/Images/user_icon_logo.png";
 import logo from "../FRONTEND/Images/AutoDream_Logo.jpg";
-import { useUser } from '../BACKEND/context/UserContext'; // Adjust path if needed
+import { useUser } from '../BACKEND/context/UserContext'; 
 import { useCart } from '../BACKEND/context/CartContext';
 
 import axios from 'axios';
@@ -29,16 +29,13 @@ const SecondNavbar: React.FC = () => {
       }
     };
     fetchCartCount();
-  }, [userId]); // remove cartChanged here, undefined now
-
-
-
+  }, [userId]); 
   const handleSearchClick = () => {
     console.log('Search for:', searchQuery);
   };
   const handleLogout = () => {
-    logout();          // clear user session/context
-    navigate('/Login'); // redirect to login page
+    logout();         
+    navigate('/Login');
   };
 
 

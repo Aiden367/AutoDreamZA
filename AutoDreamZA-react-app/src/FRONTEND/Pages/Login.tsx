@@ -24,9 +24,6 @@ const Login: React.FC = () => {
             email: enteredEmail,
             password: enteredPassword,
         };
-
-
-
         try {
             const response = await fetch('http://localhost:5000/user/Login', {
                 method: 'POST',
@@ -58,7 +55,6 @@ const Login: React.FC = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: resetEmail }),
             });
-
             const data = await res.json();
             if (res.ok) {
                 setResetMessage(data.message);
@@ -70,7 +66,6 @@ const Login: React.FC = () => {
             setResetMessage('An error occurred. Please try again.');
         }
     };
-
 
     return (
         <>
@@ -90,7 +85,6 @@ const Login: React.FC = () => {
                         required
                         className="input-field"
                     />
-
                     <label htmlFor="password" className="input-label">Password</label>
                     <input
                         id="password"
@@ -102,17 +96,13 @@ const Login: React.FC = () => {
                         required
                         className="input-field"
                     />
-
                     <button type="submit" className="login-btn">Login</button>
                 </form>
-
                 {error && <p className="error-message">{error}</p>}
                 {successMessage && <p className="success-message">{successMessage}</p>}
-
                 <p className="register-message">
                     Don't have an account? <Link to="/Register" className="register-link">Register here</Link>
                 </p>
-
                 <p
                     className="forgot-password-link"
                     onClick={() => setShowForgotPassword(!showForgotPassword)}
@@ -120,7 +110,6 @@ const Login: React.FC = () => {
                 >
                     Forgot your password?
                 </p>
-
                 {showForgotPassword && (
                     <div className="modal-overlay-forgot-password">
                         <div className="modal-content-forgot-password">
@@ -136,7 +125,6 @@ const Login: React.FC = () => {
                                 className="input-field"
                                 style={{ marginBottom: '10px' }}
                             />
-
                             <div className="modal-buttons-forgot-password">
                                 <button onClick={handleSendResetLink} className="login-btn">
                                     Send Reset Link
@@ -145,7 +133,6 @@ const Login: React.FC = () => {
                                     Cancel
                                 </button>
                             </div>
-
                             {resetMessage && (
                                 <p
                                     style={{
@@ -161,9 +148,6 @@ const Login: React.FC = () => {
                         </div>
                     </div>
                 )}
-
-
-
             </div>
         </>
     );

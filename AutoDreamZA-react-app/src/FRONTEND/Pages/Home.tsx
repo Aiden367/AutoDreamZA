@@ -8,6 +8,8 @@ import HeadingImage from "../Images/yearone-GOkHtbgloRs-unsplash.jpg";
 import AudioImage from "../Images/Audiio_car.jpeg";
 import BatteryImage from "../Images/Batteries_car.jpg";
 import ElectricalImage from "../Images/Electrical_image.jpg";
+import EngineImage from "../Images/engine_picture.jpg";
+import ServicesImage from "../Images/services_image.jpg";
 import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -76,11 +78,8 @@ const Home: React.FC = () => {
 
   return (
     <>
-
-
       <SecondNav />
       <Nav />
-
       {showPopup && popupProduct && (
         <div className="cart-popup">
           <img src={popupProduct.image} alt={popupProduct.title} />
@@ -126,13 +125,13 @@ const Home: React.FC = () => {
             </div>
             <div className="category-wrapper" onClick={() => handleNavigation('/Engine')}>
               <div className="category-home">
-                <img src={AccessoriesImage} />
+                <img src={EngineImage} />
               </div>
               <p className="category-label">Engine</p>
             </div>
             <div className="category-wrapper" onClick={() => handleNavigation('/Services')}>
               <div className="category-home">
-                <img src={AccessoriesImage} />
+                <img src={ServicesImage} />
               </div>
               <p className="category-label">Services</p>
             </div>

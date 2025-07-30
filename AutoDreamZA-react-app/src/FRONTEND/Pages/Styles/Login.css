@@ -1,15 +1,14 @@
 
 body {
-  padding-top: 100px; /* 50px + 50px from both fixed navbars */
-  background: #f0f2f5; /* Or whatever background you want */
+  padding-top: 100px; 
+  background: #f0f2f5; 
   margin: 0;
 }
-
 
 .login-container {
   max-width: 600px;
   min-width: 400px;
-  margin: 150px auto; /* Keep this OR adjust as needed */
+  margin: 150px auto; 
   padding: 40px 50px;
   background: #fff;
   border-radius: 1px;
@@ -19,9 +18,6 @@ body {
   text-align: left;
 }
 
-
-
-/* Title */
 .login-title {
   font-size: 2.4rem;
   font-weight: 700;
@@ -36,7 +32,6 @@ body {
   gap: 18px;
 }
 
-/* Labels */
 .input-label {
   font-weight: 600;
   font-size: 1rem;
@@ -45,7 +40,6 @@ body {
   user-select: none;
 }
 
-/* Inputs */
 .input-field {
   padding: 14px 16px;
   font-size: 1rem;
@@ -72,7 +66,6 @@ body {
   outline-color: #1565c0;
 }
 
-/* Button */
 .login-btn {
   margin-top: 12px;
   background: linear-gradient(135deg, #1e88e5, #1565c0);
@@ -97,7 +90,6 @@ body {
   transform: translateY(0) scale(1);
 }
 
-/* Error and Success Messages */
 .error-message {
   margin-top: 20px;
   color: #c62828;
@@ -112,7 +104,6 @@ body {
   font-size: 0.95rem;
 }
 
-/* Register link message */
 .register-message {
   margin-top: 28px;
   font-size: 1rem;
@@ -131,17 +122,14 @@ body {
   text-decoration: underline;
 }
 
-/* Responsive tweaks */
 @media (max-width: 480px) {
   .login-container {
     margin: 40px 16px;
     padding: 32px 20px;
   }
-
   .login-title {
     font-size: 1.8rem;
   }
-
   .forgot-password-container {
   display: flex;
   flex-direction: column;
@@ -154,9 +142,7 @@ body {
   text-align: center;
   margin-top: 10px;
 }
-
 }
-
 .modal-overlay-forgot-password {
   position: fixed;
   top: 0;
@@ -171,7 +157,6 @@ body {
   padding: 20px;
   box-sizing: border-box;
 }
-
 .modal-content-forgot-password {
   background: #fff;
   padding: 35px 30px;
@@ -212,7 +197,7 @@ body {
 .modal-buttons-forgot-password {
   display: flex;
   gap: 12px;
-  justify-content: center; /* Center horizontally */
+  justify-content: center; 
   margin-top: 20px;
 }
 
@@ -235,10 +220,9 @@ body {
   transform: translateY(-1px);
 }
 
-
 .cancel-btn {
-  padding: 10px 24px; /* Increased padding for a larger button */
-  min-width: 120px;   /* Ensures the button has a minimum width */
+  padding: 10px 24px; 
+  min-width: 120px;   
   font-size: 16px;
   background-color: #ccc;
   border: none;
