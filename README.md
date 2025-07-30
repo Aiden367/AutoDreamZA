@@ -4,7 +4,7 @@
 
 ![Project Screenshot](./images/screenshot.png) <!-- Replace with your image path -->
 
----<img width="184" height="184" alt="30dddfa489e850af452dd8818571dd037640c542_full" src="https://github.com/user-attachments/assets/ba1918b4-ff3f-4183-9f50-38fee305bb9c" />
+
 
 
 ## 📌 Table of Contents
