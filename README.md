@@ -80,6 +80,13 @@ Building **AutoDream** has pushed me beyond my comfort zone, especially on the f
 #### Reset Password Page
 ![New_password_image](https://github.com/user-attachments/assets/a9ff3c6b-80ac-4839-9101-657bd4636791)
 
+## Register Page
+![Register_page](https://github.com/user-attachments/assets/7d7506f7-36be-4acf-95c2-8a9decd667a9)
+
+## Purchases Page
+![view_purchases](https://github.com/user-attachments/assets/7c29aec1-2554-40df-8a7f-5ca20d9b9018)
+![Purchase_pop_up](https://github.com/user-attachments/assets/207392a8-524c-4ded-b89f-96dac691eb53)
+
 
 
 
