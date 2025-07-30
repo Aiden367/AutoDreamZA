@@ -62,9 +62,13 @@ Building **AutoDream** has pushed me beyond my comfort zone, especially on the f
 ![cart_page](https://github.com/user-attachments/assets/2307438d-68fb-4269-9898-a8f0fa572d18)
 
 ### Checkout Page
+#### Shipping Address 
 ![shipping_address_page](https://github.com/user-attachments/assets/d4b8c84d-72d4-4a0b-95e2-a4478b30364e)
+#### Payment with card
 ![payment_card_image](https://github.com/user-attachments/assets/58e8c659-e063-42ae-8ce8-c9c4b14b6ce3)
+#### Payment with paypal
 ![payment_with_paypal](https://github.com/user-attachments/assets/5e132731-6a5b-4b42-a87c-7913f0c1b04d)
+#### Payment Reciept
 ![payment_receipt](https://github.com/user-attachments/assets/1583b42c-7990-4a1b-920c-defc348a4571)
 
 
