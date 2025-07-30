@@ -1,6 +1,6 @@
-# 🌐 Project Title
+# 🌐 Full-Stack Web Application
 
-> A brief and engaging description of your web application.
+> A secure, scalable, and production-ready web application built with React, Node.js, and TypeScript. Includes Stripe and PayPal payments, CI/CD health checks, scraping features, and robust security.
 
 ![Project Screenshot](./images/screenshot.png) <!-- Replace with your image path -->
 
@@ -22,49 +22,48 @@
 
 ## 📖 About the Project
 
-Provide a clear explanation of what your web app does, the problem it solves, and the audience it's built for.
+This web application provides a full-stack solution with user authentication, product browsing, and integrated payments via Stripe and PayPal. Built with a focus on security, performance, and maintainability, it uses TypeScript throughout, integrates a CI/CD pipeline, and includes protections against common web vulnerabilities.
 
 ---
 
 ## 🚀 Features
 
-- ✅ Feature 1
-- ✅ Feature 2
-- ✅ Feature 3
-
-Add as many features as needed. Use checkboxes or bullet points for clarity.
+- ✅ User authentication with secure JWT tokens
+- ✅ Product routes and data handling using MongoDB
+- ✅ Stripe & PayPal payment integration
+- ✅ CI/CD-ready with `/health` endpoint for health checks
+- ✅ XSS & security headers via `helmet` and `xss-clean`
+- ✅ Web scraping functionality using Cheerio and Axios
+- ✅ Express rate limiting to prevent abuse
 
 ---
 
 ## 📸 Screenshots
 
-You can add images like this:
-
 ### Homepage
 ![Homepage](./images/homepage.png)
 
-### Dashboard
-![Dashboard](./images/dashboard.png)
+### Payment Integration
+![Payment](./images/payment.png)
 
-Make sure to put your images in a folder like `/images` inside your repo.
+> Put your images in the `/images` folder and reference them with relative paths.
 
 ---
 
 ## 🧰 Tech Stack
 
-| Frontend | Backend | Database | Authentication |
-|----------|---------|----------|----------------|
-| React    | Node.js | MongoDB  | JWT / OAuth    |
-
-> Customize this section to reflect your actual stack.
+| Frontend        | Backend         | Language     | Database | Security                | Payment         | CI/CD |
+|-----------------|-----------------|--------------|----------|--------------------------|------------------|--------|
+| React (TypeScript) | Node.js + Express | TypeScript   | MongoDB  | Helmet, xss-clean, RateLimit | Stripe, PayPal   | GitHub Actions / Render / Vercel |
 
 ---
 
 ## 🛠️ Installation
 
-Clone the repository and install dependencies.
+Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/yourusername/yourproject.git
+cd yourproject
 npm install
+
