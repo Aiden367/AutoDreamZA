@@ -56,7 +56,8 @@ Building **AutoDream** has pushed me beyond my comfort zone, especially on the f
 ## 📸 Screenshots
 
 ### Homepage
-![Homepage](./images/homepage.png)
+![Home_page](https://github.com/user-attachments/assets/5aec1097-8714-4512-af2a-744b3a775d77)
+
 
 ### Payment Integration
 ![Payment](./images/payment.png)
