@@ -87,6 +87,16 @@ Building **AutoDream** has pushed me beyond my comfort zone, especially on the f
 ![view_purchases](https://github.com/user-attachments/assets/7c29aec1-2554-40df-8a7f-5ca20d9b9018)
 ![Purchase_pop_up](https://github.com/user-attachments/assets/207392a8-524c-4ded-b89f-96dac691eb53)
 
+## Update Account Info Page
+![Update_Acccount_Info](https://github.com/user-attachments/assets/77310754-d120-4fa1-b8c0-93936bdb4b08)
+#### OTP Email 
+![OTP_Email](https://github.com/user-attachments/assets/1e5e598e-720d-435b-a71c-76392c5c631b)
+
+## Product Display 
+![Display_Products_mats](https://github.com/user-attachments/assets/7f85670f-12fa-4021-b6ee-9fdc27dd0c60)
+![Display_products_roof_racks](https://github.com/user-attachments/assets/5eb6b0cf-159c-4fd4-b874-96576b4f3946)
+![Cart_empty_image](https://github.com/user-attachments/assets/21898f09-044c-4e18-9295-74ac30e17ab0)
+
 
 
 
