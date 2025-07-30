@@ -71,10 +71,19 @@ Building **AutoDream** has pushed me beyond my comfort zone, especially on the f
 #### Payment Reciept
 ![payment_receipt](https://github.com/user-attachments/assets/1583b42c-7990-4a1b-920c-defc348a4571)
 
+## Login Page
+![Login_image](https://github.com/user-attachments/assets/cfb7e1d6-3ae4-4779-ba26-402e6fbb5201)
+#### Forgot Password
+![Forgot_Password](https://github.com/user-attachments/assets/dacd334b-4ed7-47f9-baad-6cd857eeb256)
+#### Reset Password Email
+![Reset_password_email](https://github.com/user-attachments/assets/5c7c67ab-8c12-4411-9b0a-c52035176915)
+#### Reset Password Page
+![New_password_image](https://github.com/user-attachments/assets/a9ff3c6b-80ac-4839-9101-657bd4636791)
 
 
-### Payment Integration
-![Payment](./images/payment.png)
+
+
+
 
 ---
 
