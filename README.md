@@ -21,7 +21,7 @@
 
 As a software engineer with a specialization in backend development, I created this project to challenge myself and grow in several key areas. My primary goal was to strengthen my frontend development skills by building a complete user interface using modern tools and best practices.
 
-At the same time, I used this opportunity to deepen my backend expertise—exploring advanced database querying, implementing secure payment portals (Stripe and PayPal), and integrating an OTP system for sensitive user operations. This project also gave me hands-on experience with DevOps practices, including containerization with Docker and CI/CD workflows via GitHub Actions.
+At the same time, I used this opportunity to deepen my backend expertise exploring advanced database querying, implementing secure payment portals (Stripe and PayPal), and integrating an OTP system for sensitive user operations. This project also gave me hands-on experience with DevOps practices, including containerization with Docker and CI/CD workflows via GitHub Actions.
 
 Building **AutoDream** has pushed me beyond my comfort zone, especially on the frontend, and significantly improved my development capabilities. As I continue to refine my skills through future personal projects, I plan to revisit and enhance this application with the goal of eventually launching it as a fully functional, production-ready eCommerce platform.
 
@@ -29,13 +29,13 @@ Building **AutoDream** has pushed me beyond my comfort zone, especially on the f
 
 ## 📖 About the Project
 
-**AutoDream** is a full-stack eCommerce platform designed for selling automotive parts with a focus on performance, security, and modern design. It supports user registration, dynamic product listings, and a streamlined, secure checkout process. The platform integrates OTP-based verification for sensitive actions such as password resets and profile updates, and offers flexible payment options via Stripe and PayPal. Built with a scalable architecture and containerized using Docker, AutoDream also features a fully automated CI/CD pipeline powered by GitHub Actions for efficient deployment and delivery.
+**AutoDream** is a full stack eCommerce platform designed for selling automotive parts with a focus on performance, security, and modern design. It supports user registration, dynamic product listings, and a streamlined, secure checkout process. The platform integrates OTP based verification for sensitive actions such as password resets and profile updates, and offers flexible payment options via Stripe and PayPal. Built with a scalable architecture and containerized using Docker, AutoDream also features a fully automated CI/CD pipeline powered by GitHub Actions for efficient deployment and delivery.
 
 ---
 
 ## 🚀 Features
 
-- ✅ JWT-based authentication
+- ✅ JWT based authentication
 - ✅ Secure OTP system for password reset & data updates
 - ✅ Product CRUD operations
 - ✅ Payment gateways: **Stripe** & **PayPal**
